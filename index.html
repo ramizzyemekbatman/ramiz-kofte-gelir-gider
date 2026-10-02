@@ -582,6 +582,73 @@ const CURRENCY = '₺';
 const DEFAULT_ROWS = 30;
 
 /* =========================================================
+   YARDIMCI: TARİH FORMAT (02102026 → 02/10/2026)
+   ========================================================= */
+function formatTarih(str) {
+  if (!str) return '';
+  // Sadece rakamları al
+  const digits = String(str).replace(/\D/g, '');
+
+  // 8 hane → GGAAYYYY
+  if (digits.length === 8) {
+    const g = digits.slice(0, 2);
+    const a = digits.slice(2, 4);
+    const y = digits.slice(4, 8);
+    return g + '/' + a + '/' + y;
+  }
+  // 6 hane → GGAAYY
+  if (digits.length === 6) {
+    const g = digits.slice(0, 2);
+    const a = digits.slice(2, 4);
+    const y = '20' + digits.slice(4, 6);
+    return g + '/' + a + '/' + y;
+  }
+  // 4 hane → GGAA
+  if (digits.length === 4) {
+    const g = digits.slice(0, 2);
+    const a = digits.slice(2, 4);
+    return g + '/' + a;
+  }
+  // Başka bir şeyse olduğu gibi bırak
+  return str;
+}
+
+/* =========================================================
+   YARDIMCI: PARA FORMAT (150,5 → 150,50 ₺)
+   ========================================================= */
+function formatPara(str) {
+  if (!str) return '';
+  let s = String(str).trim();
+
+  // ₺ varsa temizle
+  s = s.replace(/₺/g, '').trim();
+
+  // Boşsa boş dön
+  if (!s) return '';
+
+  // Türkçe format desteği
+  let numStr = s;
+  if (numStr.includes(',') && numStr.includes('.')) {
+    // Son hangisi ise ondalık ayraç
+    if (numStr.lastIndexOf(',') > numStr.lastIndexOf('.')) {
+      numStr = numStr.replace(/\./g, '').replace(',', '.');
+    } else {
+      numStr = numStr.replace(/,/g, '');
+    }
+  } else if (numStr.includes(',')) {
+    numStr = numStr.replace(',', '.');
+  }
+
+  const n = parseFloat(numStr);
+  if (isNaN(n)) return str; // sayı değilse olduğu gibi
+
+  return n.toLocaleString('tr-TR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }) + ' ' + CURRENCY;
+}
+
+/* =========================================================
    KULLANICI YÖNETİMİ (localStorage — basit)
    ========================================================= */
 function loadUsers() {
@@ -925,7 +992,11 @@ class Grid {
         td.dataset.r = r;
         td.dataset.c = c;
         td.classList.add(COLUMNS[c].key);
-        td.textContent = this.data[r][c] || '';
+
+        // Görüntü: formatlı
+        td.textContent = this.displayValue(r, c);
+        // Ham veriyi data attribute'da sakla (düzenleme için)
+        td.dataset.raw = this.data[r][c] || '';
 
         td.onmousedown = () => {
           this.setActive();
@@ -940,6 +1011,15 @@ class Grid {
 
     this.updateSelectionUI();
     this.updateTotals();
+  }
+
+  // Hücrede gösterilecek değer (formatlı)
+  displayValue(r, c) {
+    const raw = this.data[r][c] || '';
+    if (!raw) return '';
+    if (c === 0) return formatTarih(raw);  // TARİH
+    if (c === 2) return formatPara(raw);   // FİYAT
+    return raw;                            // AD
   }
 
   selectCell(r, c) { this.selected = { r, c }; this.updateSelectionUI(); }
@@ -963,6 +1043,10 @@ class Grid {
     this.updateSelectionUI();
     td.classList.add('editing');
     td.contentEditable = 'true';
+
+    // Düzenleme sırasında HAM veriyi göster
+    td.textContent = this.data[r][c] || '';
+
     td.focus();
     const range = document.createRange();
     range.selectNodeContents(td);
@@ -976,8 +1060,14 @@ class Grid {
       this.editing = false;
       td.contentEditable = 'false';
       td.classList.remove('editing');
-      this.data[r][c] = td.textContent.trim();
-      td.textContent = this.data[r][c];
+
+      // Ham değeri kaydet
+      const raw = td.textContent.trim();
+      this.data[r][c] = raw;
+
+      // Görüntüyü formatla
+      td.textContent = this.displayValue(r, c);
+
       this.scheduleSave();
       this.updateTotals();
       td.onblur = null;
@@ -986,7 +1076,7 @@ class Grid {
     td.onkeydown = (e) => {
       if (e.key === 'Enter') { e.preventDefault(); finish(); this.moveSelection(1, 0); }
       if (e.key === 'Tab')   { e.preventDefault(); finish(); this.moveSelection(0, 1); }
-      if (e.key === 'Escape'){ td.textContent = this.data[r][c] || ''; finish(); }
+      if (e.key === 'Escape'){ td.textContent = this.displayValue(r, c); finish(); }
     };
   }
   moveSelection(dr, dc) {
@@ -1104,7 +1194,6 @@ async function saveDataToFirestore() {
       updatedBy: currentUser || 'bilinmiyor'
     }, { merge: true });
     setSyncStatus('Kaydedildi', true);
-    setTimeout(() => setSyncStatus('Kaydedildi', true), 1500);
   } catch (e) {
     console.error('Kaydetme hatası:', e);
     setSyncStatus('Kaydedilemedi', false);
@@ -1152,7 +1241,7 @@ document.addEventListener('keydown', (e) => {
     g.data[g.selected.r][g.selected.c] = '';
     const panel = document.getElementById(g.panelId);
     const td = panel.querySelector(`td[data-r="${g.selected.r}"][data-c="${g.selected.c}"]`);
-    if (td) td.textContent = '';
+    if (td) { td.textContent = ''; td.dataset.raw = ''; }
     g.scheduleSave();
     g.updateTotals();
   }
