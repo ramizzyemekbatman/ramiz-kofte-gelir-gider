@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ramiz Köfte - Gelir & Gider</title>
+<title>Gelir & Gider</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -21,6 +21,13 @@
     --radius: 6px;
     --radius-sm: 4px;
     --error: #c62828;
+    /* Şeffaf renkler */
+    --green-soft: rgba(46, 125, 50, 0.12);
+    --green-border: rgba(46, 125, 50, 0.35);
+    --green-text: #2e7d32;
+    --red-soft: rgba(198, 40, 40, 0.12);
+    --red-border: rgba(198, 40, 40, 0.35);
+    --red-text: #c62828;
   }
 
   body {
@@ -44,25 +51,25 @@
     background: var(--bg); padding: 20px;
   }
   #loginBox {
-    width: 380px; max-width: 100%;
+    width: 340px; max-width: 100%;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 40px 36px;
+    padding: 36px 32px;
     box-shadow: var(--shadow-lg);
   }
-  #loginBox h1 { margin: 0 0 8px 0; font-size: 16px; font-weight: 600; text-align: center; letter-spacing: 2px; }
-  #loginBox .subtitle { text-align: center; font-size: 12px; color: var(--text-secondary); margin-bottom: 28px; letter-spacing: 0.5px; }
-  #loginBox label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; margin-top: 16px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
-  #loginBox label:first-of-type { margin-top: 0; }
+  #loginBox label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
   #loginBox input {
     width: 100%; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 12px 14px; font-size: 16px;
-    outline: none; background: var(--surface); color: var(--text);
+    border-radius: var(--radius-sm); padding: 14px;
+    font-size: 18px; outline: none;
+    background: var(--surface); color: var(--text);
+    text-align: center;
+    letter-spacing: 4px;
   }
   #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
   #loginBox button {
-    width: 100%; margin-top: 24px; background: var(--dark); color: #ffffff;
+    width: 100%; margin-top: 20px; background: var(--dark); color: #ffffff;
     border: none; border-radius: var(--radius-sm); padding: 14px;
     font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px;
   }
@@ -103,101 +110,8 @@
   .settingsBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   .settingsBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
 
-  /* ================= YÖNETİCİ ================= */
-  #adminScreen { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-  #adminScreen.active { display: flex; }
-  #adminBody { flex: 1; padding: 20px; overflow: auto; background: var(--bg); -webkit-overflow-scrolling: touch; }
-
-  .card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 20px;
-    margin-bottom: 20px; box-shadow: var(--shadow);
-  }
-  .card h2 {
-    margin: 0 0 16px 0; font-size: 13px; font-weight: 600;
-    letter-spacing: 1.5px; padding-bottom: 12px;
-    border-bottom: 1px solid var(--border); text-transform: uppercase;
-  }
-  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
-  .field { display: flex; flex-direction: column; min-width: 180px; flex: 1; }
-  .field label { font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
-  .field input {
-    border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 12px 14px; font-size: 16px; outline: none;
-    background: var(--surface); color: var(--text);
-  }
-  .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
-  .btn {
-    background: var(--dark); color: #ffffff; border: none;
-    border-radius: var(--radius-sm); padding: 12px 22px;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    letter-spacing: 0.8px; white-space: nowrap;
-  }
-  .btn:hover { background: var(--dark-hover); }
-
-  table.users { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
-  table.users th, table.users td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-  table.users th {
-    font-weight: 600; font-size: 11px; letter-spacing: 1px;
-    color: var(--text-secondary); text-transform: uppercase;
-    background: var(--bg); border-bottom: 2px solid var(--border);
-  }
-  table.users tr:last-child td { border-bottom: none; }
-  table.users td.right { text-align: right; }
-  table.users button {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 6px 12px; font-size: 11px; font-weight: 600;
-    cursor: pointer; margin: 2px;
-  }
-  table.users button:hover { background: var(--dark); color: #ffffff; border-color: var(--dark); }
-
-  .msg {
-    padding: 10px 16px; border-radius: var(--radius-sm);
-    background: var(--dark); color: #ffffff;
-    font-size: 13px; margin-top: 14px; display: none; text-align: center;
-  }
-  .msg.error { background: var(--error); }
-
-  /* ================= AYARLAR ================= */
-  #settingsOverlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4); display: none; z-index: 100;
-  }
-  #settingsOverlay.active { display: block; }
-  #settingsPanel {
-    position: fixed; top: 0; right: -100%;
-    width: 400px; max-width: 92vw; height: 100%;
-    background: var(--surface);
-    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
-    display: flex; flex-direction: column;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 101;
-  }
-  #settingsPanel.active { right: 0; }
-  #settingsHeader {
-    background: var(--dark); color: #ffffff;
-    padding: 16px 20px; display: flex;
-    align-items: center; gap: 12px; min-height: 60px;
-  }
-  #settingsHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
-  #settingsHeader button {
-    background: transparent; color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer;
-  }
-  #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
-  #settingsBody h3 {
-    margin: 0 0 16px 0; font-size: 11px; font-weight: 600;
-    letter-spacing: 1.2px; color: var(--text-secondary);
-    text-transform: uppercase; padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-  #settingsBody .field { margin-bottom: 14px; min-width: 0; }
-
   /* ================= TABLO ================= */
-  #appScreen { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-  #appScreen.active { display: flex; }
+  #appScreen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
   #tabs {
     display: flex; background: var(--surface);
@@ -268,7 +182,6 @@
   .searchBox .clearBtn.visible { display: block; }
   .searchBox .clearBtn:hover { color: var(--dark); }
 
-  /* ARAMA SONUCU TOPLAM ROZETİ */
   .searchTotal {
     display: none;
     align-items: center;
@@ -361,10 +274,31 @@
   }
   .bigBox .label {
     font-size: 16px; font-weight: 600; letter-spacing: 1.5px;
-    color: var(--text-secondary); text-transform: uppercase;
+    text-transform: uppercase;
   }
   .bigBox .value { font-size: 36px; font-weight: 700; letter-spacing: 1px; }
-  .bigBox.main { background: var(--dark); border-color: var(--dark); }
+
+  /* Gelir kutusu — şeffaf yeşil */
+  .bigBox.green {
+    background: var(--green-soft);
+    border-color: var(--green-border);
+  }
+  .bigBox.green .label { color: var(--green-text); }
+  .bigBox.green .value { color: var(--green-text); }
+
+  /* Gider kutusu — şeffaf kırmızı */
+  .bigBox.red {
+    background: var(--red-soft);
+    border-color: var(--red-border);
+  }
+  .bigBox.red .label { color: var(--red-text); }
+  .bigBox.red .value { color: var(--red-text); }
+
+  /* Bakiye kutusu — siyah */
+  .bigBox.main {
+    background: var(--dark);
+    border-color: var(--dark);
+  }
   .bigBox.main .label { color: rgba(255,255,255,0.6); }
   .bigBox.main .value { color: #ffffff; font-size: 44px; }
 
@@ -372,22 +306,74 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 4px; }
 
+  /* ================= AYARLAR PANELİ ================= */
+  #settingsOverlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); display: none; z-index: 100;
+  }
+  #settingsOverlay.active { display: block; }
+  #settingsPanel {
+    position: fixed; top: 0; right: -100%;
+    width: 400px; max-width: 92vw; height: 100%;
+    background: var(--surface);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+    display: flex; flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 101;
+  }
+  #settingsPanel.active { right: 0; }
+  #settingsHeader {
+    background: var(--dark); color: #ffffff;
+    padding: 16px 20px; display: flex;
+    align-items: center; gap: 12px; min-height: 60px;
+  }
+  #settingsHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
+  #settingsHeader button {
+    background: transparent; color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer;
+  }
+  #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
+  #settingsBody h3 {
+    margin: 0 0 16px 0; font-size: 11px; font-weight: 600;
+    letter-spacing: 1.2px; color: var(--text-secondary);
+    text-transform: uppercase; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  #settingsBody .field { margin-bottom: 14px; min-width: 0; }
+  #settingsBody .field label { font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; display: block; }
+  #settingsBody .field input {
+    width: 100%; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 12px 14px;
+    font-size: 16px; outline: none;
+    background: var(--surface); color: var(--text);
+  }
+  #settingsBody .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
+  .btn {
+    background: var(--dark); color: #ffffff; border: none;
+    border-radius: var(--radius-sm); padding: 12px 22px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    letter-spacing: 0.8px; white-space: nowrap;
+    width: 100%;
+  }
+  .btn:hover { background: var(--dark-hover); }
+  .msg {
+    padding: 10px 16px; border-radius: var(--radius-sm);
+    background: var(--dark); color: #ffffff;
+    font-size: 13px; margin-top: 14px; display: none; text-align: center;
+  }
+  .msg.error { background: var(--error); }
+
+  /* İzleyici modunda gizlenecek */
+  body.izleyici .adminOnly { display: none !important; }
+
   /* ================= MOBİL ================= */
   @media (max-width: 768px) {
     #topbar { padding: 10px 12px; gap: 8px; min-height: 56px; }
     #topbar .title { font-size: 12px; letter-spacing: 1px; }
-    #topbar .user { font-size: 11px; padding: 5px 10px; }
     #topbar button { padding: 8px 12px; font-size: 11px; }
     .settingsBtn { width: 40px; height: 40px; }
     .settingsBtn svg { width: 20px; height: 20px; }
-
-    #adminBody { padding: 14px; }
-    .card { padding: 16px; margin-bottom: 14px; }
-    .field { min-width: 100%; }
-    .btn { width: 100%; }
-
-    table.users th, table.users td { padding: 10px 8px; font-size: 12px; }
-    table.users button { padding: 6px 10px; font-size: 10px; }
 
     #tabs { padding: 0 8px; }
     #tabs button { padding: 12px 14px; font-size: 12px; }
@@ -425,70 +411,19 @@
 </head>
 <body>
 
-  <!-- ================= 1) GİRİŞ ================= -->
-  <div id="loginScreen" style="display:none;">
+  <!-- ================= GİRİŞ ================= -->
+  <div id="loginScreen">
     <form id="loginBox" onsubmit="return doLogin(event)">
-      <h1>RAMİZ KÖFTE</h1>
-      <div class="subtitle">GELİR & GİDER SİSTEMİ</div>
-
-      <label for="loginUser">KULLANICI ADI</label>
-      <input id="loginUser" type="text" autocomplete="username" required />
-
       <label for="loginPass">ŞİFRE</label>
-      <input id="loginPass" type="password" autocomplete="current-password" required />
-
-      <button type="submit">GİRİŞ YAP</button>
+      <input id="loginPass" type="password" inputmode="numeric" pattern="[0-9]*" autocomplete="off" required />
+      <button type="submit">GİRİŞ</button>
       <div id="loginError"></div>
     </form>
   </div>
 
-  <!-- ================= 2) YÖNETİCİ ================= -->
-  <div id="adminScreen">
+  <!-- ================= TABLO ================= -->
+  <div id="appScreen" style="display:none;">
     <div id="topbar">
-      <button onclick="goToApp()">← Tablo</button>
-      <span class="title">YÖNETİCİ</span>
-      <span class="user" id="adminUserLabel">-</span>
-      <button class="settingsBtn" title="Ayarlar" onclick="openSettings()">
-        <svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm7.43-2.53a7.6 7.6 0 0 0 0-1.94l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.29 7.29 0 0 0-1.68-.97l-.38-2.65a.5.5 0 0 0-.49-.42h-4a.5.5 0 0 0-.49.42l-.38 2.65a7.29 7.29 0 0 0-1.68.97l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65a7.6 7.6 0 0 0 0 1.94l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1a7.29 7.29 0 0 0 1.68.97l.38 2.65a.5.5 0 0 0 .49.42h4a.5.5 0 0 0 .49-.42l.38-2.65a7.29 7.29 0 0 0 1.68-.97l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64Z"/></svg>
-      </button>
-    </div>
-
-    <div id="adminBody">
-      <div class="card">
-        <h2>Yönetici Ekle</h2>
-        <div class="row">
-          <div class="field">
-            <label>Kullanıcı Adı</label>
-            <input id="newUser" type="text" placeholder="örn: ali" />
-          </div>
-          <div class="field">
-            <label>İlk Şifre</label>
-            <input id="newPass" type="text" placeholder="en az 4 karakter" />
-          </div>
-          <button class="btn" onclick="addUser()">EKLE</button>
-        </div>
-        <div class="msg" id="adminMsg"></div>
-      </div>
-
-      <div class="card">
-        <h2>Yöneticiler</h2>
-        <table class="users" id="userTable">
-          <thead>
-            <tr>
-              <th>KULLANICI ADI</th>
-              <th style="width:200px;">İŞLEM</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= 3) TABLO ================= -->
-  <div id="appScreen">
-    <div id="topbar">
-      <button onclick="backToAdmin()">← Panel</button>
       <span class="title">GELİR & GİDER</span>
       <div id="balance" class="user">Bakiye: 0,00 ₺</div>
       <button class="settingsBtn" title="Ayarlar" onclick="openSettings()">
@@ -505,10 +440,10 @@
     <!-- ============ GİDERLER ============ -->
     <div class="page active" id="page-gider">
       <div id="toolbar">
-        <button onclick="giderGrid.addRow()">+ Satır</button>
-        <button onclick="giderGrid.deleteRow()">− Satır</button>
-        <button onclick="giderGrid.clearAll()">Temizle</button>
-        <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
+        <button class="adminOnly" onclick="giderGrid.addRow()">+ Satır</button>
+        <button class="adminOnly" onclick="giderGrid.deleteRow()">− Satır</button>
+        <button class="adminOnly" onclick="giderGrid.clearAll()">Temizle</button>
+        <span id="hint" class="adminOnly">Düzenlemek için hücreye çift tıklayın</span>
 
         <div class="searchBox" style="margin-left:auto;">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -537,10 +472,10 @@
     <!-- ============ GELİRLER ============ -->
     <div class="page" id="page-gelir">
       <div id="toolbar">
-        <button onclick="gelirGrid.addRow()">+ Satır</button>
-        <button onclick="gelirGrid.deleteRow()">− Satır</button>
-        <button onclick="gelirGrid.clearAll()">Temizle</button>
-        <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
+        <button class="adminOnly" onclick="gelirGrid.addRow()">+ Satır</button>
+        <button class="adminOnly" onclick="gelirGrid.deleteRow()">− Satır</button>
+        <button class="adminOnly" onclick="gelirGrid.clearAll()">Temizle</button>
+        <span id="hint" class="adminOnly">Düzenlemek için hücreye çift tıklayın</span>
 
         <div class="searchBox" style="margin-left:auto;">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -569,11 +504,11 @@
     <!-- ============ DENGE ============ -->
     <div class="page" id="page-denge">
       <div id="balancePage">
-        <div class="bigBox">
+        <div class="bigBox green">
           <span class="label">TOPLAM GELİR</span>
           <span class="value" id="sum-gelir">0,00 ₺</span>
         </div>
-        <div class="bigBox">
+        <div class="bigBox red">
           <span class="label">TOPLAM GİDER</span>
           <span class="value" id="sum-gider">0,00 ₺</span>
         </div>
@@ -593,33 +528,23 @@
       <button onclick="closeSettings()">Kapat</button>
     </div>
     <div id="settingsBody">
-      <h3>KULLANICI ADINI DEĞİŞTİR</h3>
-      <div class="field">
-        <label>YENİ KULLANICI ADI</label>
-        <input id="newUsername" type="text" placeholder="yeni kullanıcı adın" />
+      <div class="adminOnly">
+        <h3>ADMİN ŞİFRESİNİ DEĞİŞTİR</h3>
+        <div class="field">
+          <label>MEVCUT ADMİN ŞİFRESİ</label>
+          <input id="oldAdminPass" type="password" inputmode="numeric" placeholder="mevcut şifre" />
+        </div>
+        <div class="field">
+          <label>YENİ ADMİN ŞİFRESİ</label>
+          <input id="newAdminPass" type="password" inputmode="numeric" placeholder="yeni şifre (sadece rakam)" />
+        </div>
+        <div class="field">
+          <label>YENİ ADMİN ŞİFRESİ (TEKRAR)</label>
+          <input id="newAdminPass2" type="password" inputmode="numeric" placeholder="yeni şifre tekrar" />
+        </div>
+        <button class="btn" onclick="changeAdminPassword()">ŞİFREYİ DEĞİŞTİR</button>
+        <div class="msg" id="passMsg"></div>
       </div>
-      <div class="field">
-        <label>MEVCUT ŞİFRE</label>
-        <input id="usernamePass" type="password" placeholder="şifreni gir" />
-      </div>
-      <button class="btn" onclick="changeOwnUsername()">KULLANICI ADINI DEĞİŞTİR</button>
-      <div class="msg" id="userMsg"></div>
-
-      <h3 style="margin-top:28px;">ŞİFRE DEĞİŞTİR</h3>
-      <div class="field">
-        <label>ESKİ ŞİFRE</label>
-        <input id="oldPass" type="password" placeholder="mevcut şifren" />
-      </div>
-      <div class="field">
-        <label>YENİ ŞİFRE</label>
-        <input id="newPassOwn" type="password" placeholder="en az 4 karakter" />
-      </div>
-      <div class="field">
-        <label>YENİ ŞİFRE (TEKRAR)</label>
-        <input id="newPassOwn2" type="password" placeholder="yeni şifren tekrar" />
-      </div>
-      <button class="btn" onclick="changeOwnPassword()">ŞİFREYİ DEĞİŞTİR</button>
-      <div class="msg" id="passMsg"></div>
 
       <h3 style="margin-top:28px;">OTURUM</h3>
       <button class="btn" onclick="logout()">ÇIKIŞ YAP</button>
@@ -645,22 +570,22 @@ const db = firebase.firestore();
 const DATA_DOC = db.collection('ortak').doc('veriler');
 
 /* ================= SABİTLER ================= */
-const USERS_KEY = 'ramizKofteYoneticiler';
-const SESSION_KEY = 'ramizKofteAktifKullanici';
-const DEFAULT_ADMIN = { user: 'admin', pass: '1234' };
+const ADMIN_KEY = 'ramizKofteAdminSifre';
+const SESSION_KEY = 'ramizKofteOturum';
+const DEFAULT_ADMIN_PASS = '1234';   // admin şifresi
+const IZLEYICI_PASS = '0000';        // izleyici şifresi
 const CURRENCY = '₺';
 const DEFAULT_ROWS = 5;
 
-/* ================= YARDIMCI: BUGÜNÜN TARİHİ ================= */
+/* ================= YARDIMCI ================= */
 function bugununTarihi() {
   const d = new Date();
   const g = String(d.getDate()).padStart(2, '0');
   const a = String(d.getMonth() + 1).padStart(2, '0');
   const y = d.getFullYear();
-  return g + a + y; // örn: "03102026"
+  return g + a + y;
 }
 
-/* ================= FORMAT ================= */
 function formatTarih(str) {
   if (!str) return '';
   const d = String(str).replace(/\D/g, '');
@@ -703,171 +628,95 @@ function trLower(s) {
     .replace(/Ü/g, 'ü').replace(/Ö/g, 'ö').replace(/Ç/g, 'ç');
 }
 
-/* ================= KULLANICI ================= */
-function loadUsers() {
-  try {
-    const raw = localStorage.getItem(USERS_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  const init = [DEFAULT_ADMIN];
-  localStorage.setItem(USERS_KEY, JSON.stringify(init));
-  return init;
-}
-function saveUsers(a) { localStorage.setItem(USERS_KEY, JSON.stringify(a)); }
-let users = loadUsers();
-let currentUser = null;
+/* ================= OTURUM ================= */
+let isAdmin = false;
+let adminPass = localStorage.getItem(ADMIN_KEY) || DEFAULT_ADMIN_PASS;
 
-function showScreen(id) {
+function showApp() {
   document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminScreen').classList.remove('active');
-  document.getElementById('appScreen').classList.remove('active');
-  if (id === 'loginScreen') document.getElementById('loginScreen').style.display = 'flex';
-  else document.getElementById(id).classList.add('active');
+  document.getElementById('appScreen').style.display = 'flex';
+  document.body.classList.toggle('izleyici', !isAdmin);
+  loadDataFromFirestore();
+}
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('appScreen').style.display = 'none';
+  document.body.classList.remove('izleyici');
 }
 
 function doLogin(e) {
   e.preventDefault();
-  const u = document.getElementById('loginUser').value.trim();
-  const p = document.getElementById('loginPass').value;
+  const p = document.getElementById('loginPass').value.trim();
   const err = document.getElementById('loginError');
-  const found = users.find(x => x.user === u && x.pass === p);
-  if (!found) { err.textContent = 'Kullanıcı adı veya şifre hatalı.'; err.style.display = 'block'; return false; }
-  err.style.display = 'none';
-  currentUser = found.user;
-  sessionStorage.setItem(SESSION_KEY, currentUser);
-  document.getElementById('adminUserLabel').textContent = currentUser;
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  showScreen('adminScreen');
-  renderUsers();
+
+  if (p === adminPass) {
+    isAdmin = true;
+    sessionStorage.setItem(SESSION_KEY, 'admin');
+    err.style.display = 'none';
+    document.getElementById('loginPass').value = '';
+    showApp();
+    return false;
+  }
+  if (p === IZLEYICI_PASS) {
+    isAdmin = false;
+    sessionStorage.setItem(SESSION_KEY, 'izleyici');
+    err.style.display = 'none';
+    document.getElementById('loginPass').value = '';
+    showApp();
+    return false;
+  }
+
+  err.textContent = 'Şifre hatalı.';
+  err.style.display = 'block';
   return false;
 }
+
 function logout() {
   closeSettings();
-  currentUser = null;
+  isAdmin = false;
   sessionStorage.removeItem(SESSION_KEY);
-  showScreen('loginScreen');
-}
-function checkSession() {
-  const s = sessionStorage.getItem(SESSION_KEY);
-  if (!s) { showScreen('loginScreen'); return; }
-  const f = users.find(x => x.user === s);
-  if (!f) { sessionStorage.removeItem(SESSION_KEY); showScreen('loginScreen'); return; }
-  currentUser = s;
-  document.getElementById('adminUserLabel').textContent = currentUser;
-  showScreen('adminScreen');
-  renderUsers();
+  showLogin();
 }
 
-/* ================= YÖNETİCİ ================= */
-function addUser() {
-  const u = document.getElementById('newUser').value.trim();
-  const p = document.getElementById('newPass').value.trim();
-  const msg = document.getElementById('adminMsg');
-  const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
-  if (!u || !p) return show('Boş olamaz.', true);
-  if (p.length < 4) return show('En az 4 karakter.', true);
-  if (users.some(x => x.user === u)) return show('Zaten var.', true);
-  users.push({user:u, pass:p});
-  saveUsers(users);
-  document.getElementById('newUser').value='';
-  document.getElementById('newPass').value='';
-  show('Eklendi: '+u, false);
-  renderUsers();
+function checkSession() {
+  const s = sessionStorage.getItem(SESSION_KEY);
+  if (s === 'admin') { isAdmin = true; showApp(); return; }
+  if (s === 'izleyici') { isAdmin = false; showApp(); return; }
+  showLogin();
 }
-function changeOwnUsername() {
-  const y = document.getElementById('newUsername').value.trim();
-  const s = document.getElementById('usernamePass').value;
-  const msg = document.getElementById('userMsg');
-  const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
-  if (!currentUser) return;
-  const me = users.find(x => x.user === currentUser);
-  if (!me) return;
-  if (me.pass !== s) return show('Şifre yanlış.', true);
-  if (!y || y.length < 3) return show('En az 3 karakter.', true);
-  if (y === currentUser) return show('Bu zaten mevcut.', true);
-  if (users.some(x => x.user === y)) return show('Kullanılıyor.', true);
-  me.user = y; currentUser = y;
-  saveUsers(users);
-  sessionStorage.setItem(SESSION_KEY, currentUser);
-  document.getElementById('adminUserLabel').textContent = currentUser;
-  document.getElementById('newUsername').value='';
-  document.getElementById('usernamePass').value='';
-  show('Güncellendi: '+y, false);
-  renderUsers();
-}
-function changeOwnPassword() {
-  const o = document.getElementById('oldPass').value;
-  const n1 = document.getElementById('newPassOwn').value;
-  const n2 = document.getElementById('newPassOwn2').value;
+
+/* ================= ADMİN ŞİFRE DEĞİŞTİR ================= */
+function changeAdminPassword() {
+  const oldP = document.getElementById('oldAdminPass').value.trim();
+  const n1 = document.getElementById('newAdminPass').value.trim();
+  const n2 = document.getElementById('newAdminPass2').value.trim();
   const msg = document.getElementById('passMsg');
   const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
-  if (!currentUser) return;
-  const me = users.find(x => x.user === currentUser);
-  if (!me) return;
-  if (me.pass !== o) return show('Eski şifre yanlış.', true);
-  if (!n1 || n1.length < 4) return show('En az 4 karakter.', true);
-  if (n1 !== n2) return show('Uyuşmuyor.', true);
-  me.pass = n1; saveUsers(users);
-  document.getElementById('oldPass').value='';
-  document.getElementById('newPassOwn').value='';
-  document.getElementById('newPassOwn2').value='';
-  show('Şifre güncellendi.', false);
-}
-function removeUser(name) {
-  const msg = document.getElementById('adminMsg');
-  if (name === currentUser) { msg.textContent='Kendini silemezsin.'; msg.classList.add('error'); msg.style.display='block'; return; }
-  if (users.length <= 1) { msg.textContent='En az 1 kalmalı.'; msg.classList.add('error'); msg.style.display='block'; return; }
-  if (!confirm(name+' silinsin mi?')) return;
-  users = users.filter(x => x.user !== name);
-  saveUsers(users);
-  msg.textContent='Silindi: '+name; msg.classList.remove('error'); msg.style.display='block';
-  renderUsers();
-}
-function renderUsers() {
-  const tb = document.querySelector('#userTable tbody');
-  tb.innerHTML = '';
-  users.forEach(u => {
-    const tr = document.createElement('tr');
-    const td1 = document.createElement('td');
-    td1.textContent = u.user + (u.user === currentUser ? ' (siz)' : '');
-    const td2 = document.createElement('td');
-    td2.className = 'right';
-    const b1 = document.createElement('button'); b1.textContent='ŞİFRE'; b1.onclick=()=>adminChangePassword(u.user);
-    const b2 = document.createElement('button'); b2.textContent='SİL'; b2.onclick=()=>removeUser(u.user);
-    td2.appendChild(b1); td2.appendChild(b2);
-    tr.appendChild(td1); tr.appendChild(td2);
-    tb.appendChild(tr);
-  });
-}
-function adminChangePassword(name) {
-  const msg = document.getElementById('adminMsg');
-  const y = prompt(name+' için yeni şifre (en az 4):');
-  if (y === null) return;
-  const t = y.trim();
-  if (!t || t.length < 4) { msg.textContent='En az 4 karakter.'; msg.classList.add('error'); msg.style.display='block'; return; }
-  const k = users.find(x => x.user === name);
-  if (!k) return;
-  k.pass = t; saveUsers(users);
-  msg.textContent = name+' şifresi güncellendi.'; msg.classList.remove('error'); msg.style.display='block';
-  renderUsers();
+
+  if (oldP !== adminPass) return show('Mevcut şifre yanlış.', true);
+  if (!n1 || !/^\d+$/.test(n1)) return show('Şifre sadece rakamlardan oluşmalı.', true);
+  if (n1.length < 4) return show('En az 4 hane olmalı.', true);
+  if (n1 === IZLEYICI_PASS) return show('Bu şifre kullanılamaz.', true);
+  if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
+
+  adminPass = n1;
+  localStorage.setItem(ADMIN_KEY, adminPass);
+  document.getElementById('oldAdminPass').value='';
+  document.getElementById('newAdminPass').value='';
+  document.getElementById('newAdminPass2').value='';
+  show('Admin şifresi güncellendi.', false);
 }
 
 /* ================= EKRAN GEÇİŞ ================= */
-function goToApp() { showScreen('appScreen'); loadDataFromFirestore(); }
-function backToAdmin() { showScreen('adminScreen'); renderUsers(); }
 function openSettings() {
   document.getElementById('settingsOverlay').classList.add('active');
   document.getElementById('settingsPanel').classList.add('active');
   document.getElementById('passMsg').style.display='none';
-  document.getElementById('userMsg').style.display='none';
 }
 function closeSettings() {
   document.getElementById('settingsOverlay').classList.remove('active');
   document.getElementById('settingsPanel').classList.remove('active');
 }
-
-/* ================= SAYFA GEÇİŞ ================= */
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
@@ -879,10 +728,12 @@ function showPage(name) {
 }
 
 function setSyncStatus(text, ok) {
-  const el = document.getElementById('syncStatus');
-  el.textContent = text;
-  el.classList.toggle('ok', ok === true);
-  el.classList.toggle('err', ok === false);
+  const els = document.querySelectorAll('#syncStatus');
+  els.forEach(el => {
+    el.textContent = text;
+    el.classList.toggle('ok', ok === true);
+    el.classList.toggle('err', ok === false);
+  });
 }
 
 /* ================= ARAMA ================= */
@@ -909,20 +760,13 @@ function updateSearchTotal(which) {
   const box = document.getElementById(which === 'gider' ? 'searchTotalGider' : 'searchTotalGelir');
   const val = document.getElementById(which === 'gider' ? 'searchTotalGiderVal' : 'searchTotalGelirVal');
   const query = input.value.trim();
-
-  if (!query) {
-    box.classList.remove('visible');
-    return;
-  }
-
+  if (!query) { box.classList.remove('visible'); return; }
   const grid = which === 'gider' ? giderGrid : gelirGrid;
   const q = trLower(query);
   let total = 0;
   for (let r = 0; r < grid.rows; r++) {
     const aciklama = grid.data[r][1] || '';
-    if (trLower(aciklama).indexOf(q) !== -1) {
-      total += parseNum(grid.data[r][2]);
-    }
+    if (trLower(aciklama).indexOf(q) !== -1) total += parseNum(grid.data[r][2]);
   }
   val.textContent = formatMoney(total);
   box.classList.add('visible');
@@ -965,16 +809,11 @@ class Grid {
     for (let r = 0; r < this.rows; r++) {
       const tr = document.createElement('tr');
       tr.dataset.r = r;
-
       const aciklama = this.data[r][1] || '';
       const isEmpty = aciklama.trim() === '';
-
       if (q) {
-        if (!isEmpty && trLower(aciklama).indexOf(q) === -1) {
-          tr.style.display = 'none';
-        }
+        if (!isEmpty && trLower(aciklama).indexOf(q) === -1) tr.style.display = 'none';
       }
-
       for (let c = 0; c < FIXED_COLS; c++) {
         const td = document.createElement('td');
         td.dataset.r = r; td.dataset.c = c;
@@ -984,7 +823,12 @@ class Grid {
           this.setActive();
           if (!this.editing) this.selectCell(r, c);
         };
-        td.ondblclick = () => this.startEdit(r, c);
+        // Sadece admin düzenleyebilir
+        if (isAdmin) {
+          td.ondblclick = () => this.startEdit(r, c);
+        } else {
+          td.classList.add('readonly');
+        }
         tr.appendChild(td);
       }
       tb.appendChild(tr);
@@ -1023,6 +867,7 @@ class Grid {
   }
   setActive() { activeGrid = this; }
   startEdit(r, c) {
+    if (!isAdmin) return;
     const table = document.getElementById(this.tableId);
     const td = table.querySelector(`td[data-r="${r}"][data-c="${c}"]`);
     if (!td) return;
@@ -1048,7 +893,6 @@ class Grid {
       this.scheduleSave();
       this.updateTotals();
       if (this.filter) this.applyFilter(this.filter);
-      // Arama toplamını da güncelle
       if (this.id === 'gider') updateSearchTotal('gider');
       if (this.id === 'gelir') updateSearchTotal('gelir');
       td.onblur = null;
@@ -1061,6 +905,7 @@ class Grid {
     };
   }
   moveSelection(dr, dc) {
+    if (!isAdmin) return;
     let r = this.selected.r + dr;
     let c = this.selected.c + dc;
     if (r < 0) r = 0;
@@ -1073,6 +918,7 @@ class Grid {
     if (td) td.scrollIntoView({ block:'nearest', inline:'nearest' });
   }
   addRow() {
+    if (!isAdmin) return;
     const yeniSatir = ['', '', ''];
     yeniSatir[0] = bugununTarihi();
     this.data.push(yeniSatir);
@@ -1082,6 +928,7 @@ class Grid {
     this.selectCell(this.rows - 1, 1);
   }
   deleteRow() {
+    if (!isAdmin) return;
     if (this.rows <= 1) return;
     this.data.splice(this.selected.r, 1);
     this.rows--;
@@ -1092,6 +939,7 @@ class Grid {
     if (this.id === 'gelir') updateSearchTotal('gelir');
   }
   clearAll() {
+    if (!isAdmin) return;
     if (!confirm((this.id === 'gider' ? 'Gider' : 'Gelir') + ' tablosu silinsin mi?')) return;
     this.data = emptyData(this.rows);
     this.scheduleSave(); this.render();
@@ -1105,6 +953,7 @@ class Grid {
     return t;
   }
   scheduleSave() {
+    if (!isAdmin) return;
     setSyncStatus('Kaydediliyor...', null);
     if (this.saveTimer) clearTimeout(this.saveTimer);
     this.saveTimer = setTimeout(() => saveDataToFirestore(), 800);
@@ -1159,6 +1008,7 @@ async function loadDataFromFirestore() {
 }
 
 async function saveDataToFirestore() {
+  if (!isAdmin) return;
   if (isSaving) { needsSave = true; return; }
   isSaving = true;
   setSyncStatus('Kaydediliyor...', null);
@@ -1169,7 +1019,7 @@ async function saveDataToFirestore() {
       gider: giderData,
       gelir: gelirData,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      updatedBy: currentUser || 'bilinmiyor'
+      updatedBy: 'admin'
     }, { merge: true });
     setSyncStatus('Kaydedildi', true);
   } catch (e) {
@@ -1200,7 +1050,8 @@ Grid.prototype.updateTotals = function() { updateAllTotals(); };
 
 /* ================= KLAVYE ================= */
 document.addEventListener('keydown', (e) => {
-  if (!document.getElementById('appScreen').classList.contains('active')) return;
+  if (!isAdmin) return;
+  if (document.getElementById('appScreen').style.display === 'none') return;
   const pageActive = document.querySelector('.page.active');
   if (!pageActive) return;
   if (pageActive.id === 'page-denge') return;
@@ -1232,6 +1083,11 @@ document.addEventListener('keydown', (e) => {
     g.moveSelection(0, e.shiftKey ? -1 : 1);
   }
   if (e.key === 'Escape') closeSettings();
+});
+
+/* ================= ŞİFRE GİRİŞİNE SADECE RAKAM ================= */
+document.getElementById('loginPass').addEventListener('input', function() {
+  this.value = this.value.replace(/\D/g, '');
 });
 
 /* ================= BAŞLAT ================= */
