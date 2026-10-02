@@ -195,7 +195,7 @@
   }
   #settingsBody .field { margin-bottom: 14px; min-width: 0; }
 
-  /* ================= TABLO EKRANI ================= */
+  /* ================= TABLO ================= */
   #appScreen { flex: 1; display: none; flex-direction: column; overflow: hidden; }
   #appScreen.active { display: flex; }
 
@@ -241,11 +241,8 @@
   #syncStatus.ok { color: #2e7d32; border-color: #2e7d32; }
   #syncStatus.err { color: var(--error); border-color: var(--error); }
 
-  /* ARAMA KUTUSU */
   .searchBox {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 6px 10px;
@@ -256,35 +253,17 @@
     border-color: var(--dark);
     box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
   }
-  .searchBox svg {
-    width: 14px;
-    height: 14px;
-    fill: var(--text-secondary);
-    flex-shrink: 0;
-  }
+  .searchBox svg { width: 14px; height: 14px; fill: var(--text-secondary); flex-shrink: 0; }
   .searchBox input {
-    border: none;
-    outline: none;
-    font-size: 13px;
-    background: transparent;
-    color: var(--text);
-    width: 100%;
-    padding: 0;
-    font-family: inherit;
+    border: none; outline: none; font-size: 13px;
+    background: transparent; color: var(--text);
+    width: 100%; padding: 0; font-family: inherit;
   }
-  .searchBox input::placeholder {
-    color: var(--text-secondary);
-    font-style: italic;
-  }
+  .searchBox input::placeholder { color: var(--text-secondary); font-style: italic; }
   .searchBox .clearBtn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    font-size: 16px;
-    padding: 0 4px;
-    display: none;
-    line-height: 1;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--text-secondary); font-size: 16px;
+    padding: 0 4px; display: none; line-height: 1;
   }
   .searchBox .clearBtn.visible { display: block; }
   .searchBox .clearBtn:hover { color: var(--dark); }
@@ -394,18 +373,8 @@
     #toolbar button { padding: 8px 12px; font-size: 11px; }
     #hint { display: none; }
 
-    .searchBox {
-      min-width: 0;
-      flex: 1;
-      order: 10;
-      margin-top: 4px;
-    }
-
-    #syncStatus {
-      margin-left: 0;
-      order: 11;
-      margin-top: 4px;
-    }
+    .searchBox { min-width: 0; flex: 1; order: 10; margin-top: 4px; }
+    #syncStatus { margin-left: 0; order: 11; margin-top: 4px; }
 
     #panels { padding: 10px; }
     table.grid th, table.grid td { height: 42px; padding: 6px 8px; font-size: 13px; }
@@ -645,7 +614,16 @@ const USERS_KEY = 'ramizKofteYoneticiler';
 const SESSION_KEY = 'ramizKofteAktifKullanici';
 const DEFAULT_ADMIN = { user: 'admin', pass: '1234' };
 const CURRENCY = '₺';
-const DEFAULT_ROWS = 30;
+const DEFAULT_ROWS = 5;
+
+/* ================= YARDIMCI: BUGÜNÜN TARİHİ ================= */
+function bugununTarihi() {
+  const d = new Date();
+  const g = String(d.getDate()).padStart(2, '0');
+  const a = String(d.getMonth() + 1).padStart(2, '0');
+  const y = d.getFullYear();
+  return g + a + y; // örn: "03102026"
+}
 
 /* ================= FORMAT ================= */
 function formatTarih(str) {
@@ -683,7 +661,6 @@ function parseNum(v) {
 function formatMoney(n) {
   return n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+CURRENCY;
 }
-// Türkçe karakter destekli küçük harf
 function trLower(s) {
   return String(s).toLowerCase()
     .replace(/İ/g, 'i').replace(/I/g, 'ı')
@@ -879,11 +856,9 @@ function onSearch(which) {
   const clearBtn = document.getElementById(which === 'gider' ? 'clearGider' : 'clearGelir');
   const query = input.value.trim();
   clearBtn.classList.toggle('visible', query.length > 0);
-
   const grid = which === 'gider' ? giderGrid : gelirGrid;
   grid.applyFilter(query);
 }
-
 function clearSearch(which) {
   const input = document.getElementById(which === 'gider' ? 'searchGider' : 'searchGelir');
   const clearBtn = document.getElementById(which === 'gider' ? 'clearGider' : 'clearGelir');
@@ -931,12 +906,10 @@ class Grid {
       const tr = document.createElement('tr');
       tr.dataset.r = r;
 
-      // Filtre kontrolü: boşsa göster, doluysa açıklamaya bak
       const aciklama = this.data[r][1] || '';
       const isEmpty = aciklama.trim() === '';
 
       if (q) {
-        // Filtre var: boş satırlar görünsün, dolu satırlar eşleşiyorsa görünsün
         if (!isEmpty && trLower(aciklama).indexOf(q) === -1) {
           tr.style.display = 'none';
         }
@@ -1014,7 +987,6 @@ class Grid {
       td.textContent = this.displayValue(r, c);
       this.scheduleSave();
       this.updateTotals();
-      // Filtre varsa yeniden uygula
       if (this.filter) this.applyFilter(this.filter);
       td.onblur = null;
     };
@@ -1038,11 +1010,14 @@ class Grid {
     if (td) td.scrollIntoView({ block:'nearest', inline:'nearest' });
   }
   addRow() {
-    this.data.push(Array(FIXED_COLS).fill(''));
+    // Yeni satıra bugünün tarihini otomatik koy
+    const yeniSatir = ['', '', ''];
+    yeniSatir[0] = bugununTarihi(); // 03102026 gibi
+    this.data.push(yeniSatir);
     this.rows++;
     this.scheduleSave();
     this.render();
-    this.selectCell(this.rows - 1, 0);
+    this.selectCell(this.rows - 1, 1); // Açıklama sütununu seç (tarih değil)
   }
   deleteRow() {
     if (this.rows <= 1) return;
