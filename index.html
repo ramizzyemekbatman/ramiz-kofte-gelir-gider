@@ -233,17 +233,65 @@
   #syncStatus {
     margin-left: auto; font-size: 11px;
     color: var(--text-secondary);
-    padding: 4px 10px;
+    padding: 6px 10px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
+    white-space: nowrap;
   }
   #syncStatus.ok { color: #2e7d32; border-color: #2e7d32; }
   #syncStatus.err { color: var(--error); border-color: var(--error); }
 
+  /* ARAMA KUTUSU */
+  .searchBox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    background: var(--surface);
+    min-width: 180px;
+  }
+  .searchBox:focus-within {
+    border-color: var(--dark);
+    box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
+  }
+  .searchBox svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--text-secondary);
+    flex-shrink: 0;
+  }
+  .searchBox input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    background: transparent;
+    color: var(--text);
+    width: 100%;
+    padding: 0;
+    font-family: inherit;
+  }
+  .searchBox input::placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .searchBox .clearBtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 16px;
+    padding: 0 4px;
+    display: none;
+    line-height: 1;
+  }
+  .searchBox .clearBtn.visible { display: block; }
+  .searchBox .clearBtn:hover { color: var(--dark); }
+
   .page { flex: 1; display: none; overflow: hidden; }
   .page.active { display: flex; flex-direction: column; }
 
-  /* TEK PANEL — tam genişlik */
   #panels {
     flex: 1; display: flex; gap: 0;
     padding: 12px 16px; overflow: hidden; background: var(--bg);
@@ -295,7 +343,7 @@
     letter-spacing: 0.5px; flex-shrink: 0;
   }
 
-  /* ================= DENGE SAYFASI ================= */
+  /* ================= DENGE ================= */
   #balancePage {
     flex: 1; padding: 20px; display: flex;
     flex-direction: column; gap: 16px;
@@ -345,6 +393,19 @@
     #toolbar { padding: 8px 12px; gap: 6px; }
     #toolbar button { padding: 8px 12px; font-size: 11px; }
     #hint { display: none; }
+
+    .searchBox {
+      min-width: 0;
+      flex: 1;
+      order: 10;
+      margin-top: 4px;
+    }
+
+    #syncStatus {
+      margin-left: 0;
+      order: 11;
+      margin-top: 4px;
+    }
 
     #panels { padding: 10px; }
     table.grid th, table.grid td { height: 42px; padding: 6px 8px; font-size: 13px; }
@@ -430,7 +491,7 @@
     </div>
   </div>
 
-  <!-- ================= 3) TABLO EKRANI ================= -->
+  <!-- ================= 3) TABLO ================= -->
   <div id="appScreen">
     <div id="topbar">
       <button onclick="backToAdmin()">← Panel</button>
@@ -447,13 +508,20 @@
       <button id="tabBtn-denge" onclick="showPage('denge')">GİDER/GELİR DENGESİ</button>
     </div>
 
-    <!-- ============ GİDERLER SAYFASI ============ -->
+    <!-- ============ GİDERLER ============ -->
     <div class="page active" id="page-gider">
       <div id="toolbar">
         <button onclick="giderGrid.addRow()">+ Satır</button>
         <button onclick="giderGrid.deleteRow()">− Satır</button>
         <button onclick="giderGrid.clearAll()">Temizle</button>
         <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
+
+        <div class="searchBox" style="margin-left:auto;">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input id="searchGider" type="text" placeholder="Açıklama ara..." oninput="onSearch('gider')" />
+          <button class="clearBtn" id="clearGider" onclick="clearSearch('gider')" title="Temizle">×</button>
+        </div>
+
         <span id="syncStatus">Kaydedildi</span>
       </div>
       <div id="panels">
@@ -467,13 +535,20 @@
       </div>
     </div>
 
-    <!-- ============ GELİRLER SAYFASI ============ -->
+    <!-- ============ GELİRLER ============ -->
     <div class="page" id="page-gelir">
       <div id="toolbar">
         <button onclick="gelirGrid.addRow()">+ Satır</button>
         <button onclick="gelirGrid.deleteRow()">− Satır</button>
         <button onclick="gelirGrid.clearAll()">Temizle</button>
         <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
+
+        <div class="searchBox" style="margin-left:auto;">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input id="searchGelir" type="text" placeholder="Açıklama ara..." oninput="onSearch('gelir')" />
+          <button class="clearBtn" id="clearGelir" onclick="clearSearch('gelir')" title="Temizle">×</button>
+        </div>
+
         <span id="syncStatus">Kaydedildi</span>
       </div>
       <div id="panels">
@@ -487,7 +562,7 @@
       </div>
     </div>
 
-    <!-- ============ DENGE SAYFASI ============ -->
+    <!-- ============ DENGE ============ -->
     <div class="page" id="page-denge">
       <div id="balancePage">
         <div class="bigBox">
@@ -607,6 +682,13 @@ function parseNum(v) {
 }
 function formatMoney(n) {
   return n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+CURRENCY;
+}
+// Türkçe karakter destekli küçük harf
+function trLower(s) {
+  return String(s).toLowerCase()
+    .replace(/İ/g, 'i').replace(/I/g, 'ı')
+    .replace(/Ş/g, 'ş').replace(/Ğ/g, 'ğ')
+    .replace(/Ü/g, 'ü').replace(/Ö/g, 'ö').replace(/Ç/g, 'ç');
 }
 
 /* ================= KULLANICI ================= */
@@ -791,6 +873,26 @@ function setSyncStatus(text, ok) {
   el.classList.toggle('err', ok === false);
 }
 
+/* ================= ARAMA ================= */
+function onSearch(which) {
+  const input = document.getElementById(which === 'gider' ? 'searchGider' : 'searchGelir');
+  const clearBtn = document.getElementById(which === 'gider' ? 'clearGider' : 'clearGelir');
+  const query = input.value.trim();
+  clearBtn.classList.toggle('visible', query.length > 0);
+
+  const grid = which === 'gider' ? giderGrid : gelirGrid;
+  grid.applyFilter(query);
+}
+
+function clearSearch(which) {
+  const input = document.getElementById(which === 'gider' ? 'searchGider' : 'searchGelir');
+  const clearBtn = document.getElementById(which === 'gider' ? 'clearGider' : 'clearGelir');
+  input.value = '';
+  clearBtn.classList.remove('visible');
+  const grid = which === 'gider' ? giderGrid : gelirGrid;
+  grid.applyFilter('');
+}
+
 /* ================= TABLO ================= */
 const COLUMNS = [
   { key: 'tarih', label: 'TARİH',    cls: 'col-tarih' },
@@ -809,6 +911,7 @@ class Grid {
     this.selected = { r: 0, c: 0 };
     this.editing = false;
     this.saveTimer = null;
+    this.filter = '';
   }
   render() {
     const table = document.getElementById(this.tableId);
@@ -823,8 +926,22 @@ class Grid {
     thead.appendChild(hr); table.appendChild(thead);
 
     const tb = document.createElement('tbody');
+    const q = trLower(this.filter);
     for (let r = 0; r < this.rows; r++) {
       const tr = document.createElement('tr');
+      tr.dataset.r = r;
+
+      // Filtre kontrolü: boşsa göster, doluysa açıklamaya bak
+      const aciklama = this.data[r][1] || '';
+      const isEmpty = aciklama.trim() === '';
+
+      if (q) {
+        // Filtre var: boş satırlar görünsün, dolu satırlar eşleşiyorsa görünsün
+        if (!isEmpty && trLower(aciklama).indexOf(q) === -1) {
+          tr.style.display = 'none';
+        }
+      }
+
       for (let c = 0; c < FIXED_COLS; c++) {
         const td = document.createElement('td');
         td.dataset.r = r; td.dataset.c = c;
@@ -842,6 +959,20 @@ class Grid {
     table.appendChild(tb);
     this.updateSelectionUI();
     this.updateTotals();
+  }
+  applyFilter(query) {
+    this.filter = query;
+    const table = document.getElementById(this.tableId);
+    const q = trLower(query);
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      const r = parseInt(tr.dataset.r);
+      const aciklama = this.data[r][1] || '';
+      const isEmpty = aciklama.trim() === '';
+      if (!q) { tr.style.display = ''; return; }
+      if (isEmpty) { tr.style.display = ''; return; }
+      if (trLower(aciklama).indexOf(q) === -1) tr.style.display = 'none';
+      else tr.style.display = '';
+    });
   }
   displayValue(r, c) {
     const raw = this.data[r][c] || '';
@@ -883,6 +1014,8 @@ class Grid {
       td.textContent = this.displayValue(r, c);
       this.scheduleSave();
       this.updateTotals();
+      // Filtre varsa yeniden uygula
+      if (this.filter) this.applyFilter(this.filter);
       td.onblur = null;
     };
     td.onblur = finish;
@@ -1049,6 +1182,7 @@ document.addEventListener('keydown', (e) => {
     if (td) td.textContent = '';
     g.scheduleSave();
     g.updateTotals();
+    if (g.filter) g.applyFilter(g.filter);
   }
   if (e.key === 'Tab') {
     e.preventDefault();
