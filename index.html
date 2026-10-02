@@ -8,24 +8,24 @@
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   :root {
-    --bg: #f5f5f5;
+    --bg: #faf8f3;
     --surface: #ffffff;
-    --border: #d0d0d0;
-    --text: #1a1a1a;
-    --text-secondary: #666666;
-    --dark: #1a1a1a;
-    --dark-hover: #333333;
-    --light-hover: #f0f0f0;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-lg: 0 4px 16px rgba(0,0,0,0.12);
+    --border: #e5e0d3;
+    --text: #1b2e1f;
+    --text-secondary: #6b7a6b;
+    --dark: #1b4332;
+    --dark-hover: #2d5a44;
+    --light-hover: #f0ede4;
+    --shadow: 0 1px 3px rgba(27,67,50,0.08);
+    --shadow-lg: 0 4px 16px rgba(27,67,50,0.12);
     --radius: 6px;
     --radius-sm: 4px;
     --error: #c62828;
-    --green-soft: rgba(46, 125, 50, 0.12);
-    --green-border: rgba(46, 125, 50, 0.35);
-    --green-text: #2e7d32;
-    --red-soft: rgba(198, 40, 40, 0.12);
-    --red-border: rgba(198, 40, 40, 0.35);
+    --green-soft: rgba(45, 90, 68, 0.10);
+    --green-border: rgba(45, 90, 68, 0.28);
+    --green-text: #1b4332;
+    --red-soft: rgba(198, 40, 40, 0.10);
+    --red-border: rgba(198, 40, 40, 0.28);
     --red-text: #c62828;
   }
 
@@ -43,7 +43,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ================= GİRİŞ ================= */
   #loginScreen {
     flex: 1; display: flex;
     align-items: center; justify-content: center;
@@ -65,7 +64,7 @@
     background: var(--surface); color: var(--text);
     text-align: center; letter-spacing: 4px;
   }
-  #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
+  #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
   #loginBox button {
     width: 100%; margin-top: 20px; background: var(--dark); color: #ffffff;
     border: none; border-radius: var(--radius-sm); padding: 14px;
@@ -77,7 +76,6 @@
     padding: 10px 12px; font-size: 13px; margin-top: 16px; display: none; text-align: center;
   }
 
-  /* ================= TOPBAR ================= */
   #topbar {
     background: var(--dark); color: #ffffff;
     padding: 12px 16px; display: flex;
@@ -108,9 +106,7 @@
   }
   .iconBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   .iconBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
-  .iconBtn.activeBtn { background: #ffffff; color: var(--dark); border-color: #ffffff; }
 
-  /* ================= TABLO ================= */
   #appScreen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
   #tabs {
@@ -128,7 +124,7 @@
     transition: all 0.15s; white-space: nowrap;
   }
   #tabs button:hover { color: var(--text); }
-  #tabs button.active { color: var(--text); border-bottom-color: var(--dark); }
+  #tabs button.active { color: var(--dark); border-bottom-color: var(--dark); }
 
   #toolbar {
     background: var(--surface); border-bottom: 1px solid var(--border);
@@ -152,7 +148,7 @@
     border-radius: var(--radius-sm);
     white-space: nowrap;
   }
-  #syncStatus.ok { color: #2e7d32; border-color: #2e7d32; }
+  #syncStatus.ok { color: #2d5a44; border-color: #2d5a44; }
   #syncStatus.err { color: var(--error); border-color: var(--error); }
 
   .searchBox {
@@ -165,7 +161,7 @@
   }
   .searchBox:focus-within {
     border-color: var(--dark);
-    box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
+    box-shadow: 0 0 0 3px rgba(27,67,50,0.10);
   }
   .searchBox svg { width: 14px; height: 14px; fill: var(--text-secondary); flex-shrink: 0; }
   .searchBox input {
@@ -232,7 +228,7 @@
   }
   table.grid th:last-child, table.grid td:last-child { border-right: none; }
   table.grid thead th {
-    background: var(--bg); color: var(--text-secondary);
+    background: var(--light-hover); color: var(--text-secondary);
     text-align: center; font-weight: 600; font-size: 11px;
     letter-spacing: 1px; position: sticky; top: 0; z-index: 3;
     user-select: none; border-bottom: 2px solid var(--border);
@@ -254,11 +250,11 @@
   .totalBar {
     padding: 14px 18px; font-weight: 600; font-size: 15px;
     display: flex; justify-content: space-between;
-    border-top: 2px solid var(--border); background: var(--bg);
+    border-top: 2px solid var(--border); background: var(--light-hover);
     letter-spacing: 0.5px; flex-shrink: 0;
+    color: var(--dark);
   }
 
-  /* ================= DENGE ================= */
   #balancePage {
     flex: 1; padding: 20px; display: flex;
     flex-direction: column; gap: 16px;
@@ -293,9 +289,8 @@
   .bigBox.red .label { color: var(--red-text); }
   .bigBox.red .value { color: var(--red-text); }
 
-  /* Bakiye kutusu — dinamik (JS ile yeşil/kırmızı olur) */
   .bigBox.main { background: var(--dark); border-color: var(--dark); }
-  .bigBox.main .label { color: rgba(255,255,255,0.6); }
+  .bigBox.main .label { color: rgba(255,255,255,0.7); }
   .bigBox.main .value { color: #ffffff; font-size: 44px; }
 
   .bigBox.main.positive {
@@ -314,19 +309,18 @@
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb { background: #c8c2b0; border-radius: 4px; }
 
-  /* ================= AYARLAR PANELİ ================= */
   #settingsOverlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4); display: none; z-index: 100;
+    background: rgba(27,67,50,0.35); display: none; z-index: 100;
   }
   #settingsOverlay.active { display: block; }
   #settingsPanel {
     position: fixed; top: 0; right: -100%;
     width: 400px; max-width: 92vw; height: 100%;
     background: var(--surface);
-    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+    box-shadow: -4px 0 24px rgba(27,67,50,0.15);
     display: flex; flex-direction: column;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 101;
@@ -358,7 +352,7 @@
     font-size: 16px; outline: none;
     background: var(--surface); color: var(--text);
   }
-  #settingsBody .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
+  #settingsBody .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
   .btn {
     background: var(--dark); color: #ffffff; border: none;
     border-radius: var(--radius-sm); padding: 12px 22px;
@@ -376,17 +370,16 @@
 
   body.izleyici .adminOnly { display: none !important; }
 
-  /* ================= TARİH FİLTRE PANELİ ================= */
   #dateOverlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4); display: none; z-index: 200;
+    background: rgba(27,67,50,0.35); display: none; z-index: 200;
   }
   #dateOverlay.active { display: block; }
   #datePanel {
     position: fixed; top: 0; right: -100%;
     width: 420px; max-width: 92vw; height: 100%;
     background: var(--surface);
-    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+    box-shadow: -4px 0 24px rgba(27,67,50,0.15);
     display: flex; flex-direction: column;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 201;
@@ -409,6 +402,7 @@
     letter-spacing: 1.2px; color: var(--text-secondary);
     text-transform: uppercase;
   }
+
   .yearList {
     display: flex; gap: 8px; flex-wrap: wrap;
     margin-bottom: 20px;
@@ -430,6 +424,18 @@
     background: var(--dark);
     color: #ffffff;
     border-color: var(--dark);
+  }
+  .yearList button.plusBtn {
+    background: var(--dark);
+    color: #ffffff;
+    border-color: var(--dark);
+    font-size: 18px;
+    min-width: 44px;
+    padding: 8px 12px;
+  }
+  .yearList button.plusBtn:hover {
+    background: var(--dark-hover);
+    border-color: var(--dark-hover);
   }
 
   .monthList {
@@ -456,38 +462,70 @@
     border-color: var(--dark);
   }
 
-  .dateSearchBox {
+  .dateRange {
     display: flex; gap: 8px;
+    align-items: center;
     margin-bottom: 12px;
   }
-  .dateSearchBox input {
+  .dateRange .inputWrap {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .dateRange .inputWrap label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .dateRange input {
+    width: 100%;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    font-size: 16px;
+    padding: 12px 10px;
+    font-size: 15px;
     outline: none;
     background: var(--surface);
     color: var(--text);
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
   }
-  .dateSearchBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
-  .dateSearchBox button {
+  .dateRange input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
+  .dateRange .arrowSep {
+    color: var(--text-secondary);
+    font-size: 16px;
+    padding-top: 18px;
+  }
+
+  .searchActions {
+    display: flex; gap: 8px;
+    margin-bottom: 12px;
+  }
+  .searchActions button {
+    flex: 1;
     background: var(--dark);
     color: #ffffff;
     border: none;
     border-radius: var(--radius-sm);
-    padding: 0 20px;
+    padding: 12px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     letter-spacing: 0.8px;
   }
+  .searchActions button:hover { background: var(--dark-hover); }
+  .searchActions button.ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .searchActions button.ghost:hover { background: var(--light-hover); color: var(--text); }
 
   .dateInfo {
     padding: 12px 16px;
-    background: var(--bg);
+    background: var(--light-hover);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     font-size: 13px;
@@ -511,7 +549,6 @@
   }
   .resetBtn:hover { background: var(--error); color: #ffffff; }
 
-  /* ================= MOBİL ================= */
   @media (max-width: 768px) {
     #topbar { padding: 10px 12px; gap: 6px; min-height: 56px; }
     #topbar .title { font-size: 12px; letter-spacing: 1px; }
@@ -555,7 +592,6 @@
 </head>
 <body>
 
-  <!-- ================= GİRİŞ ================= -->
   <div id="loginScreen">
     <form id="loginBox" onsubmit="return doLogin(event)">
       <label for="loginPass">ŞİFRE</label>
@@ -565,7 +601,6 @@
     </form>
   </div>
 
-  <!-- ================= TABLO ================= -->
   <div id="appScreen" style="display:none;">
     <div id="topbar">
       <span class="title">GELİR & GİDER</span>
@@ -582,7 +617,6 @@
       <button id="tabBtn-denge" onclick="showPage('denge')">GİDER/GELİR DENGESİ</button>
     </div>
 
-    <!-- ============ GİDERLER ============ -->
     <div class="page active" id="page-gider">
       <div id="toolbar">
         <button class="adminOnly" onclick="giderGrid.addRow()">+ Satır</button>
@@ -614,7 +648,6 @@
       </div>
     </div>
 
-    <!-- ============ GELİRLER ============ -->
     <div class="page" id="page-gelir">
       <div id="toolbar">
         <button class="adminOnly" onclick="gelirGrid.addRow()">+ Satır</button>
@@ -646,7 +679,6 @@
       </div>
     </div>
 
-    <!-- ============ DENGE ============ -->
     <div class="page" id="page-denge">
       <div id="balancePage">
         <div class="bigBox green">
@@ -665,7 +697,6 @@
     </div>
   </div>
 
-  <!-- ================= AYARLAR ================= -->
   <div id="settingsOverlay" onclick="closeSettings()"></div>
   <div id="settingsPanel">
     <div id="settingsHeader">
@@ -681,11 +712,11 @@
         </div>
         <div class="field">
           <label>YENİ ADMİN ŞİFRESİ</label>
-          <input id="newAdminPass" type="password" inputmode="numeric" placeholder="yeni şifre (sadece rakam)" />
+          <input id="newAdminPass" type="password" inputmode="numeric" placeholder="yeni şifre" />
         </div>
         <div class="field">
           <label>YENİ ADMİN ŞİFRESİ (TEKRAR)</label>
-          <input id="newAdminPass2" type="password" inputmode="numeric" placeholder="yeni şifre tekrar" />
+          <input id="newAdminPass2" type="password" inputmode="numeric" placeholder="tekrar" />
         </div>
         <button class="btn" onclick="changeAdminPassword()">ADMİN ŞİFRESİNİ DEĞİŞTİR</button>
         <div class="msg" id="passMsg"></div>
@@ -697,11 +728,11 @@
         </div>
         <div class="field">
           <label>YENİ İZLEYİCİ ŞİFRESİ</label>
-          <input id="newViewerPass" type="password" inputmode="numeric" placeholder="yeni şifre (sadece rakam)" />
+          <input id="newViewerPass" type="password" inputmode="numeric" placeholder="yeni şifre" />
         </div>
         <div class="field">
           <label>YENİ İZLEYİCİ ŞİFRESİ (TEKRAR)</label>
-          <input id="newViewerPass2" type="password" inputmode="numeric" placeholder="yeni şifre tekrar" />
+          <input id="newViewerPass2" type="password" inputmode="numeric" placeholder="tekrar" />
         </div>
         <button class="btn" onclick="changeViewerPassword()">İZLEYİCİ ŞİFRESİNİ DEĞİŞTİR</button>
         <div class="msg" id="viewerPassMsg"></div>
@@ -712,7 +743,6 @@
     </div>
   </div>
 
-  <!-- ================= TARİH FİLTRE PANELİ ================= -->
   <div id="dateOverlay" onclick="closeDatePanel()"></div>
   <div id="datePanel">
     <div id="dateHeader">
@@ -726,18 +756,28 @@
       <h4>AY</h4>
       <div class="monthList" id="monthList"></div>
 
-      <h4>TARİH BUL</h4>
-      <div class="dateSearchBox">
-        <input id="dateSearchInput" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" />
-        <button onclick="doDateSearch()">ARA</button>
+      <h4>TARİH ARALIĞI</h4>
+      <div class="dateRange">
+        <div class="inputWrap">
+          <label>BAŞLANGIÇ</label>
+          <input id="dateStart" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" />
+        </div>
+        <div class="arrowSep">→</div>
+        <div class="inputWrap">
+          <label>BİTİŞ</label>
+          <input id="dateEnd" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" />
+        </div>
       </div>
-      <div class="dateInfo" id="dateInfo">Bir tarih yazın (örn: 03/10/2026)</div>
+      <div class="searchActions">
+        <button onclick="doDateSearch()">ARA</button>
+        <button class="ghost" onclick="clearDateRange()">TEMİZLE</button>
+      </div>
+      <div class="dateInfo" id="dateInfo">Filtre yok — tüm satırlar görünüyor.</div>
 
-      <button class="resetBtn" onclick="resetDateFilter()">FİLTREYİ TEMİZLE</button>
+      <button class="resetBtn" onclick="resetDateFilter()">TÜM FİLTREYİ SIFIRLA</button>
     </div>
   </div>
 
-  <!-- ================= FIREBASE ================= -->
   <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
 
@@ -773,7 +813,6 @@ function bugununTarihi() {
   const y = d.getFullYear();
   return g + a + y;
 }
-
 function formatTarih(str) {
   if (!str) return '';
   const d = String(str).replace(/\D/g, '');
@@ -815,6 +854,22 @@ function trLower(s) {
     .replace(/Ş/g, 'ş').replace(/Ğ/g, 'ğ')
     .replace(/Ü/g, 'ü').replace(/Ö/g, 'ö').replace(/Ç/g, 'ç');
 }
+// Tarihi YYYYMMDD formatına çevir (karşılaştırma için)
+function toComparable(tarih) {
+  const d = String(tarih || '').replace(/\D/g, '');
+  if (d.length !== 8) return null;
+  return d.slice(4,8) + d.slice(2,4) + d.slice(0,2); // YYYYMMDD
+}
+function autoSlashDates(input) {
+  input.addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 8) v = v.slice(0, 8);
+    let out = v;
+    if (v.length >= 5) out = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
+    else if (v.length >= 3) out = v.slice(0,2) + '/' + v.slice(2);
+    this.value = out;
+  });
+}
 
 /* ================= OTURUM ================= */
 let isAdmin = false;
@@ -832,7 +887,6 @@ function showLogin() {
   document.getElementById('appScreen').style.display = 'none';
   document.body.classList.remove('izleyici');
 }
-
 function doLogin(e) {
   e.preventDefault();
   const p = document.getElementById('loginPass').value.trim();
@@ -854,12 +908,10 @@ function doLogin(e) {
     showApp();
     return false;
   }
-
   err.textContent = 'Şifre hatalı.';
   err.style.display = 'block';
   return false;
 }
-
 function logout() {
   closeSettings();
   closeDatePanel();
@@ -867,7 +919,6 @@ function logout() {
   sessionStorage.removeItem(SESSION_KEY);
   showLogin();
 }
-
 function checkSession() {
   const s = sessionStorage.getItem(SESSION_KEY);
   if (s === 'admin') { isAdmin = true; showApp(); return; }
@@ -882,13 +933,11 @@ function changeAdminPassword() {
   const n2 = document.getElementById('newAdminPass2').value.trim();
   const msg = document.getElementById('passMsg');
   const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
-
   if (oldP !== adminPass) return show('Mevcut şifre yanlış.', true);
   if (!n1 || !/^\d+$/.test(n1)) return show('Şifre sadece rakamlardan oluşmalı.', true);
   if (n1.length < 4) return show('En az 4 hane olmalı.', true);
   if (n1 === viewerPass) return show('Bu şifre kullanılamaz.', true);
   if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
-
   adminPass = n1;
   localStorage.setItem(ADMIN_KEY, adminPass);
   document.getElementById('oldAdminPass').value='';
@@ -896,20 +945,17 @@ function changeAdminPassword() {
   document.getElementById('newAdminPass2').value='';
   show('Admin şifresi güncellendi.', false);
 }
-
 function changeViewerPassword() {
   const oldP = document.getElementById('oldViewerPass').value.trim();
   const n1 = document.getElementById('newViewerPass').value.trim();
   const n2 = document.getElementById('newViewerPass2').value.trim();
   const msg = document.getElementById('viewerPassMsg');
   const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
-
   if (oldP !== viewerPass) return show('Mevcut izleyici şifresi yanlış.', true);
   if (!n1 || !/^\d+$/.test(n1)) return show('Şifre sadece rakamlardan oluşmalı.', true);
   if (n1.length < 4) return show('En az 4 hane olmalı.', true);
   if (n1 === adminPass) return show('Bu şifre kullanılamaz.', true);
   if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
-
   viewerPass = n1;
   localStorage.setItem(VIEWER_KEY, viewerPass);
   document.getElementById('oldViewerPass').value='';
@@ -938,7 +984,6 @@ function showPage(name) {
   if (name === 'gider') { giderGrid.setActive(); giderGrid.selectCell(giderGrid.selected.r, giderGrid.selected.c); }
   if (name === 'gelir') { gelirGrid.setActive(); gelirGrid.selectCell(gelirGrid.selected.r, gelirGrid.selected.c); }
 }
-
 function setSyncStatus(text, ok) {
   const els = document.querySelectorAll('#syncStatus');
   els.forEach(el => {
@@ -989,11 +1034,15 @@ function updateSearchTotal(which) {
 /* ================= TARİH FİLTRE ================= */
 let selectedYear = null;
 let selectedMonth = null;
-let searchedDate = null;
+let dateRangeStart = null;
+let dateRangeEnd = null;
+let yearsExpanded = false;
 
 function openDatePanel() {
   document.getElementById('dateOverlay').classList.add('active');
   document.getElementById('datePanel').classList.add('active');
+  const now = new Date();
+  if (selectedYear === null) selectedYear = now.getFullYear();
   renderYearList();
   renderMonthList();
   updateDateInfo();
@@ -1008,14 +1057,18 @@ function renderYearList() {
   const now = new Date();
   const currentYear = now.getFullYear();
   const years = [];
-  for (let y = currentYear - 3; y <= currentYear + 2; y++) years.push(y);
+  years.push(currentYear);
+  if (yearsExpanded) {
+    for (let i = 1; i <= 10; i++) years.push(currentYear + i);
+  }
   years.forEach(y => {
     const btn = document.createElement('button');
     btn.textContent = y;
     if (selectedYear === y) btn.classList.add('active');
     btn.onclick = () => {
       selectedYear = y;
-      searchedDate = null;
+      dateRangeStart = null;
+      dateRangeEnd = null;
       renderYearList();
       renderMonthList();
       applyDateFilter();
@@ -1023,19 +1076,27 @@ function renderYearList() {
     };
     list.appendChild(btn);
   });
+  const plus = document.createElement('button');
+  plus.className = 'plusBtn';
+  plus.textContent = yearsExpanded ? '−' : '+';
+  plus.title = yearsExpanded ? 'Yılları kapat' : 'Sonraki 10 yılı göster';
+  plus.onclick = () => {
+    yearsExpanded = !yearsExpanded;
+    renderYearList();
+  };
+  list.appendChild(plus);
 }
 function renderMonthList() {
   const list = document.getElementById('monthList');
   list.innerHTML = '';
-  const now = new Date();
-  const currentMonth = now.getMonth();
   TR_MONTHS.forEach((m, i) => {
     const btn = document.createElement('button');
     btn.textContent = m;
     if (selectedMonth === i) btn.classList.add('active');
     btn.onclick = () => {
       selectedMonth = i;
-      searchedDate = null;
+      dateRangeStart = null;
+      dateRangeEnd = null;
       renderMonthList();
       applyDateFilter();
       updateDateInfo();
@@ -1044,27 +1105,48 @@ function renderMonthList() {
   });
 }
 function applyDateFilter() {
-  // Tarih filtresini her iki tabloya da uygula
-  giderGrid.dateFilter = { year: selectedYear, month: selectedMonth, date: searchedDate };
-  gelirGrid.dateFilter = { year: selectedYear, month: selectedMonth, date: searchedDate };
+  const df = {
+    year: selectedYear,
+    month: selectedMonth,
+    start: dateRangeStart,
+    end: dateRangeEnd
+  };
+  giderGrid.dateFilter = df;
+  gelirGrid.dateFilter = df;
   giderGrid.applyFilters();
   gelirGrid.applyFilters();
 }
 function resetDateFilter() {
-  selectedYear = null;
+  const now = new Date();
+  selectedYear = now.getFullYear();
   selectedMonth = null;
-  searchedDate = null;
-  document.getElementById('dateSearchInput').value = '';
+  dateRangeStart = null;
+  dateRangeEnd = null;
+  yearsExpanded = false;
+  document.getElementById('dateStart').value = '';
+  document.getElementById('dateEnd').value = '';
   renderYearList();
   renderMonthList();
   applyDateFilter();
   updateDateInfo();
 }
+function clearDateRange() {
+  dateRangeStart = null;
+  dateRangeEnd = null;
+  document.getElementById('dateStart').value = '';
+  document.getElementById('dateEnd').value = '';
+  applyDateFilter();
+  updateDateInfo();
+}
 function updateDateInfo() {
   const info = document.getElementById('dateInfo');
-  if (searchedDate) {
-    info.innerHTML = 'Aranan tarih: <strong>' + formatTarih(searchedDate) + '</strong>';
-  } else if (selectedYear && selectedMonth !== null) {
+  if (dateRangeStart || dateRangeEnd) {
+    const s = dateRangeStart ? formatTarih(dateRangeStart) : '...';
+    const e = dateRangeEnd ? formatTarih(dateRangeEnd) : '...';
+    info.innerHTML = 'Aralık: <strong>' + s + '</strong> → <strong>' + e + '</strong>';
+    return;
+  }
+  if (selectedYear && selectedMonth !== null) {
     info.innerHTML = 'Seçili: <strong>' + TR_MONTHS[selectedMonth] + ' ' + selectedYear + '</strong>';
   } else if (selectedYear) {
     info.innerHTML = 'Seçili yıl: <strong>' + selectedYear + '</strong>';
@@ -1075,37 +1157,20 @@ function updateDateInfo() {
   }
 }
 function doDateSearch() {
-  const input = document.getElementById('dateSearchInput');
-  const q = input.value.replace(/\D/g, '');
-  if (q.length !== 8) {
-    document.getElementById('dateInfo').textContent = 'Tarih GGAAYYYY olarak 8 haneli olmalı (örn: 03/10/2026)';
+  const s = document.getElementById('dateStart').value.replace(/\D/g, '');
+  const e = document.getElementById('dateEnd').value.replace(/\D/g, '');
+  if (!s && !e) {
+    document.getElementById('dateInfo').textContent = 'Lütfen en az bir tarih girin.';
     return;
   }
-  searchedDate = q;
-  selectedYear = parseInt(q.slice(4, 8), 10);
-  selectedMonth = parseInt(q.slice(2, 4), 10) - 1;
-  renderYearList();
-  renderMonthList();
+  if (s && s.length !== 8) { document.getElementById('dateInfo').textContent = 'Başlangıç GGAAYYYY olmalı.'; return; }
+  if (e && e.length !== 8) { document.getElementById('dateInfo').textContent = 'Bitiş GGAAYYYY olmalı.'; return; }
+  dateRangeStart = s ? (s.slice(4,8) + s.slice(2,4) + s.slice(0,2)) : null;
+  dateRangeEnd = e ? (e.slice(4,8) + e.slice(2,4) + e.slice(0,2)) : null;
+  selectedMonth = null;
   applyDateFilter();
   updateDateInfo();
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const dsi = document.getElementById('dateSearchInput');
-  if (dsi) {
-    dsi.addEventListener('input', function() {
-      // GGAAYYYY formatına otomatik / ekle
-      let v = this.value.replace(/\D/g, '');
-      if (v.length > 8) v = v.slice(0, 8);
-      let out = v;
-      if (v.length >= 5) out = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
-      else if (v.length >= 3) out = v.slice(0,2) + '/' + v.slice(2);
-      this.value = out;
-    });
-    dsi.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') doDateSearch();
-    });
-  }
-});
 
 /* ================= TABLO ================= */
 const COLUMNS = [
@@ -1126,7 +1191,7 @@ class Grid {
     this.editing = false;
     this.saveTimer = null;
     this.textFilter = '';
-    this.dateFilter = { year: null, month: null, date: null };
+    this.dateFilter = { year: null, month: null, start: null, end: null };
   }
   render() {
     const table = document.getElementById(this.tableId);
@@ -1153,9 +1218,7 @@ class Grid {
           this.setActive();
           if (!this.editing) this.selectCell(r, c);
         };
-        if (isAdmin) {
-          td.ondblclick = () => this.startEdit(r, c);
-        }
+        if (isAdmin) td.ondblclick = () => this.startEdit(r, c);
         tr.appendChild(td);
       }
       tb.appendChild(tr);
@@ -1169,46 +1232,40 @@ class Grid {
     const table = document.getElementById(this.tableId);
     const q = trLower(this.textFilter);
     const df = this.dateFilter;
+    const hasYearMonth = (df.year !== null) || (df.month !== null);
+    const hasRange = df.start || df.end;
+    const hasFilter = q || hasYearMonth || hasRange;
+
     table.querySelectorAll('tbody tr').forEach(tr => {
       const r = parseInt(tr.dataset.r);
       const aciklama = this.data[r][1] || '';
-      const tarih = this.data[r][0] || '';
-      const isEmpty = aciklama.trim() === '' && tarih.trim() === '';
+      const tarih = String(this.data[r][0] || '').replace(/\D/g, '');
+      const isEmpty = aciklama.trim() === '' && tarih === '';
 
-      // Tarih filtresi
+      if (hasFilter && isEmpty) { tr.style.display = 'none'; return; }
+
+      let textOK = true;
+      if (q) textOK = trLower(aciklama).indexOf(q) !== -1;
+
       let dateOK = true;
-      if (df) {
-        if (df.date) {
-          // Belirli bir tarih aranıyor → tam eşleşme
-          const td = String(tarih).replace(/\D/g, '');
-          if (td !== df.date) dateOK = false;
-        } else if (df.year !== null || df.month !== null) {
-          const td = String(tarih).replace(/\D/g, '');
-          if (td.length !== 8) {
-            // tarihi olmayan satırları gizle (filtre varsa)
-            dateOK = false;
-          } else {
-            const y = parseInt(td.slice(4, 8), 10);
-            const m = parseInt(td.slice(2, 4), 10) - 1;
-            if (df.year !== null && y !== df.year) dateOK = false;
-            if (df.month !== null && m !== df.month) dateOK = false;
-          }
+      if (hasRange) {
+        if (tarih.length !== 8) dateOK = false;
+        else {
+          const tcmp = tarih.slice(4,8) + tarih.slice(2,4) + tarih.slice(0,2);
+          if (df.start && tcmp < df.start) dateOK = false;
+          if (df.end && tcmp > df.end) dateOK = false;
+        }
+      } else if (hasYearMonth) {
+        if (tarih.length !== 8) dateOK = false;
+        else {
+          const y = parseInt(tarih.slice(4,8), 10);
+          const m = parseInt(tarih.slice(2,4), 10) - 1;
+          if (df.year !== null && y !== df.year) dateOK = false;
+          if (df.month !== null && m !== df.month) dateOK = false;
         }
       }
 
-      // Metin filtresi
-      let textOK = true;
-      if (q) {
-        if (!isEmpty && trLower(aciklama).indexOf(q) === -1) textOK = false;
-      }
-
-      // Boş satırlar: filtre varsa gizle (hem metin hem tarih)
-      if ((q || df.year !== null || df.month !== null || df.date) && isEmpty) {
-        tr.style.display = 'none';
-        return;
-      }
-
-      tr.style.display = (dateOK && textOK) ? '' : 'none';
+      tr.style.display = (textOK && dateOK) ? '' : 'none';
     });
   }
   displayValue(r, c) {
@@ -1250,9 +1307,15 @@ class Grid {
       td.classList.remove('editing');
       this.data[r][c] = td.textContent.trim();
       td.textContent = this.displayValue(r, c);
+
+      // Tarih sütununa yazıldıysa ve yeni tarih geçerliyse sıralama yap
+      if (c === 0) {
+        this.sortByDateAround(r);
+      }
+
       this.scheduleSave();
+      this.render();
       this.updateTotals();
-      this.applyFilters();
       if (this.id === 'gider') updateSearchTotal('gider');
       if (this.id === 'gelir') updateSearchTotal('gelir');
       td.onblur = null;
@@ -1263,6 +1326,44 @@ class Grid {
       if (e.key === 'Tab')   { e.preventDefault(); finish(); this.moveSelection(0, 1); }
       if (e.key === 'Escape'){ td.textContent = this.displayValue(r, c); finish(); }
     };
+  }
+  // Tarihe göre sadece o satırı doğru yere koy (aynı yıl+ay içinde)
+  sortByDateAround(changedRow) {
+    const row = this.data[changedRow];
+    const newDate = toComparable(row[0]);
+    if (!newDate) return; // geçersiz tarihse dokunma
+
+    // Yeni ay/yıl
+    const newYear = newDate.slice(0, 4);
+    const newMonth = newDate.slice(4, 6);
+
+    // Sadece aynı yıl+ay içindeki satırlarla karşılaştır
+    // Önce satırı geçici olarak çıkar
+    this.data.splice(changedRow, 1);
+
+    // Doğru yeri bul
+    let insertAt = this.data.length; // varsayılan en sona
+    for (let i = 0; i < this.data.length; i++) {
+      const cmp = toComparable(this.data[i][0]);
+      if (!cmp) continue;
+      const cmpYear = cmp.slice(0, 4);
+      const cmpMonth = cmp.slice(4, 6);
+      // Sadece aynı yıl+ay'daki satırların arasına gir
+      if (cmpYear === newYear && cmpMonth === newMonth) {
+        if (cmp > newDate) {
+          insertAt = i;
+          break;
+        }
+        // Aynı tarih varsa altına gir → sonrakiyle karşılaştır
+        // (bu yüzden sadece büyükse üste gir)
+      }
+      // Eğer aynı yıl+ay dışındaysa ve o satır daha büyükse → onun üstüne girme
+      // (yıl/ay farklı olsa da sıralamayı bozmamak için)
+    }
+
+    // Yeni satırı doğru yere koy
+    this.data.splice(insertAt, 0, row);
+    this.rows = this.data.length;
   }
   moveSelection(dr, dc) {
     if (!isAdmin) return;
@@ -1398,8 +1499,6 @@ function updateSummary() {
   document.getElementById('sum-gider').textContent = formatMoney(g);
   const bakiye = ge - g;
   document.getElementById('sum-bakiye').textContent = formatMoney(bakiye);
-
-  // Bakiye kutusunun rengini dinamik ayarla
   const box = document.getElementById('bakiyeBox');
   box.classList.remove('positive', 'negative');
   if (bakiye > 0) box.classList.add('positive');
@@ -1452,12 +1551,19 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') { closeSettings(); closeDatePanel(); }
 });
 
-/* ================= ŞİFRE GİRİŞİNE SADECE RAKAM ================= */
 document.getElementById('loginPass').addEventListener('input', function() {
   this.value = this.value.replace(/\D/g, '');
 });
 
-/* ================= BAŞLAT ================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const ds = document.getElementById('dateStart');
+  const de = document.getElementById('dateEnd');
+  if (ds) autoSlashDates(ds);
+  if (de) autoSlashDates(de);
+  if (ds) ds.addEventListener('keydown', e => { if (e.key === 'Enter') doDateSearch(); });
+  if (de) de.addEventListener('keydown', e => { if (e.key === 'Enter') doDateSearch(); });
+});
+
 checkSession();
 </script>
 </body>
