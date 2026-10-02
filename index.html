@@ -385,7 +385,7 @@
 <body>
 
   <!-- ================= 1) GİRİŞ EKRANI ================= -->
-  <div id="loginScreen">
+  <div id="loginScreen" style="display:none;">
     <form id="loginBox" onsubmit="return doLogin(event)">
       <h1>RAMİZ KÖFTE</h1>
       <div class="subtitle">GELİR & GİDER SİSTEMİ</div>
@@ -556,7 +556,7 @@
 
 <script>
 /* =========================================================
-   FIREBASE BAŞLAT (sadece Firestore)
+   FIREBASE BAŞLAT
    ========================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyDkck9qvOnrZoi7qlvDfaC2AuKJ8q-txoE",
@@ -570,66 +570,44 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Tüm veriler bu tek dokümanda tutulur — 3 kişi de aynı veriyi görür
 const DATA_DOC = db.collection('ortak').doc('veriler');
 
 /* =========================================================
    SABİTLER
    ========================================================= */
 const USERS_KEY = 'ramizKofteYoneticiler';
+const SESSION_KEY = 'ramizKofteAktifKullanici';
 const DEFAULT_ADMIN = { user: 'admin', pass: '1234' };
 const CURRENCY = '₺';
 const DEFAULT_ROWS = 30;
 
 /* =========================================================
-   YARDIMCI: TARİH FORMAT (02102026 → 02/10/2026)
+   YARDIMCI: TARİH FORMAT
    ========================================================= */
 function formatTarih(str) {
   if (!str) return '';
-  // Sadece rakamları al
   const digits = String(str).replace(/\D/g, '');
-
-  // 8 hane → GGAAYYYY
   if (digits.length === 8) {
-    const g = digits.slice(0, 2);
-    const a = digits.slice(2, 4);
-    const y = digits.slice(4, 8);
-    return g + '/' + a + '/' + y;
+    return digits.slice(0,2) + '/' + digits.slice(2,4) + '/' + digits.slice(4,8);
   }
-  // 6 hane → GGAAYY
   if (digits.length === 6) {
-    const g = digits.slice(0, 2);
-    const a = digits.slice(2, 4);
-    const y = '20' + digits.slice(4, 6);
-    return g + '/' + a + '/' + y;
+    return digits.slice(0,2) + '/' + digits.slice(2,4) + '/20' + digits.slice(4,6);
   }
-  // 4 hane → GGAA
   if (digits.length === 4) {
-    const g = digits.slice(0, 2);
-    const a = digits.slice(2, 4);
-    return g + '/' + a;
+    return digits.slice(0,2) + '/' + digits.slice(2,4);
   }
-  // Başka bir şeyse olduğu gibi bırak
   return str;
 }
 
 /* =========================================================
-   YARDIMCI: PARA FORMAT (150,5 → 150,50 ₺)
+   YARDIMCI: PARA FORMAT
    ========================================================= */
 function formatPara(str) {
   if (!str) return '';
-  let s = String(str).trim();
-
-  // ₺ varsa temizle
-  s = s.replace(/₺/g, '').trim();
-
-  // Boşsa boş dön
+  let s = String(str).replace(/₺/g, '').trim();
   if (!s) return '';
-
-  // Türkçe format desteği
   let numStr = s;
   if (numStr.includes(',') && numStr.includes('.')) {
-    // Son hangisi ise ondalık ayraç
     if (numStr.lastIndexOf(',') > numStr.lastIndexOf('.')) {
       numStr = numStr.replace(/\./g, '').replace(',', '.');
     } else {
@@ -638,10 +616,8 @@ function formatPara(str) {
   } else if (numStr.includes(',')) {
     numStr = numStr.replace(',', '.');
   }
-
   const n = parseFloat(numStr);
-  if (isNaN(n)) return str; // sayı değilse olduğu gibi
-
+  if (isNaN(n)) return str;
   return n.toLocaleString('tr-TR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
@@ -649,7 +625,7 @@ function formatPara(str) {
 }
 
 /* =========================================================
-   KULLANICI YÖNETİMİ (localStorage — basit)
+   KULLANICI YÖNETİMİ
    ========================================================= */
 function loadUsers() {
   try {
@@ -700,6 +676,10 @@ function doLogin(e) {
 
   err.style.display = 'none';
   currentUser = found.user;
+
+  // Oturumu kaydet (tarayıcı kapanana kadar sürer)
+  sessionStorage.setItem(SESSION_KEY, currentUser);
+
   document.getElementById('adminUserLabel').textContent = currentUser;
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
@@ -712,7 +692,35 @@ function doLogin(e) {
 function logout() {
   closeSettings();
   currentUser = null;
+  sessionStorage.removeItem(SESSION_KEY);
   showScreen('loginScreen');
+}
+
+/* =========================================================
+   OTURUM KONTROLÜ (sayfa yüklendiğinde)
+   ========================================================= */
+function checkSession() {
+  const saved = sessionStorage.getItem(SESSION_KEY);
+  if (!saved) {
+    // Oturum yok — giriş ekranına
+    showScreen('loginScreen');
+    return;
+  }
+
+  // Kullanıcı hâlâ kayıtlı mı?
+  const found = users.find(x => x.user === saved);
+  if (!found) {
+    // Kullanıcı silinmiş — çıkış
+    sessionStorage.removeItem(SESSION_KEY);
+    showScreen('loginScreen');
+    return;
+  }
+
+  // Oturum geçerli — panele dön
+  currentUser = saved;
+  document.getElementById('adminUserLabel').textContent = currentUser;
+  showScreen('adminScreen');
+  renderUsers();
 }
 
 /* =========================================================
@@ -767,6 +775,7 @@ function changeOwnUsername() {
   me.user = yeniAd;
   currentUser = yeniAd;
   saveUsers(users);
+  sessionStorage.setItem(SESSION_KEY, currentUser);
 
   document.getElementById('adminUserLabel').textContent = currentUser;
   document.getElementById('newUsername').value = '';
@@ -992,11 +1001,7 @@ class Grid {
         td.dataset.r = r;
         td.dataset.c = c;
         td.classList.add(COLUMNS[c].key);
-
-        // Görüntü: formatlı
         td.textContent = this.displayValue(r, c);
-        // Ham veriyi data attribute'da sakla (düzenleme için)
-        td.dataset.raw = this.data[r][c] || '';
 
         td.onmousedown = () => {
           this.setActive();
@@ -1013,13 +1018,12 @@ class Grid {
     this.updateTotals();
   }
 
-  // Hücrede gösterilecek değer (formatlı)
   displayValue(r, c) {
     const raw = this.data[r][c] || '';
     if (!raw) return '';
-    if (c === 0) return formatTarih(raw);  // TARİH
-    if (c === 2) return formatPara(raw);   // FİYAT
-    return raw;                            // AD
+    if (c === 0) return formatTarih(raw);
+    if (c === 2) return formatPara(raw);
+    return raw;
   }
 
   selectCell(r, c) { this.selected = { r, c }; this.updateSelectionUI(); }
@@ -1043,8 +1047,6 @@ class Grid {
     this.updateSelectionUI();
     td.classList.add('editing');
     td.contentEditable = 'true';
-
-    // Düzenleme sırasında HAM veriyi göster
     td.textContent = this.data[r][c] || '';
 
     td.focus();
@@ -1060,14 +1062,9 @@ class Grid {
       this.editing = false;
       td.contentEditable = 'false';
       td.classList.remove('editing');
-
-      // Ham değeri kaydet
       const raw = td.textContent.trim();
       this.data[r][c] = raw;
-
-      // Görüntüyü formatla
       td.textContent = this.displayValue(r, c);
-
       this.scheduleSave();
       this.updateTotals();
       td.onblur = null;
@@ -1143,15 +1140,30 @@ async function loadDataFromFirestore() {
     const doc = await DATA_DOC.get();
     if (doc.exists) {
       const d = doc.data();
+
+      // Satırları obje içinden çıkar
       if (Array.isArray(d.gider) && d.gider.length) {
-        giderGrid.data = d.gider.map(r => { const x = r.slice(0, FIXED_COLS); while (x.length < FIXED_COLS) x.push(''); return x; });
+        giderGrid.data = d.gider.map(item => {
+          const row = (item && item.satir) ? item.satir : item;
+          if (!Array.isArray(row)) return ['', '', ''];
+          const x = row.slice(0, FIXED_COLS);
+          while (x.length < FIXED_COLS) x.push('');
+          return x;
+        });
         giderGrid.rows = giderGrid.data.length;
       } else {
         giderGrid.data = emptyData(DEFAULT_ROWS);
         giderGrid.rows = DEFAULT_ROWS;
       }
+
       if (Array.isArray(d.gelir) && d.gelir.length) {
-        gelirGrid.data = d.gelir.map(r => { const x = r.slice(0, FIXED_COLS); while (x.length < FIXED_COLS) x.push(''); return x; });
+        gelirGrid.data = d.gelir.map(item => {
+          const row = (item && item.satir) ? item.satir : item;
+          if (!Array.isArray(row)) return ['', '', ''];
+          const x = row.slice(0, FIXED_COLS);
+          while (x.length < FIXED_COLS) x.push('');
+          return x;
+        });
         gelirGrid.rows = gelirGrid.data.length;
       } else {
         gelirGrid.data = emptyData(DEFAULT_ROWS);
@@ -1187,9 +1199,13 @@ async function saveDataToFirestore() {
   setSyncStatus('Kaydediliyor...', null);
 
   try {
+    // Nested array hatasını önlemek için satırları objelere sar
+    const giderData = giderGrid.data.map(row => ({ satir: row }));
+    const gelirData = gelirGrid.data.map(row => ({ satir: row }));
+
     await DATA_DOC.set({
-      gider: giderGrid.data,
-      gelir: gelirGrid.data,
+      gider: giderData,
+      gelir: gelirData,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedBy: currentUser || 'bilinmiyor'
     }, { merge: true });
@@ -1241,7 +1257,7 @@ document.addEventListener('keydown', (e) => {
     g.data[g.selected.r][g.selected.c] = '';
     const panel = document.getElementById(g.panelId);
     const td = panel.querySelector(`td[data-r="${g.selected.r}"][data-c="${g.selected.c}"]`);
-    if (td) { td.textContent = ''; td.dataset.raw = ''; }
+    if (td) td.textContent = '';
     g.scheduleSave();
     g.updateTotals();
   }
@@ -1251,6 +1267,11 @@ document.addEventListener('keydown', (e) => {
   }
   if (e.key === 'Escape') closeSettings();
 });
+
+/* =========================================================
+   BAŞLAT
+   ========================================================= */
+checkSession();
 </script>
 </body>
 </html>
