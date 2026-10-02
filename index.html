@@ -37,14 +37,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ================= GİRİŞ EKRANI ================= */
+  /* ================= GİRİŞ ================= */
   #loginScreen {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg);
-    padding: 20px;
+    flex: 1; display: flex;
+    align-items: center; justify-content: center;
+    background: var(--bg); padding: 20px;
   }
   #loginBox {
     width: 380px; max-width: 100%;
@@ -54,50 +51,25 @@
     padding: 40px 36px;
     box-shadow: var(--shadow-lg);
   }
-  #loginBox h1 {
-    margin: 0 0 8px 0;
-    font-size: 16px; font-weight: 600;
-    text-align: center; letter-spacing: 2px;
-  }
-  #loginBox .subtitle {
-    text-align: center; font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 28px; letter-spacing: 0.5px;
-  }
-  #loginBox label {
-    display: block; font-size: 11px; font-weight: 600;
-    margin-bottom: 6px; margin-top: 16px;
-    letter-spacing: 0.8px; color: var(--text-secondary);
-    text-transform: uppercase;
-  }
+  #loginBox h1 { margin: 0 0 8px 0; font-size: 16px; font-weight: 600; text-align: center; letter-spacing: 2px; }
+  #loginBox .subtitle { text-align: center; font-size: 12px; color: var(--text-secondary); margin-bottom: 28px; letter-spacing: 0.5px; }
+  #loginBox label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; margin-top: 16px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
   #loginBox label:first-of-type { margin-top: 0; }
   #loginBox input {
     width: 100%; border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px; font-size: 16px;
-    outline: none; background: var(--surface);
-    color: var(--text);
-    transition: border-color 0.15s, box-shadow 0.15s;
+    border-radius: var(--radius-sm); padding: 12px 14px; font-size: 16px;
+    outline: none; background: var(--surface); color: var(--text);
   }
-  #loginBox input:focus {
-    border-color: var(--dark);
-    box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
-  }
+  #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
   #loginBox button {
-    width: 100%; margin-top: 24px;
-    background: var(--dark); color: #ffffff;
-    border: none; border-radius: var(--radius-sm);
-    padding: 14px; font-size: 14px; font-weight: 600;
-    cursor: pointer; letter-spacing: 1px;
-    transition: background 0.15s;
+    width: 100%; margin-top: 24px; background: var(--dark); color: #ffffff;
+    border: none; border-radius: var(--radius-sm); padding: 14px;
+    font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px;
   }
-  #loginBox button:hover:not(:disabled) { background: var(--dark-hover); }
-  #loginBox button:disabled { opacity: 0.6; cursor: not-allowed; }
+  #loginBox button:hover { background: var(--dark-hover); }
   #loginError {
-    color: #ffffff; background: var(--error);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 13px;
-    margin-top: 16px; display: none; text-align: center;
+    color: #ffffff; background: var(--error); border-radius: var(--radius-sm);
+    padding: 10px 12px; font-size: 13px; margin-top: 16px; display: none; text-align: center;
   }
 
   /* ================= TOPBAR ================= */
@@ -111,31 +83,27 @@
   #topbar .user {
     font-size: 12px; padding: 6px 12px;
     border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm); letter-spacing: 0.5px;
+    border-radius: var(--radius-sm);
   }
   #topbar button {
     background: transparent; color: #ffffff;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm);
     padding: 8px 14px; font-size: 12px; font-weight: 500;
-    cursor: pointer; letter-spacing: 0.5px;
-    transition: all 0.15s;
-    white-space: nowrap;
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
   }
   #topbar button:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   .settingsBtn {
     width: 42px; height: 42px; padding: 0;
     display: flex; align-items: center; justify-content: center;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent; border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm); color: #ffffff;
-    cursor: pointer; transition: all 0.15s;
-    flex-shrink: 0;
+    cursor: pointer; transition: all 0.15s; flex-shrink: 0;
   }
   .settingsBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   .settingsBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
 
-  /* ================= YÖNETİCİ PANELİ ================= */
+  /* ================= YÖNETİCİ ================= */
   #adminScreen { flex: 1; display: none; flex-direction: column; overflow: hidden; }
   #adminScreen.active { display: flex; }
   #adminBody { flex: 1; padding: 20px; overflow: auto; background: var(--bg); -webkit-overflow-scrolling: touch; }
@@ -152,36 +120,23 @@
   }
   .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
   .field { display: flex; flex-direction: column; min-width: 180px; flex: 1; }
-  .field label {
-    font-size: 11px; font-weight: 600; margin-bottom: 6px;
-    letter-spacing: 0.8px; color: var(--text-secondary);
-    text-transform: uppercase;
-  }
+  .field label { font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
   .field input {
     border: 1px solid var(--border); border-radius: var(--radius-sm);
     padding: 12px 14px; font-size: 16px; outline: none;
     background: var(--surface); color: var(--text);
-    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .field input:focus {
-    border-color: var(--dark);
-    box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
-  }
+  .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
   .btn {
     background: var(--dark); color: #ffffff; border: none;
     border-radius: var(--radius-sm); padding: 12px 22px;
     font-size: 13px; font-weight: 600; cursor: pointer;
-    letter-spacing: 0.8px; transition: background 0.15s;
-    white-space: nowrap;
+    letter-spacing: 0.8px; white-space: nowrap;
   }
-  .btn:hover:not(:disabled) { background: var(--dark-hover); }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn:hover { background: var(--dark-hover); }
 
   table.users { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
-  table.users th, table.users td {
-    padding: 10px 12px; text-align: left;
-    border-bottom: 1px solid var(--border);
-  }
+  table.users th, table.users td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
   table.users th {
     font-weight: 600; font-size: 11px; letter-spacing: 1px;
     color: var(--text-secondary); text-transform: uppercase;
@@ -194,23 +149,20 @@
     border: 1px solid var(--border); border-radius: var(--radius-sm);
     padding: 6px 12px; font-size: 11px; font-weight: 600;
     cursor: pointer; margin: 2px;
-    letter-spacing: 0.5px; transition: all 0.15s;
   }
   table.users button:hover { background: var(--dark); color: #ffffff; border-color: var(--dark); }
 
   .msg {
     padding: 10px 16px; border-radius: var(--radius-sm);
     background: var(--dark); color: #ffffff;
-    font-size: 13px; margin-top: 14px;
-    display: none; text-align: center;
+    font-size: 13px; margin-top: 14px; display: none; text-align: center;
   }
   .msg.error { background: var(--error); }
 
-  /* ================= AYARLAR PANELİ ================= */
+  /* ================= AYARLAR ================= */
   #settingsOverlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4);
-    display: none; z-index: 100;
+    background: rgba(0,0,0,0.4); display: none; z-index: 100;
   }
   #settingsOverlay.active { display: block; }
   #settingsPanel {
@@ -232,10 +184,8 @@
   #settingsHeader button {
     background: transparent; color: #ffffff;
     border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm);
-    padding: 8px 14px; font-size: 12px; cursor: pointer;
+    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer;
   }
-  #settingsHeader button:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
   #settingsBody h3 {
     margin: 0 0 16px 0; font-size: 11px; font-weight: 600;
@@ -253,8 +203,8 @@
     display: flex; background: var(--surface);
     border-bottom: 1px solid var(--border);
     padding: 0 16px; gap: 4px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    flex-shrink: 0;
   }
   #tabs button {
     background: transparent; color: var(--text-secondary);
@@ -266,36 +216,11 @@
   #tabs button:hover { color: var(--text); }
   #tabs button.active { color: var(--text); border-bottom-color: var(--dark); }
 
-  /* MOBİL PANEL SEÇİCİ (Giderler / Gelirler) */
-  #mobilePanelSwitch {
-    display: none;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 16px;
-    gap: 8px;
-  }
-  #mobilePanelSwitch button {
-    flex: 1;
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  #mobilePanelSwitch button.active {
-    background: var(--dark);
-    color: #ffffff;
-    border-color: var(--dark);
-  }
-
   #toolbar {
     background: var(--surface); border-bottom: 1px solid var(--border);
     padding: 10px 16px; display: flex; gap: 8px;
     align-items: center; flex-wrap: wrap;
+    flex-shrink: 0;
   }
   #toolbar button {
     background: transparent; color: var(--text);
@@ -305,14 +230,8 @@
   }
   #toolbar button:hover { background: var(--dark); color: #ffffff; border-color: var(--dark); }
   #hint { font-size: 11px; margin-left: 8px; color: var(--text-secondary); font-style: italic; }
-  #activeLabel {
-    margin-left: auto; font-weight: 600; font-size: 11px;
-    padding: 6px 12px; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); color: var(--text-secondary);
-    letter-spacing: 0.8px; text-transform: uppercase;
-  }
   #syncStatus {
-    font-size: 11px;
+    margin-left: auto; font-size: 11px;
     color: var(--text-secondary);
     padding: 4px 10px;
     border: 1px solid var(--border);
@@ -324,8 +243,9 @@
   .page { flex: 1; display: none; overflow: hidden; }
   .page.active { display: flex; flex-direction: column; }
 
+  /* TEK PANEL — tam genişlik */
   #panels {
-    flex: 1; display: flex; gap: 12px;
+    flex: 1; display: flex; gap: 0;
     padding: 12px 16px; overflow: hidden; background: var(--bg);
   }
   .panel {
@@ -333,14 +253,6 @@
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); overflow: hidden;
     box-shadow: var(--shadow);
-    min-width: 0;
-  }
-  .panelHeader {
-    padding: 12px 16px; font-weight: 600;
-    font-size: 12px; letter-spacing: 1.5px;
-    background: var(--dark); color: #ffffff;
-    text-transform: uppercase;
-    flex-shrink: 0;
   }
   .panelBody { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; }
 
@@ -363,8 +275,8 @@
     user-select: none; border-bottom: 2px solid var(--border);
     text-transform: uppercase;
   }
-  .col-tarih { width: 28%; }
-  .col-ad    { width: 42%; }
+  .col-tarih { width: 25%; }
+  .col-ad    { width: 45%; }
   .col-fiyat { width: 30%; }
   table.grid td.selected {
     outline: 2px solid var(--dark);
@@ -377,14 +289,14 @@
   table.grid td.fiyat { text-align: right; }
 
   .totalBar {
-    padding: 12px 16px; font-weight: 600; font-size: 13px;
+    padding: 14px 18px; font-weight: 600; font-size: 15px;
     display: flex; justify-content: space-between;
     border-top: 2px solid var(--border); background: var(--bg);
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
+    letter-spacing: 0.5px; flex-shrink: 0;
   }
 
-  #summaryPage {
+  /* ================= DENGE SAYFASI ================= */
+  #balancePage {
     flex: 1; padding: 20px; display: flex;
     flex-direction: column; gap: 16px;
     background: var(--bg); overflow: auto;
@@ -392,7 +304,7 @@
   }
   .bigBox {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 24px;
+    border-radius: var(--radius); padding: 24px 28px;
     display: flex; justify-content: space-between;
     align-items: center; flex-wrap: wrap; gap: 16px;
     box-shadow: var(--shadow);
@@ -412,8 +324,6 @@
 
   /* ================= MOBİL ================= */
   @media (max-width: 768px) {
-    body { font-size: 13px; }
-
     #topbar { padding: 10px 12px; gap: 8px; min-height: 56px; }
     #topbar .title { font-size: 12px; letter-spacing: 1px; }
     #topbar .user { font-size: 11px; padding: 5px 10px; }
@@ -423,54 +333,44 @@
 
     #adminBody { padding: 14px; }
     .card { padding: 16px; margin-bottom: 14px; }
-    .card h2 { font-size: 12px; margin-bottom: 14px; padding-bottom: 10px; }
     .field { min-width: 100%; }
-    .field input { padding: 12px 14px; font-size: 16px; } /* iOS zoom engelleme */
-    .btn { padding: 12px 20px; width: 100%; }
+    .btn { width: 100%; }
 
     table.users th, table.users td { padding: 10px 8px; font-size: 12px; }
     table.users button { padding: 6px 10px; font-size: 10px; }
 
-    /* Panel seçici görünür */
-    #mobilePanelSwitch { display: flex; }
-
-    /* İki panel yan yana sığmaz — tek panel göster */
-    #panels { padding: 10px 12px; gap: 0; }
-    .panel { display: none; }
-    .panel.mobile-active { display: flex; }
+    #tabs { padding: 0 8px; }
+    #tabs button { padding: 12px 14px; font-size: 12px; }
 
     #toolbar { padding: 8px 12px; gap: 6px; }
     #toolbar button { padding: 8px 12px; font-size: 11px; }
     #hint { display: none; }
-    #activeLabel { display: none; }
 
-    table.grid th, table.grid td { height: 40px; padding: 6px 8px; font-size: 13px; }
-    .col-tarih { width: 25%; }
-    .col-ad    { width: 45%; }
+    #panels { padding: 10px; }
+    table.grid th, table.grid td { height: 42px; padding: 6px 8px; font-size: 13px; }
+    .col-tarih { width: 26%; }
+    .col-ad    { width: 44%; }
     .col-fiyat { width: 30%; }
 
-    .totalBar { padding: 12px 14px; font-size: 13px; }
+    .totalBar { padding: 12px 14px; font-size: 14px; }
 
-    #summaryPage { padding: 14px; gap: 12px; }
-    .bigBox { padding: 18px; }
+    #balancePage { padding: 14px; gap: 12px; }
+    .bigBox { padding: 18px 20px; }
     .bigBox .label { font-size: 13px; }
-    .bigBox .value { font-size: 24px; }
-    .bigBox.main .value { font-size: 30px; }
+    .bigBox .value { font-size: 26px; }
+    .bigBox.main .value { font-size: 32px; }
 
     #settingsPanel { width: 100vw; max-width: 100vw; }
   }
-
-  /* Çok küçük ekran */
   @media (max-width: 400px) {
-    .bigBox .value { font-size: 20px; }
-    .bigBox.main .value { font-size: 26px; }
-    #topbar .title { font-size: 11px; }
+    .bigBox .value { font-size: 22px; }
+    .bigBox.main .value { font-size: 28px; }
   }
 </style>
 </head>
 <body>
 
-  <!-- ================= 1) GİRİŞ EKRANI ================= -->
+  <!-- ================= 1) GİRİŞ ================= -->
   <div id="loginScreen" style="display:none;">
     <form id="loginBox" onsubmit="return doLogin(event)">
       <h1>RAMİZ KÖFTE</h1>
@@ -482,12 +382,12 @@
       <label for="loginPass">ŞİFRE</label>
       <input id="loginPass" type="password" autocomplete="current-password" required />
 
-      <button id="loginBtn" type="submit">GİRİŞ YAP</button>
+      <button type="submit">GİRİŞ YAP</button>
       <div id="loginError"></div>
     </form>
   </div>
 
-  <!-- ================= 2) YÖNETİCİ PANELİ ================= -->
+  <!-- ================= 2) YÖNETİCİ ================= -->
   <div id="adminScreen">
     <div id="topbar">
       <button onclick="goToApp()">← Tablo</button>
@@ -510,7 +410,7 @@
             <label>İlk Şifre</label>
             <input id="newPass" type="text" placeholder="en az 4 karakter" />
           </div>
-          <button class="btn" id="addUserBtn" onclick="addUser()">EKLE</button>
+          <button class="btn" onclick="addUser()">EKLE</button>
         </div>
         <div class="msg" id="adminMsg"></div>
       </div>
@@ -535,56 +435,61 @@
     <div id="topbar">
       <button onclick="backToAdmin()">← Panel</button>
       <span class="title">GELİR & GİDER</span>
-      <div id="balance" class="user">0,00 ₺</div>
+      <div id="balance" class="user">Bakiye: 0,00 ₺</div>
       <button class="settingsBtn" title="Ayarlar" onclick="openSettings()">
         <svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm7.43-2.53a7.6 7.6 0 0 0 0-1.94l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.29 7.29 0 0 0-1.68-.97l-.38-2.65a.5.5 0 0 0-.49-.42h-4a.5.5 0 0 0-.49.42l-.38 2.65a7.29 7.29 0 0 0-1.68.97l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65a7.6 7.6 0 0 0 0 1.94l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1a7.29 7.29 0 0 0 1.68.97l.38 2.65a.5.5 0 0 0 .49.42h4a.5.5 0 0 0 .49-.42l.38-2.65a7.29 7.29 0 0 0 1.68-.97l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64Z"/></svg>
       </button>
     </div>
 
     <div id="tabs">
-      <button id="tabBtn-table" class="active" onclick="showPage('table')">Tablo</button>
-      <button id="tabBtn-summary" onclick="showPage('summary')">Özet</button>
+      <button id="tabBtn-gider" class="active" onclick="showPage('gider')">GİDERLER</button>
+      <button id="tabBtn-gelir" onclick="showPage('gelir')">GELİRLER</button>
+      <button id="tabBtn-denge" onclick="showPage('denge')">GİDER/GELİR DENGESİ</button>
     </div>
 
-    <div class="page active" id="page-table">
-      <!-- MOBİL PANEL SEÇİCİ -->
-      <div id="mobilePanelSwitch">
-        <button id="mobGiderBtn" class="active" onclick="setMobilePanel('gider')">GİDERLER</button>
-        <button id="mobGelirBtn" onclick="setMobilePanel('gelir')">GELİRLER</button>
-      </div>
-
+    <!-- ============ GİDERLER SAYFASI ============ -->
+    <div class="page active" id="page-gider">
       <div id="toolbar">
-        <button onclick="activeGrid.addRow()">+ Satır</button>
-        <button onclick="activeGrid.deleteRow()">− Satır</button>
-        <button onclick="activeGrid.clearAll()">Temizle</button>
+        <button onclick="giderGrid.addRow()">+ Satır</button>
+        <button onclick="giderGrid.deleteRow()">− Satır</button>
+        <button onclick="giderGrid.clearAll()">Temizle</button>
         <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
         <span id="syncStatus">Kaydedildi</span>
-        <span id="activeLabel">Aktif: Giderler</span>
       </div>
-
       <div id="panels">
-        <div class="panel mobile-active" id="panel-gider">
-          <div class="panelHeader">GİDERLER</div>
+        <div class="panel">
           <div class="panelBody"><table class="grid" id="grid-gider"></table></div>
           <div class="totalBar">
-            <span>TOPLAM</span>
+            <span>TOPLAM GİDER</span>
             <span id="total-gider">0,00 ₺</span>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="panel" id="panel-gelir">
-          <div class="panelHeader">GELİRLER</div>
+    <!-- ============ GELİRLER SAYFASI ============ -->
+    <div class="page" id="page-gelir">
+      <div id="toolbar">
+        <button onclick="gelirGrid.addRow()">+ Satır</button>
+        <button onclick="gelirGrid.deleteRow()">− Satır</button>
+        <button onclick="gelirGrid.clearAll()">Temizle</button>
+        <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
+        <span id="syncStatus">Kaydedildi</span>
+      </div>
+      <div id="panels">
+        <div class="panel">
           <div class="panelBody"><table class="grid" id="grid-gelir"></table></div>
           <div class="totalBar">
-            <span>TOPLAM</span>
+            <span>TOPLAM GELİR</span>
             <span id="total-gelir">0,00 ₺</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="page" id="page-summary">
-      <div id="summaryPage">
+    <!-- ============ DENGE SAYFASI ============ -->
+    <div class="page" id="page-denge">
+      <div id="balancePage">
         <div class="bigBox">
           <span class="label">TOPLAM GELİR</span>
           <span class="value" id="sum-gelir">0,00 ₺</span>
@@ -601,7 +506,7 @@
     </div>
   </div>
 
-  <!-- ================= AYARLAR PANELİ ================= -->
+  <!-- ================= AYARLAR ================= -->
   <div id="settingsOverlay" onclick="closeSettings()"></div>
   <div id="settingsPanel">
     <div id="settingsHeader">
@@ -642,14 +547,12 @@
     </div>
   </div>
 
-  <!-- ================= FIREBASE SDK ================= -->
+  <!-- ================= FIREBASE ================= -->
   <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
 
 <script>
-/* =========================================================
-   FIREBASE
-   ========================================================= */
+/* ================= FIREBASE ================= */
 const firebaseConfig = {
   apiKey: "AIzaSyDkck9qvOnrZoi7qlvDfaC2AuKJ8q-txoE",
   authDomain: "ramiz-kofte-gelir-gider.firebaseapp.com",
@@ -658,78 +561,65 @@ const firebaseConfig = {
   messagingSenderId: "594088583938",
   appId: "1:594088583938:web:35e27affe7fde5c1cc181b"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const DATA_DOC = db.collection('ortak').doc('veriler');
 
-/* =========================================================
-   SABİTLER
-   ========================================================= */
+/* ================= SABİTLER ================= */
 const USERS_KEY = 'ramizKofteYoneticiler';
 const SESSION_KEY = 'ramizKofteAktifKullanici';
 const DEFAULT_ADMIN = { user: 'admin', pass: '1234' };
 const CURRENCY = '₺';
 const DEFAULT_ROWS = 30;
 
-/* =========================================================
-   FORMAT
-   ========================================================= */
+/* ================= FORMAT ================= */
 function formatTarih(str) {
   if (!str) return '';
-  const digits = String(str).replace(/\D/g, '');
-  if (digits.length === 8) return digits.slice(0,2) + '/' + digits.slice(2,4) + '/' + digits.slice(4,8);
-  if (digits.length === 6) return digits.slice(0,2) + '/' + digits.slice(2,4) + '/20' + digits.slice(4,6);
-  if (digits.length === 4) return digits.slice(0,2) + '/' + digits.slice(2,4);
+  const d = String(str).replace(/\D/g, '');
+  if (d.length === 8) return d.slice(0,2)+'/'+d.slice(2,4)+'/'+d.slice(4,8);
+  if (d.length === 6) return d.slice(0,2)+'/'+d.slice(2,4)+'/20'+d.slice(4,6);
+  if (d.length === 4) return d.slice(0,2)+'/'+d.slice(2,4);
   return str;
 }
 function formatPara(str) {
   if (!str) return '';
   let s = String(str).replace(/₺/g, '').trim();
   if (!s) return '';
-  let numStr = s;
-  if (numStr.includes(',') && numStr.includes('.')) {
-    if (numStr.lastIndexOf(',') > numStr.lastIndexOf('.')) {
-      numStr = numStr.replace(/\./g, '').replace(',', '.');
-    } else {
-      numStr = numStr.replace(/,/g, '');
-    }
-  } else if (numStr.includes(',')) {
-    numStr = numStr.replace(',', '.');
-  }
-  const n = parseFloat(numStr);
+  let n2 = s;
+  if (n2.includes(',') && n2.includes('.')) {
+    if (n2.lastIndexOf(',') > n2.lastIndexOf('.')) n2 = n2.replace(/\./g,'').replace(',','.');
+    else n2 = n2.replace(/,/g,'');
+  } else if (n2.includes(',')) n2 = n2.replace(',','.');
+  const n = parseFloat(n2);
   if (isNaN(n)) return str;
-  return n.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + CURRENCY;
+  return n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+CURRENCY;
 }
 function parseNum(v) {
   if (v === null || v === undefined) return 0;
-  let s = String(v).replace(/[^\d.,-]/g, '').trim();
+  let s = String(v).replace(/[^\d.,-]/g,'').trim();
   if (!s) return 0;
   if (s.includes(',') && s.includes('.')) {
-    if (s.lastIndexOf(',') > s.lastIndexOf('.')) s = s.replace(/\./g, '').replace(',', '.');
-    else s = s.replace(/,/g, '');
-  } else if (s.includes(',')) s = s.replace(',', '.');
+    if (s.lastIndexOf(',') > s.lastIndexOf('.')) s = s.replace(/\./g,'').replace(',','.');
+    else s = s.replace(/,/g,'');
+  } else if (s.includes(',')) s = s.replace(',','.');
   const n = parseFloat(s);
   return isNaN(n) ? 0 : n;
 }
 function formatMoney(n) {
-  return n.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' ' + CURRENCY;
+  return n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+CURRENCY;
 }
 
-/* =========================================================
-   KULLANICI
-   ========================================================= */
+/* ================= KULLANICI ================= */
 function loadUsers() {
   try {
     const raw = localStorage.getItem(USERS_KEY);
     if (raw) return JSON.parse(raw);
   } catch(e) {}
-  const initial = [DEFAULT_ADMIN];
-  localStorage.setItem(USERS_KEY, JSON.stringify(initial));
-  return initial;
+  const init = [DEFAULT_ADMIN];
+  localStorage.setItem(USERS_KEY, JSON.stringify(init));
+  return init;
 }
-function saveUsers(arr) { localStorage.setItem(USERS_KEY, JSON.stringify(arr)); }
-
+function saveUsers(a) { localStorage.setItem(USERS_KEY, JSON.stringify(a)); }
 let users = loadUsers();
 let currentUser = null;
 
@@ -737,12 +627,8 @@ function showScreen(id) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminScreen').classList.remove('active');
   document.getElementById('appScreen').classList.remove('active');
-
-  if (id === 'loginScreen') {
-    document.getElementById('loginScreen').style.display = 'flex';
-  } else {
-    document.getElementById(id).classList.add('active');
-  }
+  if (id === 'loginScreen') document.getElementById('loginScreen').style.display = 'flex';
+  else document.getElementById(id).classList.add('active');
 }
 
 function doLogin(e) {
@@ -750,235 +636,152 @@ function doLogin(e) {
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
   const err = document.getElementById('loginError');
-
   const found = users.find(x => x.user === u && x.pass === p);
-  if (!found) {
-    err.textContent = 'Kullanıcı adı veya şifre hatalı.';
-    err.style.display = 'block';
-    return false;
-  }
-
+  if (!found) { err.textContent = 'Kullanıcı adı veya şifre hatalı.'; err.style.display = 'block'; return false; }
   err.style.display = 'none';
   currentUser = found.user;
   sessionStorage.setItem(SESSION_KEY, currentUser);
-
   document.getElementById('adminUserLabel').textContent = currentUser;
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
-
   showScreen('adminScreen');
   renderUsers();
   return false;
 }
-
 function logout() {
   closeSettings();
   currentUser = null;
   sessionStorage.removeItem(SESSION_KEY);
   showScreen('loginScreen');
 }
-
 function checkSession() {
-  const saved = sessionStorage.getItem(SESSION_KEY);
-  if (!saved) { showScreen('loginScreen'); return; }
-  const found = users.find(x => x.user === saved);
-  if (!found) {
-    sessionStorage.removeItem(SESSION_KEY);
-    showScreen('loginScreen');
-    return;
-  }
-  currentUser = saved;
+  const s = sessionStorage.getItem(SESSION_KEY);
+  if (!s) { showScreen('loginScreen'); return; }
+  const f = users.find(x => x.user === s);
+  if (!f) { sessionStorage.removeItem(SESSION_KEY); showScreen('loginScreen'); return; }
+  currentUser = s;
   document.getElementById('adminUserLabel').textContent = currentUser;
   showScreen('adminScreen');
   renderUsers();
 }
 
-/* =========================================================
-   YÖNETİCİ İŞLEMLERİ
-   ========================================================= */
+/* ================= YÖNETİCİ ================= */
 function addUser() {
   const u = document.getElementById('newUser').value.trim();
   const p = document.getElementById('newPass').value.trim();
   const msg = document.getElementById('adminMsg');
-  const showMsg = (t, isErr) => {
-    msg.textContent = t;
-    msg.classList.toggle('error', !!isErr);
-    msg.style.display = 'block';
-  };
-
-  if (!u || !p) return showMsg('Kullanıcı adı ve şifre boş olamaz.', true);
-  if (p.length < 4) return showMsg('Şifre en az 4 karakter olmalı.', true);
-  if (users.some(x => x.user === u)) return showMsg('Bu kullanıcı adı zaten var.', true);
-
-  users.push({ user: u, pass: p });
+  const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
+  if (!u || !p) return show('Boş olamaz.', true);
+  if (p.length < 4) return show('En az 4 karakter.', true);
+  if (users.some(x => x.user === u)) return show('Zaten var.', true);
+  users.push({user:u, pass:p});
   saveUsers(users);
-  document.getElementById('newUser').value = '';
-  document.getElementById('newPass').value = '';
-  showMsg('Yönetici eklendi: ' + u, false);
+  document.getElementById('newUser').value='';
+  document.getElementById('newPass').value='';
+  show('Eklendi: '+u, false);
   renderUsers();
 }
-
 function changeOwnUsername() {
-  const yeniAd = document.getElementById('newUsername').value.trim();
-  const sifre = document.getElementById('usernamePass').value;
+  const y = document.getElementById('newUsername').value.trim();
+  const s = document.getElementById('usernamePass').value;
   const msg = document.getElementById('userMsg');
-  const showMsg = (t, err) => { msg.textContent = t; msg.classList.toggle('error', !!err); msg.style.display = 'block'; };
-
+  const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
   if (!currentUser) return;
   const me = users.find(x => x.user === currentUser);
   if (!me) return;
-
-  if (me.pass !== sifre) return showMsg('Şifre yanlış.', true);
-  if (!yeniAd || yeniAd.length < 3) return showMsg('En az 3 karakter.', true);
-  if (yeniAd === currentUser) return showMsg('Bu zaten mevcut.', true);
-  if (users.some(x => x.user === yeniAd)) return showMsg('Kullanılıyor.', true);
-
-  me.user = yeniAd;
-  currentUser = yeniAd;
+  if (me.pass !== s) return show('Şifre yanlış.', true);
+  if (!y || y.length < 3) return show('En az 3 karakter.', true);
+  if (y === currentUser) return show('Bu zaten mevcut.', true);
+  if (users.some(x => x.user === y)) return show('Kullanılıyor.', true);
+  me.user = y; currentUser = y;
   saveUsers(users);
   sessionStorage.setItem(SESSION_KEY, currentUser);
   document.getElementById('adminUserLabel').textContent = currentUser;
-  document.getElementById('newUsername').value = '';
-  document.getElementById('usernamePass').value = '';
-  showMsg('Güncellendi: ' + yeniAd, false);
+  document.getElementById('newUsername').value='';
+  document.getElementById('usernamePass').value='';
+  show('Güncellendi: '+y, false);
   renderUsers();
 }
-
 function changeOwnPassword() {
-  const oldP = document.getElementById('oldPass').value;
-  const np1 = document.getElementById('newPassOwn').value;
-  const np2 = document.getElementById('newPassOwn2').value;
+  const o = document.getElementById('oldPass').value;
+  const n1 = document.getElementById('newPassOwn').value;
+  const n2 = document.getElementById('newPassOwn2').value;
   const msg = document.getElementById('passMsg');
-  const showMsg = (t, err) => { msg.textContent = t; msg.classList.toggle('error', !!err); msg.style.display = 'block'; };
-
+  const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
   if (!currentUser) return;
   const me = users.find(x => x.user === currentUser);
   if (!me) return;
-
-  if (me.pass !== oldP) return showMsg('Eski şifre yanlış.', true);
-  if (!np1 || np1.length < 4) return showMsg('En az 4 karakter.', true);
-  if (np1 !== np2) return showMsg('Şifreler uyuşmuyor.', true);
-
-  me.pass = np1;
-  saveUsers(users);
-  document.getElementById('oldPass').value = '';
-  document.getElementById('newPassOwn').value = '';
-  document.getElementById('newPassOwn2').value = '';
-  showMsg('Şifre güncellendi.', false);
+  if (me.pass !== o) return show('Eski şifre yanlış.', true);
+  if (!n1 || n1.length < 4) return show('En az 4 karakter.', true);
+  if (n1 !== n2) return show('Uyuşmuyor.', true);
+  me.pass = n1; saveUsers(users);
+  document.getElementById('oldPass').value='';
+  document.getElementById('newPassOwn').value='';
+  document.getElementById('newPassOwn2').value='';
+  show('Şifre güncellendi.', false);
 }
-
 function removeUser(name) {
   const msg = document.getElementById('adminMsg');
-  if (name === currentUser) {
-    msg.textContent = 'Kendi hesabını silemezsin.';
-    msg.classList.add('error'); msg.style.display = 'block';
-    return;
-  }
-  if (users.length <= 1) {
-    msg.textContent = 'En az bir yönetici kalmalı.';
-    msg.classList.add('error'); msg.style.display = 'block';
-    return;
-  }
-  if (!confirm(name + ' silinsin mi?')) return;
+  if (name === currentUser) { msg.textContent='Kendini silemezsin.'; msg.classList.add('error'); msg.style.display='block'; return; }
+  if (users.length <= 1) { msg.textContent='En az 1 kalmalı.'; msg.classList.add('error'); msg.style.display='block'; return; }
+  if (!confirm(name+' silinsin mi?')) return;
   users = users.filter(x => x.user !== name);
   saveUsers(users);
-  msg.textContent = 'Silindi: ' + name;
-  msg.classList.remove('error'); msg.style.display = 'block';
+  msg.textContent='Silindi: '+name; msg.classList.remove('error'); msg.style.display='block';
   renderUsers();
 }
-
 function renderUsers() {
-  const tbody = document.querySelector('#userTable tbody');
-  tbody.innerHTML = '';
+  const tb = document.querySelector('#userTable tbody');
+  tb.innerHTML = '';
   users.forEach(u => {
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
     td1.textContent = u.user + (u.user === currentUser ? ' (siz)' : '');
     const td2 = document.createElement('td');
     td2.className = 'right';
-
-    const btnSifre = document.createElement('button');
-    btnSifre.textContent = 'ŞİFRE';
-    btnSifre.onclick = () => adminChangePassword(u.user);
-
-    const btnSil = document.createElement('button');
-    btnSil.textContent = 'SİL';
-    btnSil.onclick = () => removeUser(u.user);
-
-    td2.appendChild(btnSifre);
-    td2.appendChild(btnSil);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbody.appendChild(tr);
+    const b1 = document.createElement('button'); b1.textContent='ŞİFRE'; b1.onclick=()=>adminChangePassword(u.user);
+    const b2 = document.createElement('button'); b2.textContent='SİL'; b2.onclick=()=>removeUser(u.user);
+    td2.appendChild(b1); td2.appendChild(b2);
+    tr.appendChild(td1); tr.appendChild(td2);
+    tb.appendChild(tr);
   });
 }
-
 function adminChangePassword(name) {
   const msg = document.getElementById('adminMsg');
-  const yeni = prompt(name + ' için yeni şifre (en az 4 karakter):');
-  if (yeni === null) return;
-  const trimmed = yeni.trim();
-  if (!trimmed || trimmed.length < 4) {
-    msg.textContent = 'En az 4 karakter.'; msg.classList.add('error'); msg.style.display = 'block';
-    return;
-  }
+  const y = prompt(name+' için yeni şifre (en az 4):');
+  if (y === null) return;
+  const t = y.trim();
+  if (!t || t.length < 4) { msg.textContent='En az 4 karakter.'; msg.classList.add('error'); msg.style.display='block'; return; }
   const k = users.find(x => x.user === name);
   if (!k) return;
-  k.pass = trimmed;
-  saveUsers(users);
-  msg.textContent = name + ' şifresi güncellendi.';
-  msg.classList.remove('error'); msg.style.display = 'block';
+  k.pass = t; saveUsers(users);
+  msg.textContent = name+' şifresi güncellendi.'; msg.classList.remove('error'); msg.style.display='block';
   renderUsers();
 }
 
-/* =========================================================
-   EKRAN GEÇİŞ
-   ========================================================= */
+/* ================= EKRAN GEÇİŞ ================= */
 function goToApp() { showScreen('appScreen'); loadDataFromFirestore(); }
 function backToAdmin() { showScreen('adminScreen'); renderUsers(); }
-
 function openSettings() {
   document.getElementById('settingsOverlay').classList.add('active');
   document.getElementById('settingsPanel').classList.add('active');
-  document.getElementById('passMsg').style.display = 'none';
-  document.getElementById('userMsg').style.display = 'none';
+  document.getElementById('passMsg').style.display='none';
+  document.getElementById('userMsg').style.display='none';
 }
 function closeSettings() {
   document.getElementById('settingsOverlay').classList.remove('active');
   document.getElementById('settingsPanel').classList.remove('active');
 }
 
-/* =========================================================
-   MOBİL PANEL SEÇİCİ
-   ========================================================= */
-function setMobilePanel(which) {
-  document.getElementById('panel-gider').classList.toggle('mobile-active', which === 'gider');
-  document.getElementById('panel-gelir').classList.toggle('mobile-active', which === 'gelir');
-  document.getElementById('mobGiderBtn').classList.toggle('active', which === 'gider');
-  document.getElementById('mobGelirBtn').classList.toggle('active', which === 'gelir');
-
-  if (which === 'gider') { giderGrid.setActive(); giderGrid.selectCell(giderGrid.selected.r, giderGrid.selected.c); }
-  else { gelirGrid.setActive(); gelirGrid.selectCell(gelirGrid.selected.r, gelirGrid.selected.c); }
-}
-
-/* =========================================================
-   TABLO
-   ========================================================= */
-const COLUMNS = [
-  { key: 'tarih', label: 'TARİH', cls: 'col-tarih' },
-  { key: 'ad',    label: 'AÇIKLAMA', cls: 'col-ad' },
-  { key: 'fiyat', label: 'FİYAT', cls: 'col-fiyat' }
-];
-const FIXED_COLS = COLUMNS.length;
-
-function emptyData(r) { return Array.from({length: r}, () => Array(FIXED_COLS).fill('')); }
-
+/* ================= SAYFA GEÇİŞ ================= */
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('tabBtn-table').classList.toggle('active', name === 'table');
-  document.getElementById('tabBtn-summary').classList.toggle('active', name === 'summary');
-  if (name === 'summary') updateSummary();
+  document.getElementById('tabBtn-gider').classList.toggle('active', name === 'gider');
+  document.getElementById('tabBtn-gelir').classList.toggle('active', name === 'gelir');
+  document.getElementById('tabBtn-denge').classList.toggle('active', name === 'denge');
+  if (name === 'gider') { giderGrid.setActive(); giderGrid.selectCell(giderGrid.selected.r, giderGrid.selected.c); }
+  if (name === 'gelir') { gelirGrid.setActive(); gelirGrid.selectCell(gelirGrid.selected.r, gelirGrid.selected.c); }
 }
 
 function setSyncStatus(text, ok) {
@@ -988,42 +791,45 @@ function setSyncStatus(text, ok) {
   el.classList.toggle('err', ok === false);
 }
 
+/* ================= TABLO ================= */
+const COLUMNS = [
+  { key: 'tarih', label: 'TARİH',    cls: 'col-tarih' },
+  { key: 'ad',    label: 'AÇIKLAMA', cls: 'col-ad' },
+  { key: 'fiyat', label: 'FİYAT',    cls: 'col-fiyat' }
+];
+const FIXED_COLS = COLUMNS.length;
+function emptyData(r) { return Array.from({length:r}, () => Array(FIXED_COLS).fill('')); }
+
 class Grid {
-  constructor(id, panelId) {
+  constructor(id, gridId) {
     this.id = id;
-    this.tableId = 'grid-' + id;
-    this.panelId = panelId;
+    this.tableId = gridId;
     this.rows = DEFAULT_ROWS;
     this.data = emptyData(this.rows);
     this.selected = { r: 0, c: 0 };
     this.editing = false;
     this.saveTimer = null;
   }
-
   render() {
     const table = document.getElementById(this.tableId);
     table.innerHTML = '';
     const thead = document.createElement('thead');
-    const headRow = document.createElement('tr');
-    COLUMNS.forEach(col => {
+    const hr = document.createElement('tr');
+    COLUMNS.forEach(c => {
       const th = document.createElement('th');
-      th.className = col.cls;
-      th.textContent = col.label;
-      headRow.appendChild(th);
+      th.className = c.cls; th.textContent = c.label;
+      hr.appendChild(th);
     });
-    thead.appendChild(headRow);
-    table.appendChild(thead);
+    thead.appendChild(hr); table.appendChild(thead);
 
-    const tbody = document.createElement('tbody');
+    const tb = document.createElement('tbody');
     for (let r = 0; r < this.rows; r++) {
       const tr = document.createElement('tr');
       for (let c = 0; c < FIXED_COLS; c++) {
         const td = document.createElement('td');
-        td.dataset.r = r;
-        td.dataset.c = c;
+        td.dataset.r = r; td.dataset.c = c;
         td.classList.add(COLUMNS[c].key);
         td.textContent = this.displayValue(r, c);
-
         td.onmousedown = () => {
           this.setActive();
           if (!this.editing) this.selectCell(r, c);
@@ -1031,13 +837,12 @@ class Grid {
         td.ondblclick = () => this.startEdit(r, c);
         tr.appendChild(td);
       }
-      tbody.appendChild(tr);
+      tb.appendChild(tr);
     }
-    table.appendChild(tbody);
+    table.appendChild(tb);
     this.updateSelectionUI();
     this.updateTotals();
   }
-
   displayValue(r, c) {
     const raw = this.data[r][c] || '';
     if (!raw) return '';
@@ -1045,45 +850,36 @@ class Grid {
     if (c === 2) return formatPara(raw);
     return raw;
   }
-
-  selectCell(r, c) { this.selected = { r, c }; this.updateSelectionUI(); }
+  selectCell(r, c) { this.selected = {r,c}; this.updateSelectionUI(); }
   updateSelectionUI() {
-    const panel = document.getElementById(this.panelId);
-    panel.querySelectorAll('td.selected').forEach(td => td.classList.remove('selected'));
-    const td = panel.querySelector(`td[data-r="${this.selected.r}"][data-c="${this.selected.c}"]`);
+    const table = document.getElementById(this.tableId);
+    table.querySelectorAll('td.selected').forEach(td => td.classList.remove('selected'));
+    const td = table.querySelector(`td[data-r="${this.selected.r}"][data-c="${this.selected.c}"]`);
     if (td) td.classList.add('selected');
   }
-  setActive() {
-    activeGrid = this;
-    document.getElementById('activeLabel').textContent =
-      'Aktif: ' + (this.id === 'gider' ? 'Giderler' : 'Gelirler');
-  }
+  setActive() { activeGrid = this; }
   startEdit(r, c) {
-    const panel = document.getElementById(this.panelId);
-    const td = panel.querySelector(`td[data-r="${r}"][data-c="${c}"]`);
+    const table = document.getElementById(this.tableId);
+    const td = table.querySelector(`td[data-r="${r}"][data-c="${c}"]`);
     if (!td) return;
     this.editing = true;
-    this.selected = { r, c };
+    this.selected = {r,c};
     this.updateSelectionUI();
     td.classList.add('editing');
     td.contentEditable = 'true';
     td.textContent = this.data[r][c] || '';
-
     td.focus();
     const range = document.createRange();
-    range.selectNodeContents(td);
-    range.collapse(false);
+    range.selectNodeContents(td); range.collapse(false);
     const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
+    sel.removeAllRanges(); sel.addRange(range);
 
     const finish = () => {
       if (!this.editing) return;
       this.editing = false;
       td.contentEditable = 'false';
       td.classList.remove('editing');
-      const raw = td.textContent.trim();
-      this.data[r][c] = raw;
+      this.data[r][c] = td.textContent.trim();
       td.textContent = this.displayValue(r, c);
       this.scheduleSave();
       this.updateTotals();
@@ -1104,9 +900,9 @@ class Grid {
     if (r >= this.rows) r = this.rows - 1;
     if (c >= FIXED_COLS) c = FIXED_COLS - 1;
     this.selectCell(r, c);
-    const panel = document.getElementById(this.panelId);
-    const td = panel.querySelector(`td[data-r="${r}"][data-c="${c}"]`);
-    if (td) td.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    const table = document.getElementById(this.tableId);
+    const td = table.querySelector(`td[data-r="${r}"][data-c="${c}"]`);
+    if (td) td.scrollIntoView({ block:'nearest', inline:'nearest' });
   }
   addRow() {
     this.data.push(Array(FIXED_COLS).fill(''));
@@ -1120,21 +916,19 @@ class Grid {
     this.data.splice(this.selected.r, 1);
     this.rows--;
     if (this.selected.r >= this.rows) this.selected.r = this.rows - 1;
-    this.scheduleSave();
-    this.render();
+    this.scheduleSave(); this.render();
     this.selectCell(this.selected.r, this.selected.c);
   }
   clearAll() {
-    if (!confirm((this.id === 'gider' ? 'Gider' : 'Gelir') + ' tablosu tamamen silinsin mi?')) return;
+    if (!confirm((this.id === 'gider' ? 'Gider' : 'Gelir') + ' tablosu silinsin mi?')) return;
     this.data = emptyData(this.rows);
-    this.scheduleSave();
-    this.render();
+    this.scheduleSave(); this.render();
     this.selectCell(0, 0);
   }
   sum() {
-    let total = 0;
-    for (let r = 0; r < this.rows; r++) total += parseNum(this.data[r][2]);
-    return total;
+    let t = 0;
+    for (let r = 0; r < this.rows; r++) t += parseNum(this.data[r][2]);
+    return t;
   }
   scheduleSave() {
     setSyncStatus('Kaydediliyor...', null);
@@ -1143,15 +937,11 @@ class Grid {
   }
 }
 
-/* =========================================================
-   FIRESTORE
-   ========================================================= */
-const giderGrid = new Grid('gider', 'panel-gider');
-const gelirGrid = new Grid('gelir', 'panel-gelir');
+/* ================= FIREBASE VERİ ================= */
+const giderGrid = new Grid('gider', 'grid-gider');
+const gelirGrid = new Grid('gelir', 'grid-gelir');
 let activeGrid = giderGrid;
-
-let isSaving = false;
-let needsSave = false;
+let isSaving = false, needsSave = false;
 
 async function loadDataFromFirestore() {
   setSyncStatus('Yükleniyor...', null);
@@ -1162,34 +952,26 @@ async function loadDataFromFirestore() {
       if (Array.isArray(d.gider) && d.gider.length) {
         giderGrid.data = d.gider.map(item => {
           const row = (item && item.satir) ? item.satir : item;
-          if (!Array.isArray(row)) return ['', '', ''];
+          if (!Array.isArray(row)) return ['','',''];
           const x = row.slice(0, FIXED_COLS);
           while (x.length < FIXED_COLS) x.push('');
           return x;
         });
         giderGrid.rows = giderGrid.data.length;
-      } else {
-        giderGrid.data = emptyData(DEFAULT_ROWS);
-        giderGrid.rows = DEFAULT_ROWS;
-      }
+      } else { giderGrid.data = emptyData(DEFAULT_ROWS); giderGrid.rows = DEFAULT_ROWS; }
       if (Array.isArray(d.gelir) && d.gelir.length) {
         gelirGrid.data = d.gelir.map(item => {
           const row = (item && item.satir) ? item.satir : item;
-          if (!Array.isArray(row)) return ['', '', ''];
+          if (!Array.isArray(row)) return ['','',''];
           const x = row.slice(0, FIXED_COLS);
           while (x.length < FIXED_COLS) x.push('');
           return x;
         });
         gelirGrid.rows = gelirGrid.data.length;
-      } else {
-        gelirGrid.data = emptyData(DEFAULT_ROWS);
-        gelirGrid.rows = DEFAULT_ROWS;
-      }
+      } else { gelirGrid.data = emptyData(DEFAULT_ROWS); gelirGrid.rows = DEFAULT_ROWS; }
     } else {
-      giderGrid.data = emptyData(DEFAULT_ROWS);
-      giderGrid.rows = DEFAULT_ROWS;
-      gelirGrid.data = emptyData(DEFAULT_ROWS);
-      gelirGrid.rows = DEFAULT_ROWS;
+      giderGrid.data = emptyData(DEFAULT_ROWS); giderGrid.rows = DEFAULT_ROWS;
+      gelirGrid.data = emptyData(DEFAULT_ROWS); gelirGrid.rows = DEFAULT_ROWS;
     }
     giderGrid.render();
     gelirGrid.render();
@@ -1237,21 +1019,21 @@ function updateAllTotals() {
   const ge = gelirGrid.sum();
   document.getElementById('total-gider').textContent = formatMoney(g);
   document.getElementById('total-gelir').textContent = formatMoney(ge);
-  document.getElementById('balance').textContent = formatMoney(ge - g);
+  document.getElementById('balance').textContent = 'Bakiye: ' + formatMoney(ge - g);
   updateSummary();
 }
 Grid.prototype.updateTotals = function() { updateAllTotals(); };
 
-/* =========================================================
-   KLAVYE
-   ========================================================= */
+/* ================= KLAVYE ================= */
 document.addEventListener('keydown', (e) => {
   if (!document.getElementById('appScreen').classList.contains('active')) return;
-  if (!document.getElementById('page-table').classList.contains('active')) return;
+  const pageActive = document.querySelector('.page.active');
+  if (!pageActive) return;
+  if (pageActive.id === 'page-denge') return;
+  if (e.target.tagName === 'INPUT') return;
 
   const g = activeGrid;
   if (g.editing) return;
-  if (e.target.tagName === 'INPUT') return;
 
   if (e.key === 'ArrowDown')  { e.preventDefault(); g.moveSelection(1, 0); }
   if (e.key === 'ArrowUp')    { e.preventDefault(); g.moveSelection(-1, 0); }
@@ -1262,8 +1044,8 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Delete' || e.key === 'Backspace') {
     e.preventDefault();
     g.data[g.selected.r][g.selected.c] = '';
-    const panel = document.getElementById(g.panelId);
-    const td = panel.querySelector(`td[data-r="${g.selected.r}"][data-c="${g.selected.c}"]`);
+    const table = document.getElementById(g.tableId);
+    const td = table.querySelector(`td[data-r="${g.selected.r}"][data-c="${g.selected.c}"]`);
     if (td) td.textContent = '';
     g.scheduleSave();
     g.updateTotals();
@@ -1275,9 +1057,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeSettings();
 });
 
-/* =========================================================
-   BAŞLAT
-   ========================================================= */
+/* ================= BAŞLAT ================= */
 checkSession();
 </script>
 </body>
