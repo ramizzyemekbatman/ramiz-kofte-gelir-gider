@@ -21,7 +21,6 @@
     --radius: 6px;
     --radius-sm: 4px;
     --error: #c62828;
-    /* Şeffaf renkler */
     --green-soft: rgba(46, 125, 50, 0.12);
     --green-border: rgba(46, 125, 50, 0.35);
     --green-text: #2e7d32;
@@ -64,8 +63,7 @@
     border-radius: var(--radius-sm); padding: 14px;
     font-size: 18px; outline: none;
     background: var(--surface); color: var(--text);
-    text-align: center;
-    letter-spacing: 4px;
+    text-align: center; letter-spacing: 4px;
   }
   #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
   #loginBox button {
@@ -83,7 +81,7 @@
   #topbar {
     background: var(--dark); color: #ffffff;
     padding: 12px 16px; display: flex;
-    align-items: center; gap: 10px;
+    align-items: center; gap: 8px;
     flex-shrink: 0; min-height: 60px;
   }
   #topbar .title { font-weight: 600; font-size: 13px; letter-spacing: 1.2px; margin-right: auto; }
@@ -100,15 +98,17 @@
     cursor: pointer; transition: all 0.15s; white-space: nowrap;
   }
   #topbar button:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
-  .settingsBtn {
+  .iconBtn {
     width: 42px; height: 42px; padding: 0;
     display: flex; align-items: center; justify-content: center;
     background: transparent; border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm); color: #ffffff;
     cursor: pointer; transition: all 0.15s; flex-shrink: 0;
+    font-size: 20px; font-weight: bold; line-height: 1;
   }
-  .settingsBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
-  .settingsBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
+  .iconBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
+  .iconBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
+  .iconBtn.activeBtn { background: #ffffff; color: var(--dark); border-color: #ffffff; }
 
   /* ================= TABLO ================= */
   #appScreen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -271,6 +271,7 @@
     display: flex; justify-content: space-between;
     align-items: center; flex-wrap: wrap; gap: 16px;
     box-shadow: var(--shadow);
+    transition: background 0.3s, border-color 0.3s;
   }
   .bigBox .label {
     font-size: 16px; font-weight: 600; letter-spacing: 1.5px;
@@ -278,7 +279,6 @@
   }
   .bigBox .value { font-size: 36px; font-weight: 700; letter-spacing: 1px; }
 
-  /* Gelir kutusu — şeffaf yeşil */
   .bigBox.green {
     background: var(--green-soft);
     border-color: var(--green-border);
@@ -286,7 +286,6 @@
   .bigBox.green .label { color: var(--green-text); }
   .bigBox.green .value { color: var(--green-text); }
 
-  /* Gider kutusu — şeffaf kırmızı */
   .bigBox.red {
     background: var(--red-soft);
     border-color: var(--red-border);
@@ -294,13 +293,24 @@
   .bigBox.red .label { color: var(--red-text); }
   .bigBox.red .value { color: var(--red-text); }
 
-  /* Bakiye kutusu — siyah */
-  .bigBox.main {
-    background: var(--dark);
-    border-color: var(--dark);
-  }
+  /* Bakiye kutusu — dinamik (JS ile yeşil/kırmızı olur) */
+  .bigBox.main { background: var(--dark); border-color: var(--dark); }
   .bigBox.main .label { color: rgba(255,255,255,0.6); }
   .bigBox.main .value { color: #ffffff; font-size: 44px; }
+
+  .bigBox.main.positive {
+    background: var(--green-soft);
+    border-color: var(--green-border);
+  }
+  .bigBox.main.positive .label { color: var(--green-text); }
+  .bigBox.main.positive .value { color: var(--green-text); }
+
+  .bigBox.main.negative {
+    background: var(--red-soft);
+    border-color: var(--red-border);
+  }
+  .bigBox.main.negative .label { color: var(--red-text); }
+  .bigBox.main.negative .value { color: var(--red-text); }
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -364,16 +374,150 @@
   }
   .msg.error { background: var(--error); }
 
-  /* İzleyici modunda gizlenecek */
   body.izleyici .adminOnly { display: none !important; }
+
+  /* ================= TARİH FİLTRE PANELİ ================= */
+  #dateOverlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); display: none; z-index: 200;
+  }
+  #dateOverlay.active { display: block; }
+  #datePanel {
+    position: fixed; top: 0; right: -100%;
+    width: 420px; max-width: 92vw; height: 100%;
+    background: var(--surface);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+    display: flex; flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 201;
+  }
+  #datePanel.active { right: 0; }
+  #dateHeader {
+    background: var(--dark); color: #ffffff;
+    padding: 16px 20px; display: flex;
+    align-items: center; gap: 12px; min-height: 60px;
+  }
+  #dateHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
+  #dateHeader button {
+    background: transparent; color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer;
+  }
+  #dateBody { flex: 1; padding: 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
+  #dateBody h4 {
+    margin: 0 0 10px 0; font-size: 11px; font-weight: 600;
+    letter-spacing: 1.2px; color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+  .yearList {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .yearList button {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 70px;
+  }
+  .yearList button:hover { background: var(--light-hover); }
+  .yearList button.active {
+    background: var(--dark);
+    color: #ffffff;
+    border-color: var(--dark);
+  }
+
+  .monthList {
+    display: flex; flex-direction: column; gap: 6px;
+    margin-bottom: 24px;
+  }
+  .monthList button {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    letter-spacing: 1px;
+    transition: all 0.15s;
+  }
+  .monthList button:hover { background: var(--light-hover); }
+  .monthList button.active {
+    background: var(--dark);
+    color: #ffffff;
+    border-color: var(--dark);
+  }
+
+  .dateSearchBox {
+    display: flex; gap: 8px;
+    margin-bottom: 12px;
+  }
+  .dateSearchBox input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 16px;
+    outline: none;
+    background: var(--surface);
+    color: var(--text);
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .dateSearchBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(26,26,26,0.08); }
+  .dateSearchBox button {
+    background: var(--dark);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.8px;
+  }
+
+  .dateInfo {
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+  .dateInfo strong { color: var(--text); }
+
+  .resetBtn {
+    width: 100%;
+    background: transparent;
+    color: var(--error);
+    border: 1px solid var(--error);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.8px;
+    margin-top: 12px;
+  }
+  .resetBtn:hover { background: var(--error); color: #ffffff; }
 
   /* ================= MOBİL ================= */
   @media (max-width: 768px) {
-    #topbar { padding: 10px 12px; gap: 8px; min-height: 56px; }
+    #topbar { padding: 10px 12px; gap: 6px; min-height: 56px; }
     #topbar .title { font-size: 12px; letter-spacing: 1px; }
-    #topbar button { padding: 8px 12px; font-size: 11px; }
-    .settingsBtn { width: 40px; height: 40px; }
-    .settingsBtn svg { width: 20px; height: 20px; }
+    #topbar .user { font-size: 11px; padding: 5px 10px; }
+    .iconBtn { width: 40px; height: 40px; font-size: 18px; }
+    .iconBtn svg { width: 20px; height: 20px; }
 
     #tabs { padding: 0 8px; }
     #tabs button { padding: 12px 14px; font-size: 12px; }
@@ -401,7 +545,7 @@
     .bigBox .value { font-size: 26px; }
     .bigBox.main .value { font-size: 32px; }
 
-    #settingsPanel { width: 100vw; max-width: 100vw; }
+    #settingsPanel, #datePanel { width: 100vw; max-width: 100vw; }
   }
   @media (max-width: 400px) {
     .bigBox .value { font-size: 22px; }
@@ -426,7 +570,8 @@
     <div id="topbar">
       <span class="title">GELİR & GİDER</span>
       <div id="balance" class="user">Bakiye: 0,00 ₺</div>
-      <button class="settingsBtn" title="Ayarlar" onclick="openSettings()">
+      <button class="iconBtn" title="Tarih Filtresi" onclick="openDatePanel()">⋮</button>
+      <button class="iconBtn" title="Ayarlar" onclick="openSettings()">
         <svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm7.43-2.53a7.6 7.6 0 0 0 0-1.94l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.29 7.29 0 0 0-1.68-.97l-.38-2.65a.5.5 0 0 0-.49-.42h-4a.5.5 0 0 0-.49.42l-.38 2.65a7.29 7.29 0 0 0-1.68.97l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65a7.6 7.6 0 0 0 0 1.94l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1a7.29 7.29 0 0 0 1.68.97l.38 2.65a.5.5 0 0 0 .49.42h4a.5.5 0 0 0 .49-.42l.38-2.65a7.29 7.29 0 0 0 1.68-.97l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64Z"/></svg>
       </button>
     </div>
@@ -512,7 +657,7 @@
           <span class="label">TOPLAM GİDER</span>
           <span class="value" id="sum-gider">0,00 ₺</span>
         </div>
-        <div class="bigBox main">
+        <div class="bigBox main" id="bakiyeBox">
           <span class="label">BAKİYE</span>
           <span class="value" id="sum-bakiye">0,00 ₺</span>
         </div>
@@ -542,12 +687,53 @@
           <label>YENİ ADMİN ŞİFRESİ (TEKRAR)</label>
           <input id="newAdminPass2" type="password" inputmode="numeric" placeholder="yeni şifre tekrar" />
         </div>
-        <button class="btn" onclick="changeAdminPassword()">ŞİFREYİ DEĞİŞTİR</button>
+        <button class="btn" onclick="changeAdminPassword()">ADMİN ŞİFRESİNİ DEĞİŞTİR</button>
         <div class="msg" id="passMsg"></div>
+
+        <h3 style="margin-top:28px;">İZLEYİCİ ŞİFRESİNİ DEĞİŞTİR</h3>
+        <div class="field">
+          <label>MEVCUT İZLEYİCİ ŞİFRESİ</label>
+          <input id="oldViewerPass" type="password" inputmode="numeric" placeholder="mevcut izleyici şifresi" />
+        </div>
+        <div class="field">
+          <label>YENİ İZLEYİCİ ŞİFRESİ</label>
+          <input id="newViewerPass" type="password" inputmode="numeric" placeholder="yeni şifre (sadece rakam)" />
+        </div>
+        <div class="field">
+          <label>YENİ İZLEYİCİ ŞİFRESİ (TEKRAR)</label>
+          <input id="newViewerPass2" type="password" inputmode="numeric" placeholder="yeni şifre tekrar" />
+        </div>
+        <button class="btn" onclick="changeViewerPassword()">İZLEYİCİ ŞİFRESİNİ DEĞİŞTİR</button>
+        <div class="msg" id="viewerPassMsg"></div>
       </div>
 
       <h3 style="margin-top:28px;">OTURUM</h3>
       <button class="btn" onclick="logout()">ÇIKIŞ YAP</button>
+    </div>
+  </div>
+
+  <!-- ================= TARİH FİLTRE PANELİ ================= -->
+  <div id="dateOverlay" onclick="closeDatePanel()"></div>
+  <div id="datePanel">
+    <div id="dateHeader">
+      <span class="title">TARİH FİLTRESİ</span>
+      <button onclick="closeDatePanel()">Kapat</button>
+    </div>
+    <div id="dateBody">
+      <h4>YIL</h4>
+      <div class="yearList" id="yearList"></div>
+
+      <h4>AY</h4>
+      <div class="monthList" id="monthList"></div>
+
+      <h4>TARİH BUL</h4>
+      <div class="dateSearchBox">
+        <input id="dateSearchInput" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" />
+        <button onclick="doDateSearch()">ARA</button>
+      </div>
+      <div class="dateInfo" id="dateInfo">Bir tarih yazın (örn: 03/10/2026)</div>
+
+      <button class="resetBtn" onclick="resetDateFilter()">FİLTREYİ TEMİZLE</button>
     </div>
   </div>
 
@@ -571,11 +757,13 @@ const DATA_DOC = db.collection('ortak').doc('veriler');
 
 /* ================= SABİTLER ================= */
 const ADMIN_KEY = 'ramizKofteAdminSifre';
+const VIEWER_KEY = 'ramizKofteIzleyiciSifre';
 const SESSION_KEY = 'ramizKofteOturum';
-const DEFAULT_ADMIN_PASS = '1234';   // admin şifresi
-const IZLEYICI_PASS = '0000';        // izleyici şifresi
+const DEFAULT_ADMIN_PASS = '1234';
+const DEFAULT_VIEWER_PASS = '0000';
 const CURRENCY = '₺';
 const DEFAULT_ROWS = 5;
+const TR_MONTHS = ['OCAK','ŞUBAT','MART','NİSAN','MAYIS','HAZİRAN','TEMMUZ','AĞUSTOS','EYLÜL','EKİM','KASIM','ARALIK'];
 
 /* ================= YARDIMCI ================= */
 function bugununTarihi() {
@@ -631,6 +819,7 @@ function trLower(s) {
 /* ================= OTURUM ================= */
 let isAdmin = false;
 let adminPass = localStorage.getItem(ADMIN_KEY) || DEFAULT_ADMIN_PASS;
+let viewerPass = localStorage.getItem(VIEWER_KEY) || DEFAULT_VIEWER_PASS;
 
 function showApp() {
   document.getElementById('loginScreen').style.display = 'none';
@@ -657,7 +846,7 @@ function doLogin(e) {
     showApp();
     return false;
   }
-  if (p === IZLEYICI_PASS) {
+  if (p === viewerPass) {
     isAdmin = false;
     sessionStorage.setItem(SESSION_KEY, 'izleyici');
     err.style.display = 'none';
@@ -673,6 +862,7 @@ function doLogin(e) {
 
 function logout() {
   closeSettings();
+  closeDatePanel();
   isAdmin = false;
   sessionStorage.removeItem(SESSION_KEY);
   showLogin();
@@ -685,7 +875,7 @@ function checkSession() {
   showLogin();
 }
 
-/* ================= ADMİN ŞİFRE DEĞİŞTİR ================= */
+/* ================= ŞİFRE DEĞİŞTİR ================= */
 function changeAdminPassword() {
   const oldP = document.getElementById('oldAdminPass').value.trim();
   const n1 = document.getElementById('newAdminPass').value.trim();
@@ -696,7 +886,7 @@ function changeAdminPassword() {
   if (oldP !== adminPass) return show('Mevcut şifre yanlış.', true);
   if (!n1 || !/^\d+$/.test(n1)) return show('Şifre sadece rakamlardan oluşmalı.', true);
   if (n1.length < 4) return show('En az 4 hane olmalı.', true);
-  if (n1 === IZLEYICI_PASS) return show('Bu şifre kullanılamaz.', true);
+  if (n1 === viewerPass) return show('Bu şifre kullanılamaz.', true);
   if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
 
   adminPass = n1;
@@ -707,11 +897,33 @@ function changeAdminPassword() {
   show('Admin şifresi güncellendi.', false);
 }
 
+function changeViewerPassword() {
+  const oldP = document.getElementById('oldViewerPass').value.trim();
+  const n1 = document.getElementById('newViewerPass').value.trim();
+  const n2 = document.getElementById('newViewerPass2').value.trim();
+  const msg = document.getElementById('viewerPassMsg');
+  const show = (t,e) => { msg.textContent=t; msg.classList.toggle('error',!!e); msg.style.display='block'; };
+
+  if (oldP !== viewerPass) return show('Mevcut izleyici şifresi yanlış.', true);
+  if (!n1 || !/^\d+$/.test(n1)) return show('Şifre sadece rakamlardan oluşmalı.', true);
+  if (n1.length < 4) return show('En az 4 hane olmalı.', true);
+  if (n1 === adminPass) return show('Bu şifre kullanılamaz.', true);
+  if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
+
+  viewerPass = n1;
+  localStorage.setItem(VIEWER_KEY, viewerPass);
+  document.getElementById('oldViewerPass').value='';
+  document.getElementById('newViewerPass').value='';
+  document.getElementById('newViewerPass2').value='';
+  show('İzleyici şifresi güncellendi.', false);
+}
+
 /* ================= EKRAN GEÇİŞ ================= */
 function openSettings() {
   document.getElementById('settingsOverlay').classList.add('active');
   document.getElementById('settingsPanel').classList.add('active');
   document.getElementById('passMsg').style.display='none';
+  document.getElementById('viewerPassMsg').style.display='none';
 }
 function closeSettings() {
   document.getElementById('settingsOverlay').classList.remove('active');
@@ -743,7 +955,8 @@ function onSearch(which) {
   const query = input.value.trim();
   clearBtn.classList.toggle('visible', query.length > 0);
   const grid = which === 'gider' ? giderGrid : gelirGrid;
-  grid.applyFilter(query);
+  grid.textFilter = query;
+  grid.applyFilters();
   updateSearchTotal(which);
 }
 function clearSearch(which) {
@@ -752,7 +965,8 @@ function clearSearch(which) {
   input.value = '';
   clearBtn.classList.remove('visible');
   const grid = which === 'gider' ? giderGrid : gelirGrid;
-  grid.applyFilter('');
+  grid.textFilter = '';
+  grid.applyFilters();
   updateSearchTotal(which);
 }
 function updateSearchTotal(which) {
@@ -772,6 +986,127 @@ function updateSearchTotal(which) {
   box.classList.add('visible');
 }
 
+/* ================= TARİH FİLTRE ================= */
+let selectedYear = null;
+let selectedMonth = null;
+let searchedDate = null;
+
+function openDatePanel() {
+  document.getElementById('dateOverlay').classList.add('active');
+  document.getElementById('datePanel').classList.add('active');
+  renderYearList();
+  renderMonthList();
+  updateDateInfo();
+}
+function closeDatePanel() {
+  document.getElementById('dateOverlay').classList.remove('active');
+  document.getElementById('datePanel').classList.remove('active');
+}
+function renderYearList() {
+  const list = document.getElementById('yearList');
+  list.innerHTML = '';
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const years = [];
+  for (let y = currentYear - 3; y <= currentYear + 2; y++) years.push(y);
+  years.forEach(y => {
+    const btn = document.createElement('button');
+    btn.textContent = y;
+    if (selectedYear === y) btn.classList.add('active');
+    btn.onclick = () => {
+      selectedYear = y;
+      searchedDate = null;
+      renderYearList();
+      renderMonthList();
+      applyDateFilter();
+      updateDateInfo();
+    };
+    list.appendChild(btn);
+  });
+}
+function renderMonthList() {
+  const list = document.getElementById('monthList');
+  list.innerHTML = '';
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  TR_MONTHS.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = m;
+    if (selectedMonth === i) btn.classList.add('active');
+    btn.onclick = () => {
+      selectedMonth = i;
+      searchedDate = null;
+      renderMonthList();
+      applyDateFilter();
+      updateDateInfo();
+    };
+    list.appendChild(btn);
+  });
+}
+function applyDateFilter() {
+  // Tarih filtresini her iki tabloya da uygula
+  giderGrid.dateFilter = { year: selectedYear, month: selectedMonth, date: searchedDate };
+  gelirGrid.dateFilter = { year: selectedYear, month: selectedMonth, date: searchedDate };
+  giderGrid.applyFilters();
+  gelirGrid.applyFilters();
+}
+function resetDateFilter() {
+  selectedYear = null;
+  selectedMonth = null;
+  searchedDate = null;
+  document.getElementById('dateSearchInput').value = '';
+  renderYearList();
+  renderMonthList();
+  applyDateFilter();
+  updateDateInfo();
+}
+function updateDateInfo() {
+  const info = document.getElementById('dateInfo');
+  if (searchedDate) {
+    info.innerHTML = 'Aranan tarih: <strong>' + formatTarih(searchedDate) + '</strong>';
+  } else if (selectedYear && selectedMonth !== null) {
+    info.innerHTML = 'Seçili: <strong>' + TR_MONTHS[selectedMonth] + ' ' + selectedYear + '</strong>';
+  } else if (selectedYear) {
+    info.innerHTML = 'Seçili yıl: <strong>' + selectedYear + '</strong>';
+  } else if (selectedMonth !== null) {
+    info.innerHTML = 'Seçili ay: <strong>' + TR_MONTHS[selectedMonth] + '</strong>';
+  } else {
+    info.textContent = 'Filtre yok — tüm satırlar görünüyor.';
+  }
+}
+function doDateSearch() {
+  const input = document.getElementById('dateSearchInput');
+  const q = input.value.replace(/\D/g, '');
+  if (q.length !== 8) {
+    document.getElementById('dateInfo').textContent = 'Tarih GGAAYYYY olarak 8 haneli olmalı (örn: 03/10/2026)';
+    return;
+  }
+  searchedDate = q;
+  selectedYear = parseInt(q.slice(4, 8), 10);
+  selectedMonth = parseInt(q.slice(2, 4), 10) - 1;
+  renderYearList();
+  renderMonthList();
+  applyDateFilter();
+  updateDateInfo();
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const dsi = document.getElementById('dateSearchInput');
+  if (dsi) {
+    dsi.addEventListener('input', function() {
+      // GGAAYYYY formatına otomatik / ekle
+      let v = this.value.replace(/\D/g, '');
+      if (v.length > 8) v = v.slice(0, 8);
+      let out = v;
+      if (v.length >= 5) out = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
+      else if (v.length >= 3) out = v.slice(0,2) + '/' + v.slice(2);
+      this.value = out;
+    });
+    dsi.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') doDateSearch();
+    });
+  }
+});
+
 /* ================= TABLO ================= */
 const COLUMNS = [
   { key: 'tarih', label: 'TARİH',    cls: 'col-tarih' },
@@ -790,7 +1125,8 @@ class Grid {
     this.selected = { r: 0, c: 0 };
     this.editing = false;
     this.saveTimer = null;
-    this.filter = '';
+    this.textFilter = '';
+    this.dateFilter = { year: null, month: null, date: null };
   }
   render() {
     const table = document.getElementById(this.tableId);
@@ -805,15 +1141,9 @@ class Grid {
     thead.appendChild(hr); table.appendChild(thead);
 
     const tb = document.createElement('tbody');
-    const q = trLower(this.filter);
     for (let r = 0; r < this.rows; r++) {
       const tr = document.createElement('tr');
       tr.dataset.r = r;
-      const aciklama = this.data[r][1] || '';
-      const isEmpty = aciklama.trim() === '';
-      if (q) {
-        if (!isEmpty && trLower(aciklama).indexOf(q) === -1) tr.style.display = 'none';
-      }
       for (let c = 0; c < FIXED_COLS; c++) {
         const td = document.createElement('td');
         td.dataset.r = r; td.dataset.c = c;
@@ -823,32 +1153,62 @@ class Grid {
           this.setActive();
           if (!this.editing) this.selectCell(r, c);
         };
-        // Sadece admin düzenleyebilir
         if (isAdmin) {
           td.ondblclick = () => this.startEdit(r, c);
-        } else {
-          td.classList.add('readonly');
         }
         tr.appendChild(td);
       }
       tb.appendChild(tr);
     }
     table.appendChild(tb);
+    this.applyFilters();
     this.updateSelectionUI();
     this.updateTotals();
   }
-  applyFilter(query) {
-    this.filter = query;
+  applyFilters() {
     const table = document.getElementById(this.tableId);
-    const q = trLower(query);
+    const q = trLower(this.textFilter);
+    const df = this.dateFilter;
     table.querySelectorAll('tbody tr').forEach(tr => {
       const r = parseInt(tr.dataset.r);
       const aciklama = this.data[r][1] || '';
-      const isEmpty = aciklama.trim() === '';
-      if (!q) { tr.style.display = ''; return; }
-      if (isEmpty) { tr.style.display = ''; return; }
-      if (trLower(aciklama).indexOf(q) === -1) tr.style.display = 'none';
-      else tr.style.display = '';
+      const tarih = this.data[r][0] || '';
+      const isEmpty = aciklama.trim() === '' && tarih.trim() === '';
+
+      // Tarih filtresi
+      let dateOK = true;
+      if (df) {
+        if (df.date) {
+          // Belirli bir tarih aranıyor → tam eşleşme
+          const td = String(tarih).replace(/\D/g, '');
+          if (td !== df.date) dateOK = false;
+        } else if (df.year !== null || df.month !== null) {
+          const td = String(tarih).replace(/\D/g, '');
+          if (td.length !== 8) {
+            // tarihi olmayan satırları gizle (filtre varsa)
+            dateOK = false;
+          } else {
+            const y = parseInt(td.slice(4, 8), 10);
+            const m = parseInt(td.slice(2, 4), 10) - 1;
+            if (df.year !== null && y !== df.year) dateOK = false;
+            if (df.month !== null && m !== df.month) dateOK = false;
+          }
+        }
+      }
+
+      // Metin filtresi
+      let textOK = true;
+      if (q) {
+        if (!isEmpty && trLower(aciklama).indexOf(q) === -1) textOK = false;
+      }
+
+      // Boş satırlar: filtre varsa gizle (hem metin hem tarih)
+      if ((q || df.year !== null || df.month !== null || df.date) && isEmpty) {
+        tr.style.display = 'none';
+        return;
+      }
+
+      tr.style.display = (dateOK && textOK) ? '' : 'none';
     });
   }
   displayValue(r, c) {
@@ -892,7 +1252,7 @@ class Grid {
       td.textContent = this.displayValue(r, c);
       this.scheduleSave();
       this.updateTotals();
-      if (this.filter) this.applyFilter(this.filter);
+      this.applyFilters();
       if (this.id === 'gider') updateSearchTotal('gider');
       if (this.id === 'gelir') updateSearchTotal('gelir');
       td.onblur = null;
@@ -1036,7 +1396,14 @@ function updateSummary() {
   const ge = gelirGrid.sum();
   document.getElementById('sum-gelir').textContent = formatMoney(ge);
   document.getElementById('sum-gider').textContent = formatMoney(g);
-  document.getElementById('sum-bakiye').textContent = formatMoney(ge - g);
+  const bakiye = ge - g;
+  document.getElementById('sum-bakiye').textContent = formatMoney(bakiye);
+
+  // Bakiye kutusunun rengini dinamik ayarla
+  const box = document.getElementById('bakiyeBox');
+  box.classList.remove('positive', 'negative');
+  if (bakiye > 0) box.classList.add('positive');
+  else if (bakiye < 0) box.classList.add('negative');
 }
 function updateAllTotals() {
   const g = giderGrid.sum();
@@ -1074,7 +1441,7 @@ document.addEventListener('keydown', (e) => {
     if (td) td.textContent = '';
     g.scheduleSave();
     g.updateTotals();
-    if (g.filter) g.applyFilter(g.filter);
+    g.applyFilters();
     if (g.id === 'gider') updateSearchTotal('gider');
     if (g.id === 'gelir') updateSearchTotal('gelir');
   }
@@ -1082,7 +1449,7 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     g.moveSelection(0, e.shiftKey ? -1 : 1);
   }
-  if (e.key === 'Escape') closeSettings();
+  if (e.key === 'Escape') { closeSettings(); closeDatePanel(); }
 });
 
 /* ================= ŞİFRE GİRİŞİNE SADECE RAKAM ================= */
