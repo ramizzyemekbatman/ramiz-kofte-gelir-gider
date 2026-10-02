@@ -2,10 +2,10 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Ramiz Köfte - Gelir & Gider</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   :root {
     --bg: #f5f5f5;
@@ -28,6 +28,7 @@
     background: var(--bg);
     color: var(--text);
     height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -36,6 +37,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ================= GİRİŞ EKRANI ================= */
   #loginScreen {
     flex: 1;
     display: flex;
@@ -72,7 +74,7 @@
   #loginBox input {
     width: 100%; border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 14px;
+    padding: 12px 14px; font-size: 16px;
     outline: none; background: var(--surface);
     color: var(--text);
     transition: border-color 0.15s, box-shadow 0.15s;
@@ -85,7 +87,7 @@
     width: 100%; margin-top: 24px;
     background: var(--dark); color: #ffffff;
     border: none; border-radius: var(--radius-sm);
-    padding: 11px; font-size: 13px; font-weight: 600;
+    padding: 14px; font-size: 14px; font-weight: 600;
     cursor: pointer; letter-spacing: 1px;
     transition: background 0.15s;
   }
@@ -94,19 +96,20 @@
   #loginError {
     color: #ffffff; background: var(--error);
     border-radius: var(--radius-sm);
-    padding: 8px 12px; font-size: 12px;
+    padding: 10px 12px; font-size: 13px;
     margin-top: 16px; display: none; text-align: center;
   }
 
+  /* ================= TOPBAR ================= */
   #topbar {
     background: var(--dark); color: #ffffff;
-    padding: 12px 20px; display: flex;
-    align-items: center; gap: 14px;
-    flex-shrink: 0; min-height: 64px;
+    padding: 12px 16px; display: flex;
+    align-items: center; gap: 10px;
+    flex-shrink: 0; min-height: 60px;
   }
-  #topbar .title { font-weight: 600; font-size: 14px; letter-spacing: 1.5px; margin-right: auto; }
+  #topbar .title { font-weight: 600; font-size: 13px; letter-spacing: 1.2px; margin-right: auto; }
   #topbar .user {
-    font-size: 12px; padding: 6px 14px;
+    font-size: 12px; padding: 6px 12px;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm); letter-spacing: 0.5px;
   }
@@ -114,38 +117,41 @@
     background: transparent; color: #ffffff;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm);
-    padding: 7px 16px; font-size: 12px; font-weight: 500;
+    padding: 8px 14px; font-size: 12px; font-weight: 500;
     cursor: pointer; letter-spacing: 0.5px;
     transition: all 0.15s;
+    white-space: nowrap;
   }
   #topbar button:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   .settingsBtn {
-    width: 44px; height: 44px; padding: 0;
+    width: 42px; height: 42px; padding: 0;
     display: flex; align-items: center; justify-content: center;
     background: transparent;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm); color: #ffffff;
     cursor: pointer; transition: all 0.15s;
+    flex-shrink: 0;
   }
   .settingsBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
-  .settingsBtn svg { width: 26px; height: 26px; fill: currentColor; pointer-events: none; }
+  .settingsBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
 
+  /* ================= YÖNETİCİ PANELİ ================= */
   #adminScreen { flex: 1; display: none; flex-direction: column; overflow: hidden; }
   #adminScreen.active { display: flex; }
-  #adminBody { flex: 1; padding: 28px; overflow: auto; background: var(--bg); }
+  #adminBody { flex: 1; padding: 20px; overflow: auto; background: var(--bg); -webkit-overflow-scrolling: touch; }
 
   .card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 24px 28px;
-    margin-bottom: 24px; box-shadow: var(--shadow);
+    border-radius: var(--radius); padding: 20px;
+    margin-bottom: 20px; box-shadow: var(--shadow);
   }
   .card h2 {
-    margin: 0 0 20px 0; font-size: 13px; font-weight: 600;
+    margin: 0 0 16px 0; font-size: 13px; font-weight: 600;
     letter-spacing: 1.5px; padding-bottom: 12px;
     border-bottom: 1px solid var(--border); text-transform: uppercase;
   }
-  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
-  .field { display: flex; flex-direction: column; min-width: 200px; flex: 1; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; min-width: 180px; flex: 1; }
   .field label {
     font-size: 11px; font-weight: 600; margin-bottom: 6px;
     letter-spacing: 0.8px; color: var(--text-secondary);
@@ -153,7 +159,7 @@
   }
   .field input {
     border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 14px; outline: none;
+    padding: 12px 14px; font-size: 16px; outline: none;
     background: var(--surface); color: var(--text);
     transition: border-color 0.15s, box-shadow 0.15s;
   }
@@ -163,7 +169,7 @@
   }
   .btn {
     background: var(--dark); color: #ffffff; border: none;
-    border-radius: var(--radius-sm); padding: 10px 22px;
+    border-radius: var(--radius-sm); padding: 12px 22px;
     font-size: 13px; font-weight: 600; cursor: pointer;
     letter-spacing: 0.8px; transition: background 0.15s;
     white-space: nowrap;
@@ -173,7 +179,7 @@
 
   table.users { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
   table.users th, table.users td {
-    padding: 12px 16px; text-align: left;
+    padding: 10px 12px; text-align: left;
     border-bottom: 1px solid var(--border);
   }
   table.users th {
@@ -182,13 +188,12 @@
     background: var(--bg); border-bottom: 2px solid var(--border);
   }
   table.users tr:last-child td { border-bottom: none; }
-  table.users tr:hover td { background: var(--light-hover); }
   table.users td.right { text-align: right; }
   table.users button {
     background: transparent; color: var(--text);
     border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 5px 14px; font-size: 11px; font-weight: 600;
-    cursor: pointer; margin-left: 6px;
+    padding: 6px 12px; font-size: 11px; font-weight: 600;
+    cursor: pointer; margin: 2px;
     letter-spacing: 0.5px; transition: all 0.15s;
   }
   table.users button:hover { background: var(--dark); color: #ffffff; border-color: var(--dark); }
@@ -196,11 +201,12 @@
   .msg {
     padding: 10px 16px; border-radius: var(--radius-sm);
     background: var(--dark); color: #ffffff;
-    font-size: 13px; margin-top: 16px;
+    font-size: 13px; margin-top: 14px;
     display: none; text-align: center;
   }
   .msg.error { background: var(--error); }
 
+  /* ================= AYARLAR PANELİ ================= */
   #settingsOverlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.4);
@@ -208,7 +214,7 @@
   }
   #settingsOverlay.active { display: block; }
   #settingsPanel {
-    position: fixed; top: 0; right: -420px;
+    position: fixed; top: 0; right: -100%;
     width: 400px; max-width: 92vw; height: 100%;
     background: var(--surface);
     box-shadow: -4px 0 24px rgba(0,0,0,0.15);
@@ -220,58 +226,88 @@
   #settingsHeader {
     background: var(--dark); color: #ffffff;
     padding: 16px 20px; display: flex;
-    align-items: center; gap: 12px; min-height: 64px;
+    align-items: center; gap: 12px; min-height: 60px;
   }
   #settingsHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
   #settingsHeader button {
     background: transparent; color: #ffffff;
     border: 1px solid rgba(255,255,255,0.3);
     border-radius: var(--radius-sm);
-    padding: 6px 14px; font-size: 12px; cursor: pointer;
+    padding: 8px 14px; font-size: 12px; cursor: pointer;
   }
   #settingsHeader button:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
-  #settingsBody { flex: 1; padding: 28px 24px; overflow: auto; }
+  #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
   #settingsBody h3 {
     margin: 0 0 16px 0; font-size: 11px; font-weight: 600;
     letter-spacing: 1.2px; color: var(--text-secondary);
     text-transform: uppercase; padding-bottom: 8px;
     border-bottom: 1px solid var(--border);
   }
-  #settingsBody .field { margin-bottom: 16px; min-width: 0; }
+  #settingsBody .field { margin-bottom: 14px; min-width: 0; }
 
+  /* ================= TABLO EKRANI ================= */
   #appScreen { flex: 1; display: none; flex-direction: column; overflow: hidden; }
   #appScreen.active { display: flex; }
+
   #tabs {
     display: flex; background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 0 20px; gap: 4px;
+    padding: 0 16px; gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   #tabs button {
     background: transparent; color: var(--text-secondary);
     border: none; border-bottom: 2px solid transparent;
-    padding: 14px 24px; font-size: 13px; font-weight: 600;
+    padding: 14px 20px; font-size: 13px; font-weight: 600;
     cursor: pointer; margin-bottom: -1px;
-    transition: all 0.15s;
+    transition: all 0.15s; white-space: nowrap;
   }
   #tabs button:hover { color: var(--text); }
   #tabs button.active { color: var(--text); border-bottom-color: var(--dark); }
 
+  /* MOBİL PANEL SEÇİCİ (Giderler / Gelirler) */
+  #mobilePanelSwitch {
+    display: none;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    gap: 8px;
+  }
+  #mobilePanelSwitch button {
+    flex: 1;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  #mobilePanelSwitch button.active {
+    background: var(--dark);
+    color: #ffffff;
+    border-color: var(--dark);
+  }
+
   #toolbar {
     background: var(--surface); border-bottom: 1px solid var(--border);
-    padding: 12px 20px; display: flex; gap: 10px;
+    padding: 10px 16px; display: flex; gap: 8px;
     align-items: center; flex-wrap: wrap;
   }
   #toolbar button {
     background: transparent; color: var(--text);
     border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 7px 16px; cursor: pointer; font-size: 12px;
+    padding: 8px 14px; cursor: pointer; font-size: 12px;
     font-weight: 500; transition: all 0.15s;
   }
   #toolbar button:hover { background: var(--dark); color: #ffffff; border-color: var(--dark); }
-  #hint { font-size: 12px; margin-left: 14px; color: var(--text-secondary); font-style: italic; }
+  #hint { font-size: 11px; margin-left: 8px; color: var(--text-secondary); font-style: italic; }
   #activeLabel {
     margin-left: auto; font-weight: 600; font-size: 11px;
-    padding: 6px 14px; border: 1px solid var(--border);
+    padding: 6px 12px; border: 1px solid var(--border);
     border-radius: var(--radius-sm); color: var(--text-secondary);
     letter-spacing: 0.8px; text-transform: uppercase;
   }
@@ -287,23 +323,26 @@
 
   .page { flex: 1; display: none; overflow: hidden; }
   .page.active { display: flex; flex-direction: column; }
+
   #panels {
-    flex: 1; display: flex; gap: 16px;
-    padding: 16px 20px; overflow: hidden; background: var(--bg);
+    flex: 1; display: flex; gap: 12px;
+    padding: 12px 16px; overflow: hidden; background: var(--bg);
   }
   .panel {
     flex: 1; display: flex; flex-direction: column;
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); overflow: hidden;
     box-shadow: var(--shadow);
+    min-width: 0;
   }
   .panelHeader {
-    padding: 14px 18px; font-weight: 600;
-    font-size: 13px; letter-spacing: 1.5px;
+    padding: 12px 16px; font-weight: 600;
+    font-size: 12px; letter-spacing: 1.5px;
     background: var(--dark); color: #ffffff;
     text-transform: uppercase;
+    flex-shrink: 0;
   }
-  .panelBody { flex: 1; overflow: auto; }
+  .panelBody { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; }
 
   table.grid {
     border-collapse: collapse; font-size: 13px;
@@ -312,7 +351,7 @@
   table.grid th, table.grid td {
     border-bottom: 1px solid var(--border);
     border-right: 1px solid var(--border);
-    height: 34px; padding: 4px 10px;
+    height: 36px; padding: 6px 10px;
     outline: none; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis;
   }
@@ -324,9 +363,9 @@
     user-select: none; border-bottom: 2px solid var(--border);
     text-transform: uppercase;
   }
-  .col-tarih { width: 25%; }
-  .col-ad    { width: 40%; }
-  .col-fiyat { width: 35%; }
+  .col-tarih { width: 28%; }
+  .col-ad    { width: 42%; }
+  .col-fiyat { width: 30%; }
   table.grid td.selected {
     outline: 2px solid var(--dark);
     outline-offset: -2px; background: var(--light-hover);
@@ -336,49 +375,96 @@
     outline-offset: -2px; background: var(--surface); cursor: text;
   }
   table.grid td.fiyat { text-align: right; }
-  table.grid tbody tr:hover td { background: var(--light-hover); }
-  table.grid tbody tr:hover td.selected { background: var(--light-hover); }
 
   .totalBar {
-    padding: 14px 18px; font-weight: 600; font-size: 14px;
+    padding: 12px 16px; font-weight: 600; font-size: 13px;
     display: flex; justify-content: space-between;
     border-top: 2px solid var(--border); background: var(--bg);
     letter-spacing: 0.5px;
+    flex-shrink: 0;
   }
+
   #summaryPage {
-    flex: 1; padding: 28px; display: flex;
-    flex-direction: column; gap: 20px;
+    flex: 1; padding: 20px; display: flex;
+    flex-direction: column; gap: 16px;
     background: var(--bg); overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .bigBox {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 28px 36px;
+    border-radius: var(--radius); padding: 24px;
     display: flex; justify-content: space-between;
-    align-items: center; flex-wrap: wrap; gap: 20px;
-    box-shadow: var(--shadow); transition: box-shadow 0.2s;
+    align-items: center; flex-wrap: wrap; gap: 16px;
+    box-shadow: var(--shadow);
   }
-  .bigBox:hover { box-shadow: var(--shadow-lg); }
   .bigBox .label {
-    font-size: 18px; font-weight: 600; letter-spacing: 1.5px;
+    font-size: 16px; font-weight: 600; letter-spacing: 1.5px;
     color: var(--text-secondary); text-transform: uppercase;
   }
-  .bigBox .value { font-size: 42px; font-weight: 700; letter-spacing: 1px; }
+  .bigBox .value { font-size: 36px; font-weight: 700; letter-spacing: 1px; }
   .bigBox.main { background: var(--dark); border-color: var(--dark); }
   .bigBox.main .label { color: rgba(255,255,255,0.6); }
-  .bigBox.main .value { color: #ffffff; font-size: 56px; }
+  .bigBox.main .value { color: #ffffff; font-size: 44px; }
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: #c0c0c0; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #a0a0a0; }
 
+  /* ================= MOBİL ================= */
   @media (max-width: 768px) {
-    #panels { flex-direction: column; }
-    #adminBody { padding: 16px; }
-    #loginBox { padding: 28px 24px; }
-    .bigBox .value { font-size: 28px; }
-    .bigBox.main .value { font-size: 36px; }
-    .bigBox .label { font-size: 14px; }
+    body { font-size: 13px; }
+
+    #topbar { padding: 10px 12px; gap: 8px; min-height: 56px; }
+    #topbar .title { font-size: 12px; letter-spacing: 1px; }
+    #topbar .user { font-size: 11px; padding: 5px 10px; }
+    #topbar button { padding: 8px 12px; font-size: 11px; }
+    .settingsBtn { width: 40px; height: 40px; }
+    .settingsBtn svg { width: 20px; height: 20px; }
+
+    #adminBody { padding: 14px; }
+    .card { padding: 16px; margin-bottom: 14px; }
+    .card h2 { font-size: 12px; margin-bottom: 14px; padding-bottom: 10px; }
+    .field { min-width: 100%; }
+    .field input { padding: 12px 14px; font-size: 16px; } /* iOS zoom engelleme */
+    .btn { padding: 12px 20px; width: 100%; }
+
+    table.users th, table.users td { padding: 10px 8px; font-size: 12px; }
+    table.users button { padding: 6px 10px; font-size: 10px; }
+
+    /* Panel seçici görünür */
+    #mobilePanelSwitch { display: flex; }
+
+    /* İki panel yan yana sığmaz — tek panel göster */
+    #panels { padding: 10px 12px; gap: 0; }
+    .panel { display: none; }
+    .panel.mobile-active { display: flex; }
+
+    #toolbar { padding: 8px 12px; gap: 6px; }
+    #toolbar button { padding: 8px 12px; font-size: 11px; }
+    #hint { display: none; }
+    #activeLabel { display: none; }
+
+    table.grid th, table.grid td { height: 40px; padding: 6px 8px; font-size: 13px; }
+    .col-tarih { width: 25%; }
+    .col-ad    { width: 45%; }
+    .col-fiyat { width: 30%; }
+
+    .totalBar { padding: 12px 14px; font-size: 13px; }
+
+    #summaryPage { padding: 14px; gap: 12px; }
+    .bigBox { padding: 18px; }
+    .bigBox .label { font-size: 13px; }
+    .bigBox .value { font-size: 24px; }
+    .bigBox.main .value { font-size: 30px; }
+
+    #settingsPanel { width: 100vw; max-width: 100vw; }
+  }
+
+  /* Çok küçük ekran */
+  @media (max-width: 400px) {
+    .bigBox .value { font-size: 20px; }
+    .bigBox.main .value { font-size: 26px; }
+    #topbar .title { font-size: 11px; }
   }
 </style>
 </head>
@@ -404,8 +490,8 @@
   <!-- ================= 2) YÖNETİCİ PANELİ ================= -->
   <div id="adminScreen">
     <div id="topbar">
-      <button onclick="goToApp()">← Tabloya Geç</button>
-      <span class="title">YÖNETİCİ PANELİ</span>
+      <button onclick="goToApp()">← Tablo</button>
+      <span class="title">YÖNETİCİ</span>
       <span class="user" id="adminUserLabel">-</span>
       <button class="settingsBtn" title="Ayarlar" onclick="openSettings()">
         <svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm7.43-2.53a7.6 7.6 0 0 0 0-1.94l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.29 7.29 0 0 0-1.68-.97l-.38-2.65a.5.5 0 0 0-.49-.42h-4a.5.5 0 0 0-.49.42l-.38 2.65a7.29 7.29 0 0 0-1.68.97l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65a7.6 7.6 0 0 0 0 1.94l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1a7.29 7.29 0 0 0 1.68.97l.38 2.65a.5.5 0 0 0 .49.42h4a.5.5 0 0 0 .49-.42l.38-2.65a7.29 7.29 0 0 0 1.68-.97l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64Z"/></svg>
@@ -435,7 +521,7 @@
           <thead>
             <tr>
               <th>KULLANICI ADI</th>
-              <th style="width:300px;">İŞLEM</th>
+              <th style="width:200px;">İŞLEM</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -447,9 +533,9 @@
   <!-- ================= 3) TABLO EKRANI ================= -->
   <div id="appScreen">
     <div id="topbar">
-      <button onclick="backToAdmin()">← Yönetici Paneli</button>
-      <span class="title">GELİR & GİDER TAKİBİ</span>
-      <div id="balance" class="user">Bakiye: 0,00 ₺</div>
+      <button onclick="backToAdmin()">← Panel</button>
+      <span class="title">GELİR & GİDER</span>
+      <div id="balance" class="user">0,00 ₺</div>
       <button class="settingsBtn" title="Ayarlar" onclick="openSettings()">
         <svg viewBox="0 0 24 24"><path d="M12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Zm7.43-2.53a7.6 7.6 0 0 0 0-1.94l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.29 7.29 0 0 0-1.68-.97l-.38-2.65a.5.5 0 0 0-.49-.42h-4a.5.5 0 0 0-.49.42l-.38 2.65a7.29 7.29 0 0 0-1.68.97l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65a7.6 7.6 0 0 0 0 1.94l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46a.5.5 0 0 0 .6.22l2.49-1a7.29 7.29 0 0 0 1.68.97l.38 2.65a.5.5 0 0 0 .49.42h4a.5.5 0 0 0 .49-.42l.38-2.65a7.29 7.29 0 0 0 1.68-.97l2.49 1a.5.5 0 0 0 .6-.22l2-3.46a.5.5 0 0 0-.12-.64Z"/></svg>
       </button>
@@ -461,21 +547,27 @@
     </div>
 
     <div class="page active" id="page-table">
+      <!-- MOBİL PANEL SEÇİCİ -->
+      <div id="mobilePanelSwitch">
+        <button id="mobGiderBtn" class="active" onclick="setMobilePanel('gider')">GİDERLER</button>
+        <button id="mobGelirBtn" onclick="setMobilePanel('gelir')">GELİRLER</button>
+      </div>
+
       <div id="toolbar">
-        <button onclick="activeGrid.addRow()">Satır Ekle</button>
-        <button onclick="activeGrid.deleteRow()">Satır Sil</button>
+        <button onclick="activeGrid.addRow()">+ Satır</button>
+        <button onclick="activeGrid.deleteRow()">− Satır</button>
         <button onclick="activeGrid.clearAll()">Temizle</button>
-        <span id="hint">Yazmak için hücreye çift tıklayın</span>
+        <span id="hint">Düzenlemek için hücreye çift tıklayın</span>
         <span id="syncStatus">Kaydedildi</span>
         <span id="activeLabel">Aktif: Giderler</span>
       </div>
 
       <div id="panels">
-        <div class="panel" id="panel-gider">
+        <div class="panel mobile-active" id="panel-gider">
           <div class="panelHeader">GİDERLER</div>
           <div class="panelBody"><table class="grid" id="grid-gider"></table></div>
           <div class="totalBar">
-            <span>TOPLAM GİDER</span>
+            <span>TOPLAM</span>
             <span id="total-gider">0,00 ₺</span>
           </div>
         </div>
@@ -484,7 +576,7 @@
           <div class="panelHeader">GELİRLER</div>
           <div class="panelBody"><table class="grid" id="grid-gelir"></table></div>
           <div class="totalBar">
-            <span>TOPLAM GELİR</span>
+            <span>TOPLAM</span>
             <span id="total-gelir">0,00 ₺</span>
           </div>
         </div>
@@ -529,7 +621,7 @@
       <button class="btn" onclick="changeOwnUsername()">KULLANICI ADINI DEĞİŞTİR</button>
       <div class="msg" id="userMsg"></div>
 
-      <h3 style="margin-top:32px;">ŞİFRE DEĞİŞTİR</h3>
+      <h3 style="margin-top:28px;">ŞİFRE DEĞİŞTİR</h3>
       <div class="field">
         <label>ESKİ ŞİFRE</label>
         <input id="oldPass" type="password" placeholder="mevcut şifren" />
@@ -545,7 +637,7 @@
       <button class="btn" onclick="changeOwnPassword()">ŞİFREYİ DEĞİŞTİR</button>
       <div class="msg" id="passMsg"></div>
 
-      <h3 style="margin-top:32px;">OTURUM</h3>
+      <h3 style="margin-top:28px;">OTURUM</h3>
       <button class="btn" onclick="logout()">ÇIKIŞ YAP</button>
     </div>
   </div>
@@ -556,7 +648,7 @@
 
 <script>
 /* =========================================================
-   FIREBASE BAŞLAT
+   FIREBASE
    ========================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyDkck9qvOnrZoi7qlvDfaC2AuKJ8q-txoE",
@@ -569,7 +661,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 const DATA_DOC = db.collection('ortak').doc('veriler');
 
 /* =========================================================
@@ -582,26 +673,16 @@ const CURRENCY = '₺';
 const DEFAULT_ROWS = 30;
 
 /* =========================================================
-   YARDIMCI: TARİH FORMAT
+   FORMAT
    ========================================================= */
 function formatTarih(str) {
   if (!str) return '';
   const digits = String(str).replace(/\D/g, '');
-  if (digits.length === 8) {
-    return digits.slice(0,2) + '/' + digits.slice(2,4) + '/' + digits.slice(4,8);
-  }
-  if (digits.length === 6) {
-    return digits.slice(0,2) + '/' + digits.slice(2,4) + '/20' + digits.slice(4,6);
-  }
-  if (digits.length === 4) {
-    return digits.slice(0,2) + '/' + digits.slice(2,4);
-  }
+  if (digits.length === 8) return digits.slice(0,2) + '/' + digits.slice(2,4) + '/' + digits.slice(4,8);
+  if (digits.length === 6) return digits.slice(0,2) + '/' + digits.slice(2,4) + '/20' + digits.slice(4,6);
+  if (digits.length === 4) return digits.slice(0,2) + '/' + digits.slice(2,4);
   return str;
 }
-
-/* =========================================================
-   YARDIMCI: PARA FORMAT
-   ========================================================= */
 function formatPara(str) {
   if (!str) return '';
   let s = String(str).replace(/₺/g, '').trim();
@@ -618,14 +699,25 @@ function formatPara(str) {
   }
   const n = parseFloat(numStr);
   if (isNaN(n)) return str;
-  return n.toLocaleString('tr-TR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }) + ' ' + CURRENCY;
+  return n.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + CURRENCY;
+}
+function parseNum(v) {
+  if (v === null || v === undefined) return 0;
+  let s = String(v).replace(/[^\d.,-]/g, '').trim();
+  if (!s) return 0;
+  if (s.includes(',') && s.includes('.')) {
+    if (s.lastIndexOf(',') > s.lastIndexOf('.')) s = s.replace(/\./g, '').replace(',', '.');
+    else s = s.replace(/,/g, '');
+  } else if (s.includes(',')) s = s.replace(',', '.');
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+function formatMoney(n) {
+  return n.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' ' + CURRENCY;
 }
 
 /* =========================================================
-   KULLANICI YÖNETİMİ
+   KULLANICI
    ========================================================= */
 function loadUsers() {
   try {
@@ -636,16 +728,11 @@ function loadUsers() {
   localStorage.setItem(USERS_KEY, JSON.stringify(initial));
   return initial;
 }
-function saveUsers(arr) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(arr));
-}
+function saveUsers(arr) { localStorage.setItem(USERS_KEY, JSON.stringify(arr)); }
 
 let users = loadUsers();
 let currentUser = null;
 
-/* =========================================================
-   EKRAN YÖNETİMİ
-   ========================================================= */
 function showScreen(id) {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminScreen').classList.remove('active');
@@ -658,9 +745,6 @@ function showScreen(id) {
   }
 }
 
-/* =========================================================
-   GİRİŞ
-   ========================================================= */
 function doLogin(e) {
   e.preventDefault();
   const u = document.getElementById('loginUser').value.trim();
@@ -676,8 +760,6 @@ function doLogin(e) {
 
   err.style.display = 'none';
   currentUser = found.user;
-
-  // Oturumu kaydet (tarayıcı kapanana kadar sürer)
   sessionStorage.setItem(SESSION_KEY, currentUser);
 
   document.getElementById('adminUserLabel').textContent = currentUser;
@@ -696,27 +778,15 @@ function logout() {
   showScreen('loginScreen');
 }
 
-/* =========================================================
-   OTURUM KONTROLÜ (sayfa yüklendiğinde)
-   ========================================================= */
 function checkSession() {
   const saved = sessionStorage.getItem(SESSION_KEY);
-  if (!saved) {
-    // Oturum yok — giriş ekranına
-    showScreen('loginScreen');
-    return;
-  }
-
-  // Kullanıcı hâlâ kayıtlı mı?
+  if (!saved) { showScreen('loginScreen'); return; }
   const found = users.find(x => x.user === saved);
   if (!found) {
-    // Kullanıcı silinmiş — çıkış
     sessionStorage.removeItem(SESSION_KEY);
     showScreen('loginScreen');
     return;
   }
-
-  // Oturum geçerli — panele dön
   currentUser = saved;
   document.getElementById('adminUserLabel').textContent = currentUser;
   showScreen('adminScreen');
@@ -724,13 +794,12 @@ function checkSession() {
 }
 
 /* =========================================================
-   YÖNETİCİ EKLE
+   YÖNETİCİ İŞLEMLERİ
    ========================================================= */
 function addUser() {
   const u = document.getElementById('newUser').value.trim();
   const p = document.getElementById('newPass').value.trim();
   const msg = document.getElementById('adminMsg');
-
   const showMsg = (t, isErr) => {
     msg.textContent = t;
     msg.classList.toggle('error', !!isErr);
@@ -749,101 +818,75 @@ function addUser() {
   renderUsers();
 }
 
-/* =========================================================
-   KENDİ KULLANICI ADINI DEĞİŞTİR
-   ========================================================= */
 function changeOwnUsername() {
   const yeniAd = document.getElementById('newUsername').value.trim();
   const sifre = document.getElementById('usernamePass').value;
   const msg = document.getElementById('userMsg');
-
-  const showMsg = (t, err) => {
-    msg.textContent = t;
-    msg.classList.toggle('error', !!err);
-    msg.style.display = 'block';
-  };
+  const showMsg = (t, err) => { msg.textContent = t; msg.classList.toggle('error', !!err); msg.style.display = 'block'; };
 
   if (!currentUser) return;
   const me = users.find(x => x.user === currentUser);
   if (!me) return;
 
   if (me.pass !== sifre) return showMsg('Şifre yanlış.', true);
-  if (!yeniAd || yeniAd.length < 3) return showMsg('Kullanıcı adı en az 3 karakter olmalı.', true);
-  if (yeniAd === currentUser) return showMsg('Bu zaten mevcut kullanıcı adınız.', true);
-  if (users.some(x => x.user === yeniAd)) return showMsg('Bu kullanıcı adı zaten kullanılıyor.', true);
+  if (!yeniAd || yeniAd.length < 3) return showMsg('En az 3 karakter.', true);
+  if (yeniAd === currentUser) return showMsg('Bu zaten mevcut.', true);
+  if (users.some(x => x.user === yeniAd)) return showMsg('Kullanılıyor.', true);
 
   me.user = yeniAd;
   currentUser = yeniAd;
   saveUsers(users);
   sessionStorage.setItem(SESSION_KEY, currentUser);
-
   document.getElementById('adminUserLabel').textContent = currentUser;
   document.getElementById('newUsername').value = '';
   document.getElementById('usernamePass').value = '';
-  showMsg('Kullanıcı adınız güncellendi: ' + yeniAd, false);
+  showMsg('Güncellendi: ' + yeniAd, false);
   renderUsers();
 }
 
-/* =========================================================
-   KENDİ ŞİFRENİ DEĞİŞTİR
-   ========================================================= */
 function changeOwnPassword() {
   const oldP = document.getElementById('oldPass').value;
   const np1 = document.getElementById('newPassOwn').value;
   const np2 = document.getElementById('newPassOwn2').value;
   const msg = document.getElementById('passMsg');
-
-  const showMsg = (t, err) => {
-    msg.textContent = t;
-    msg.classList.toggle('error', !!err);
-    msg.style.display = 'block';
-  };
+  const showMsg = (t, err) => { msg.textContent = t; msg.classList.toggle('error', !!err); msg.style.display = 'block'; };
 
   if (!currentUser) return;
   const me = users.find(x => x.user === currentUser);
   if (!me) return;
 
   if (me.pass !== oldP) return showMsg('Eski şifre yanlış.', true);
-  if (!np1 || np1.length < 4) return showMsg('Yeni şifre en az 4 karakter olmalı.', true);
-  if (np1 !== np2) return showMsg('Yeni şifreler uyuşmuyor.', true);
+  if (!np1 || np1.length < 4) return showMsg('En az 4 karakter.', true);
+  if (np1 !== np2) return showMsg('Şifreler uyuşmuyor.', true);
 
   me.pass = np1;
   saveUsers(users);
   document.getElementById('oldPass').value = '';
   document.getElementById('newPassOwn').value = '';
   document.getElementById('newPassOwn2').value = '';
-  showMsg('Şifreniz güncellendi.', false);
+  showMsg('Şifre güncellendi.', false);
 }
 
-/* =========================================================
-   YÖNETİCİ SİL
-   ========================================================= */
 function removeUser(name) {
   const msg = document.getElementById('adminMsg');
   if (name === currentUser) {
     msg.textContent = 'Kendi hesabını silemezsin.';
-    msg.classList.add('error');
-    msg.style.display = 'block';
+    msg.classList.add('error'); msg.style.display = 'block';
     return;
   }
   if (users.length <= 1) {
     msg.textContent = 'En az bir yönetici kalmalı.';
-    msg.classList.add('error');
-    msg.style.display = 'block';
+    msg.classList.add('error'); msg.style.display = 'block';
     return;
   }
-  if (!confirm(name + ' adlı yönetici silinsin mi?')) return;
+  if (!confirm(name + ' silinsin mi?')) return;
   users = users.filter(x => x.user !== name);
   saveUsers(users);
   msg.textContent = 'Silindi: ' + name;
-  msg.classList.remove('error');
-  msg.style.display = 'block';
+  msg.classList.remove('error'); msg.style.display = 'block';
   renderUsers();
 }
 
-/* =========================================================
-   YÖNETİCİ LİSTESİ
-   ========================================================= */
 function renderUsers() {
   const tbody = document.querySelector('#userTable tbody');
   tbody.innerHTML = '';
@@ -851,12 +894,11 @@ function renderUsers() {
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
     td1.textContent = u.user + (u.user === currentUser ? ' (siz)' : '');
-
     const td2 = document.createElement('td');
     td2.className = 'right';
 
     const btnSifre = document.createElement('button');
-    btnSifre.textContent = 'ŞİFREYİ DEĞİŞTİR';
+    btnSifre.textContent = 'ŞİFRE';
     btnSifre.onclick = () => adminChangePassword(u.user);
 
     const btnSil = document.createElement('button');
@@ -877,36 +919,24 @@ function adminChangePassword(name) {
   if (yeni === null) return;
   const trimmed = yeni.trim();
   if (!trimmed || trimmed.length < 4) {
-    msg.textContent = 'Şifre en az 4 karakter olmalı.';
-    msg.classList.add('error');
-    msg.style.display = 'block';
+    msg.textContent = 'En az 4 karakter.'; msg.classList.add('error'); msg.style.display = 'block';
     return;
   }
   const k = users.find(x => x.user === name);
   if (!k) return;
   k.pass = trimmed;
   saveUsers(users);
-  msg.textContent = name + ' için şifre güncellendi.';
-  msg.classList.remove('error');
-  msg.style.display = 'block';
+  msg.textContent = name + ' şifresi güncellendi.';
+  msg.classList.remove('error'); msg.style.display = 'block';
   renderUsers();
 }
 
 /* =========================================================
-   EKRAN GEÇİŞLERİ
+   EKRAN GEÇİŞ
    ========================================================= */
-function goToApp() {
-  showScreen('appScreen');
-  loadDataFromFirestore();
-}
-function backToAdmin() {
-  showScreen('adminScreen');
-  renderUsers();
-}
+function goToApp() { showScreen('appScreen'); loadDataFromFirestore(); }
+function backToAdmin() { showScreen('adminScreen'); renderUsers(); }
 
-/* =========================================================
-   AYARLAR PANELİ
-   ========================================================= */
 function openSettings() {
   document.getElementById('settingsOverlay').classList.add('active');
   document.getElementById('settingsPanel').classList.add('active');
@@ -919,37 +949,29 @@ function closeSettings() {
 }
 
 /* =========================================================
-   TABLO UYGULAMASI
+   MOBİL PANEL SEÇİCİ
+   ========================================================= */
+function setMobilePanel(which) {
+  document.getElementById('panel-gider').classList.toggle('mobile-active', which === 'gider');
+  document.getElementById('panel-gelir').classList.toggle('mobile-active', which === 'gelir');
+  document.getElementById('mobGiderBtn').classList.toggle('active', which === 'gider');
+  document.getElementById('mobGelirBtn').classList.toggle('active', which === 'gelir');
+
+  if (which === 'gider') { giderGrid.setActive(); giderGrid.selectCell(giderGrid.selected.r, giderGrid.selected.c); }
+  else { gelirGrid.setActive(); gelirGrid.selectCell(gelirGrid.selected.r, gelirGrid.selected.c); }
+}
+
+/* =========================================================
+   TABLO
    ========================================================= */
 const COLUMNS = [
-  { key: 'tarih', label: 'TARİH',         cls: 'col-tarih' },
-  { key: 'ad',    label: 'AD / AÇIKLAMA', cls: 'col-ad' },
-  { key: 'fiyat', label: 'FİYAT',         cls: 'col-fiyat' }
+  { key: 'tarih', label: 'TARİH', cls: 'col-tarih' },
+  { key: 'ad',    label: 'AÇIKLAMA', cls: 'col-ad' },
+  { key: 'fiyat', label: 'FİYAT', cls: 'col-fiyat' }
 ];
 const FIXED_COLS = COLUMNS.length;
 
-function emptyData(r) {
-  return Array.from({length: r}, () => Array(FIXED_COLS).fill(''));
-}
-function parseNum(v) {
-  if (v === null || v === undefined) return 0;
-  let s = String(v).replace(/[^\d.,-]/g, '').trim();
-  if (!s) return 0;
-  if (s.includes(',') && s.includes('.')) {
-    if (s.lastIndexOf(',') > s.lastIndexOf('.')) {
-      s = s.replace(/\./g, '').replace(',', '.');
-    } else {
-      s = s.replace(/,/g, '');
-    }
-  } else if (s.includes(',')) {
-    s = s.replace(',', '.');
-  }
-  const n = parseFloat(s);
-  return isNaN(n) ? 0 : n;
-}
-function formatMoney(n) {
-  return n.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' ' + CURRENCY;
-}
+function emptyData(r) { return Array.from({length: r}, () => Array(FIXED_COLS).fill('')); }
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -981,10 +1003,9 @@ class Grid {
   render() {
     const table = document.getElementById(this.tableId);
     table.innerHTML = '';
-
     const thead = document.createElement('thead');
     const headRow = document.createElement('tr');
-    COLUMNS.forEach((col) => {
+    COLUMNS.forEach(col => {
       const th = document.createElement('th');
       th.className = col.cls;
       th.textContent = col.label;
@@ -1013,7 +1034,6 @@ class Grid {
       tbody.appendChild(tr);
     }
     table.appendChild(tbody);
-
     this.updateSelectionUI();
     this.updateTotals();
   }
@@ -1116,7 +1136,6 @@ class Grid {
     for (let r = 0; r < this.rows; r++) total += parseNum(this.data[r][2]);
     return total;
   }
-
   scheduleSave() {
     setSyncStatus('Kaydediliyor...', null);
     if (this.saveTimer) clearTimeout(this.saveTimer);
@@ -1125,7 +1144,7 @@ class Grid {
 }
 
 /* =========================================================
-   FIRESTORE VERİ OKU / YAZ
+   FIRESTORE
    ========================================================= */
 const giderGrid = new Grid('gider', 'panel-gider');
 const gelirGrid = new Grid('gelir', 'panel-gelir');
@@ -1140,8 +1159,6 @@ async function loadDataFromFirestore() {
     const doc = await DATA_DOC.get();
     if (doc.exists) {
       const d = doc.data();
-
-      // Satırları obje içinden çıkar
       if (Array.isArray(d.gider) && d.gider.length) {
         giderGrid.data = d.gider.map(item => {
           const row = (item && item.satir) ? item.satir : item;
@@ -1155,7 +1172,6 @@ async function loadDataFromFirestore() {
         giderGrid.data = emptyData(DEFAULT_ROWS);
         giderGrid.rows = DEFAULT_ROWS;
       }
-
       if (Array.isArray(d.gelir) && d.gelir.length) {
         gelirGrid.data = d.gelir.map(item => {
           const row = (item && item.satir) ? item.satir : item;
@@ -1179,17 +1195,10 @@ async function loadDataFromFirestore() {
     gelirGrid.render();
     giderGrid.setActive();
     giderGrid.selectCell(0, 0);
-    setSyncStatus('Yüklendi', true);
-    setTimeout(() => setSyncStatus('Kaydedildi', true), 1500);
+    setSyncStatus('Kaydedildi', true);
   } catch (e) {
     console.error(e);
     setSyncStatus('Bağlantı hatası', false);
-    giderGrid.data = emptyData(DEFAULT_ROWS);
-    giderGrid.rows = DEFAULT_ROWS;
-    gelirGrid.data = emptyData(DEFAULT_ROWS);
-    gelirGrid.rows = DEFAULT_ROWS;
-    giderGrid.render();
-    gelirGrid.render();
   }
 }
 
@@ -1197,12 +1206,9 @@ async function saveDataToFirestore() {
   if (isSaving) { needsSave = true; return; }
   isSaving = true;
   setSyncStatus('Kaydediliyor...', null);
-
   try {
-    // Nested array hatasını önlemek için satırları objelere sar
     const giderData = giderGrid.data.map(row => ({ satir: row }));
     const gelirData = gelirGrid.data.map(row => ({ satir: row }));
-
     await DATA_DOC.set({
       gider: giderData,
       gelir: gelirData,
@@ -1231,7 +1237,7 @@ function updateAllTotals() {
   const ge = gelirGrid.sum();
   document.getElementById('total-gider').textContent = formatMoney(g);
   document.getElementById('total-gelir').textContent = formatMoney(ge);
-  document.getElementById('balance').textContent = 'Bakiye: ' + formatMoney(ge - g);
+  document.getElementById('balance').textContent = formatMoney(ge - g);
   updateSummary();
 }
 Grid.prototype.updateTotals = function() { updateAllTotals(); };
@@ -1245,6 +1251,7 @@ document.addEventListener('keydown', (e) => {
 
   const g = activeGrid;
   if (g.editing) return;
+  if (e.target.tagName === 'INPUT') return;
 
   if (e.key === 'ArrowDown')  { e.preventDefault(); g.moveSelection(1, 0); }
   if (e.key === 'ArrowUp')    { e.preventDefault(); g.moveSelection(-1, 0); }
