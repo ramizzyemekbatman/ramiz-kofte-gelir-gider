@@ -313,6 +313,8 @@ const DATA_DOC = db.collection('ortak').doc('veriler');
 const ADMIN_KEY = 'ramizKofteAdminSifre';
 const VIEWER_KEY = 'ramizKofteIzleyiciSifre';
 const SESSION_KEY = 'ramizKofteOturum';
+const ACTIVE_PAGE_KEY = 'ramizKofteAktifSayfa';
+const FILTER_KEY = 'ramizKofteFiltre';
 const LOCAL_CACHE_KEY = 'ramizKofteYerelVeri';
 const DEFAULT_ADMIN_PASS = '1234';
 const DEFAULT_VIEWER_PASS = '0000';
@@ -393,7 +395,6 @@ function tarihFiltreyeUyuyorMu(tarih) {
   if (selectedMonth !== null && m !== selectedMonth) return false;
   return true;
 }
-// Filtre var mı? (yıl veya ay veya aralık)
 function filtreVarMi() {
   return (selectedMonth !== null) || (dateRangeStart !== null) || (dateRangeEnd !== null);
 }
@@ -403,11 +404,61 @@ let isAdmin = false;
 let adminPass = localStorage.getItem(ADMIN_KEY) || DEFAULT_ADMIN_PASS;
 let viewerPass = localStorage.getItem(VIEWER_KEY) || DEFAULT_VIEWER_PASS;
 
+// Aktif sayfa ve filtre kaydı
+function saveActivePage(pageName) {
+  try { sessionStorage.setItem(ACTIVE_PAGE_KEY, pageName); } catch(e) {}
+}
+function loadActivePage() {
+  try { return sessionStorage.getItem(ACTIVE_PAGE_KEY) || 'gider'; } catch(e) { return 'gider'; }
+}
+function saveFilterState() {
+  try {
+    sessionStorage.setItem(FILTER_KEY, JSON.stringify({
+      year: selectedYear,
+      month: selectedMonth,
+      start: dateRangeStart,
+      end: dateRangeEnd,
+      expanded: yearsExpanded
+    }));
+  } catch(e) {}
+}
+function loadFilterState() {
+  try {
+    const raw = sessionStorage.getItem(FILTER_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch(e) { return null; }
+}
+
 function showApp() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('appScreen').style.display = 'flex';
   document.body.classList.toggle('izleyici', !isAdmin);
-  loadDataFromFirestore();
+  loadDataFromFirestore().then(() => {
+    // Filtre durumunu yükle
+    const fs = loadFilterState();
+    if (fs) {
+      selectedYear = fs.year;
+      selectedMonth = fs.month;
+      dateRangeStart = fs.start;
+      dateRangeEnd = fs.end;
+      yearsExpanded = fs.expanded || false;
+      // Tarih inputlarını doldur
+      if (dateRangeStart) {
+        const s = dateRangeStart; // YYYYMMDD
+        document.getElementById('dateStart').value = s.slice(6,8) + '/' + s.slice(4,6) + '/' + s.slice(0,4);
+      }
+      if (dateRangeEnd) {
+        const e = dateRangeEnd;
+        document.getElementById('dateEnd').value = e.slice(6,8) + '/' + e.slice(4,6) + '/' + e.slice(0,4);
+      }
+      applyDateFilter();
+      updateDateInfo();
+    }
+    // Aktif sayfayı yükle
+    const page = loadActivePage();
+    showPage(page);
+  });
 }
 function showLogin() {
   document.getElementById('loginScreen').style.display = 'flex';
@@ -423,7 +474,14 @@ function doLogin(e) {
   err.textContent = 'Şifre hatalı.'; err.style.display = 'block';
   return false;
 }
-function logout() { closeSettings(); closeDatePanel(); isAdmin = false; sessionStorage.removeItem(SESSION_KEY); showLogin(); }
+function logout() {
+  closeSettings(); closeDatePanel();
+  isAdmin = false;
+  sessionStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(ACTIVE_PAGE_KEY);
+  sessionStorage.removeItem(FILTER_KEY);
+  showLogin();
+}
 function checkSession() {
   const s = sessionStorage.getItem(SESSION_KEY);
   if (s === 'admin') { isAdmin = true; showApp(); return; }
@@ -483,6 +541,7 @@ function showPage(name) {
   if (name === 'gider') { giderGrid.setActive(); giderGrid.selectCell(giderGrid.selected.r, giderGrid.selected.c); }
   if (name === 'gelir') { gelirGrid.setActive(); gelirGrid.selectCell(gelirGrid.selected.r, gelirGrid.selected.c); }
   if (name === 'denge') updateSummary();
+  saveActivePage(name);
 }
 function setSyncStatus(text, ok) {
   document.querySelectorAll('#syncStatus').forEach(el => {
@@ -557,7 +616,7 @@ function renderYearList() {
   });
   const plus = document.createElement('button');
   plus.className = 'plusBtn'; plus.textContent = yearsExpanded ? '−' : '+';
-  plus.onclick = () => { yearsExpanded = !yearsExpanded; renderYearList(); };
+  plus.onclick = () => { yearsExpanded = !yearsExpanded; renderYearList(); saveFilterState(); };
   list.appendChild(plus);
 }
 function renderMonthList() {
@@ -577,6 +636,7 @@ function applyDateFilter() {
   giderGrid.applyFilters(); gelirGrid.applyFilters();
   updateSummary();
   updateAllTotals();
+  saveFilterState();
 }
 function resetDateFilter() {
   const now = new Date();
@@ -973,7 +1033,6 @@ async function saveDataToFirestore() {
 }
 
 function updateSummary() {
-  // Denge sayfası: filtreli toplam (filtre yoksa tümü)
   let g, ge;
   if (filtreVarMi()) {
     g = giderGrid.sumFiltreli();
@@ -1008,7 +1067,6 @@ function updateSummary() {
 }
 
 function updateAllTotals() {
-  // Alt toplamlar: filtre VARSA filtreli, YOKSA 0
   let g = 0, ge = 0;
   if (filtreVarMi()) {
     g = giderGrid.sumFiltreli();
@@ -1017,7 +1075,6 @@ function updateAllTotals() {
   document.getElementById('total-gider').textContent = formatMoney(g);
   document.getElementById('total-gelir').textContent = formatMoney(ge);
 
-  // Üst bakiye göstergesi: filtre VARSA filtreli, YOKSA tümü
   let bakiyeG, bakiyeGe;
   if (filtreVarMi()) {
     bakiyeG = g; bakiyeGe = ge;
@@ -1073,9 +1130,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (de) de.addEventListener('keydown', e => { if (e.key === 'Enter') doDateSearch(); });
 });
 
-window.addEventListener('pagehide', () => saveLocalCache());
-window.addEventListener('beforeunload', () => saveLocalCache());
-document.addEventListener('visibilitychange', () => { if (document.hidden) saveLocalCache(); });
+window.addEventListener('pagehide', () => { saveLocalCache(); saveFilterState(); });
+window.addEventListener('beforeunload', () => { saveLocalCache(); saveFilterState(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) { saveLocalCache(); saveFilterState(); } });
 
 checkSession();
 </script>
