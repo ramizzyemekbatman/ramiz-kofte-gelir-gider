@@ -6,77 +6,48 @@
 <title>Gelir & Gider</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
   :root {
-    --bg: #faf8f3;
-    --surface: #ffffff;
-    --border: #e5e0d3;
-    --text: #1b2e1f;
-    --text-secondary: #6b7a6b;
-    --dark: #1b4332;
-    --dark-hover: #2d5a44;
-    --light-hover: #f0ede4;
-    --shadow: 0 1px 3px rgba(27,67,50,0.08);
-    --shadow-lg: 0 4px 16px rgba(27,67,50,0.12);
-    --radius: 6px;
-    --radius-sm: 4px;
-    --error: #c62828;
-    --green-soft: rgba(45, 90, 68, 0.10);
-    --green-border: rgba(45, 90, 68, 0.28);
-    --green-text: #1b4332;
-    --red-soft: rgba(198, 40, 40, 0.10);
-    --red-border: rgba(198, 40, 40, 0.28);
+    --bg: #faf8f3; --surface: #ffffff; --border: #e5e0d3; --text: #1b2e1f;
+    --text-secondary: #6b7a6b; --dark: #1b4332; --dark-hover: #2d5a44;
+    --light-hover: #f0ede4; --shadow: 0 1px 3px rgba(27,67,50,0.08);
+    --shadow-lg: 0 4px 16px rgba(27,67,50,0.12); --radius: 6px; --radius-sm: 4px;
+    --error: #c62828; --green-soft: rgba(45,90,68,0.10);
+    --green-border: rgba(45,90,68,0.28); --green-text: #1b4332;
+    --red-soft: rgba(198,40,40,0.10); --red-border: rgba(198,40,40,0.28);
     --red-text: #c62828;
   }
-
-  html, body {
-    touch-action: manipulation;
-    -webkit-text-size-adjust: 100%;
-  }
-
+  html, body { touch-action: manipulation; -webkit-text-size-adjust: 100%; }
   body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    height: 100vh;
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    background: var(--bg); color: var(--text);
+    height: 100vh; height: 100dvh;
+    display: flex; flex-direction: column; overflow: hidden;
+    font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased;
     overscroll-behavior: none;
   }
-
-  /* ==== GİRİŞ ==== */
   #loginScreen { flex: 1; display: flex; align-items: center; justify-content: center; background: var(--bg); padding: 20px; }
   #loginBox { width: 340px; max-width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; box-shadow: var(--shadow-lg); }
   #loginBox label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
   #loginBox input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-size: 18px; outline: none; background: var(--surface); color: var(--text); text-align: center; letter-spacing: 4px; }
   #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
-  #loginBox button { width: 100%; margin-top: 20px; background: var(--dark); color: #ffffff; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px; }
-  #loginBox button:hover { background: var(--dark-hover); }
-  #loginError { color: #ffffff; background: var(--error); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; margin-top: 16px; display: none; text-align: center; }
+  #loginBox button { width: 100%; margin-top: 20px; background: var(--dark); color: #fff; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px; }
+  #loginError { color: #fff; background: var(--error); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; margin-top: 16px; display: none; text-align: center; }
 
-  /* ==== TOPBAR ==== */
-  #topbar { background: var(--dark); color: #ffffff; padding: 12px 16px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-height: 60px; }
+  #topbar { background: var(--dark); color: #fff; padding: 12px 16px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-height: 60px; }
   #topbar .title { font-weight: 600; font-size: 13px; letter-spacing: 1.2px; margin-right: auto; }
   #topbar .user { font-size: 12px; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); }
-  .iconBtn { width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); color: #ffffff; cursor: pointer; transition: all 0.15s; flex-shrink: 0; font-size: 20px; font-weight: bold; line-height: 1; }
-  .iconBtn:hover, .iconBtn:active { background: #ffffff; color: var(--dark); border-color: #ffffff; }
+  .iconBtn { width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); color: #fff; cursor: pointer; flex-shrink: 0; font-size: 20px; font-weight: bold; }
+  .iconBtn:hover { background: #fff; color: var(--dark); border-color: #fff; }
   .iconBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
 
-  /* ==== TABLO ==== */
   #appScreen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-  #tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 16px; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-shrink: 0; }
-  #tabs button { background: transparent; color: var(--text-secondary); border: none; border-bottom: 2px solid transparent; padding: 14px 20px; font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: -1px; transition: all 0.15s; white-space: nowrap; touch-action: manipulation; }
+  #tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 16px; gap: 4px; overflow-x: auto; flex-shrink: 0; }
+  #tabs button { background: transparent; color: var(--text-secondary); border: none; border-bottom: 2px solid transparent; padding: 14px 20px; font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: -1px; white-space: nowrap; }
   #tabs button.active { color: var(--dark); border-bottom-color: var(--dark); }
 
   #toolbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
-  #toolbar button { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.15s; touch-action: manipulation; }
-  #toolbar button:hover, #toolbar button:active { background: var(--dark); color: #ffffff; border-color: var(--dark); }
+  #toolbar button { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; font-size: 12px; font-weight: 500; }
+  #toolbar button:hover { background: var(--dark); color: #fff; border-color: var(--dark); }
   #hint { font-size: 11px; margin-left: 8px; color: var(--text-secondary); font-style: italic; }
   #syncStatus { margin-left: auto; font-size: 11px; color: var(--text-secondary); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); white-space: nowrap; }
   #syncStatus.ok { color: #2d5a44; border-color: #2d5a44; }
@@ -89,14 +60,12 @@
   .searchBox input::placeholder { color: var(--text-secondary); font-style: italic; }
   .searchBox .clearBtn { background: transparent; border: none; cursor: pointer; color: var(--text-secondary); font-size: 16px; padding: 0 4px; display: none; line-height: 1; }
   .searchBox .clearBtn.visible { display: block; }
-
-  .searchTotal { display: none; align-items: center; gap: 6px; padding: 6px 12px; background: var(--dark); color: #ffffff; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; white-space: nowrap; letter-spacing: 0.5px; }
+  .searchTotal { display: none; align-items: center; gap: 6px; padding: 6px 12px; background: var(--dark); color: #fff; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; white-space: nowrap; }
   .searchTotal.visible { display: flex; }
   .searchTotal .label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-right: 2px; }
 
   .page { flex: 1; display: none; overflow: hidden; }
   .page.active { display: flex; flex-direction: column; }
-
   #panels { flex: 1; display: flex; gap: 0; padding: 12px 16px; overflow: hidden; background: var(--bg); }
   .panel { flex: 1; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
   .panelBody { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; }
@@ -106,16 +75,15 @@
   table.grid th:last-child, table.grid td:last-child { border-right: none; }
   table.grid thead th { background: var(--light-hover); color: var(--text-secondary); text-align: center; font-weight: 600; font-size: 11px; letter-spacing: 1px; position: sticky; top: 0; z-index: 3; user-select: none; border-bottom: 2px solid var(--border); text-transform: uppercase; }
   .col-tarih { width: 25%; }
-  .col-ad    { width: 45%; }
+  .col-ad { width: 45%; }
   .col-fiyat { width: 30%; }
   table.grid td.selected { outline: 2px solid var(--dark); outline-offset: -2px; background: var(--light-hover); }
   table.grid td.editing { outline: 2px solid var(--dark); outline-offset: -2px; background: var(--surface); cursor: text; }
   table.grid td.fiyat { text-align: right; }
 
-  .totalBar { padding: 14px 18px; font-weight: 600; font-size: 15px; display: flex; justify-content: space-between; border-top: 2px solid var(--border); background: var(--light-hover); letter-spacing: 0.5px; flex-shrink: 0; color: var(--dark); }
-
-  #balancePage { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 16px; background: var(--bg); overflow: auto; -webkit-overflow-scrolling: touch; }
-  .bigBox { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: var(--shadow); transition: background 0.3s, border-color 0.3s; }
+  .totalBar { padding: 14px 18px; font-weight: 600; font-size: 15px; display: flex; justify-content: space-between; border-top: 2px solid var(--border); background: var(--light-hover); flex-shrink: 0; color: var(--dark); }
+  #balancePage { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 16px; background: var(--bg); overflow: auto; }
+  .bigBox { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: var(--shadow); }
   .bigBox .label { font-size: 16px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
   .bigBox .value { font-size: 36px; font-weight: 700; letter-spacing: 1px; }
   .bigBox.green { background: var(--green-soft); border-color: var(--green-border); }
@@ -126,7 +94,7 @@
   .bigBox.red .value { color: var(--red-text); }
   .bigBox.main { background: var(--dark); border-color: var(--dark); }
   .bigBox.main .label { color: rgba(255,255,255,0.7); }
-  .bigBox.main .value { color: #ffffff; font-size: 44px; }
+  .bigBox.main .value { color: #fff; font-size: 44px; }
   .bigBox.main.positive { background: var(--green-soft); border-color: var(--green-border); }
   .bigBox.main.positive .label { color: var(--green-text); }
   .bigBox.main.positive .value { color: var(--green-text); }
@@ -141,57 +109,50 @@
   #settingsOverlay, #dateOverlay { position: fixed; inset: 0; background: rgba(27,67,50,0.35); display: none; z-index: 100; }
   #settingsOverlay.active, #dateOverlay.active { display: block; }
   #dateOverlay { z-index: 200; }
-
   #settingsPanel, #datePanel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 92vw; height: 100%; background: var(--surface); box-shadow: -4px 0 24px rgba(27,67,50,0.15); display: flex; flex-direction: column; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 101; }
   #datePanel { width: 420px; z-index: 201; }
   #settingsPanel.active, #datePanel.active { right: 0; }
-  #settingsHeader, #dateHeader { background: var(--dark); color: #ffffff; padding: 16px 20px; display: flex; align-items: center; gap: 12px; min-height: 60px; }
+  #settingsHeader, #dateHeader { background: var(--dark); color: #fff; padding: 16px 20px; display: flex; align-items: center; gap: 12px; min-height: 60px; }
   #settingsHeader .title, #dateHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
-  #settingsHeader button, #dateHeader button { background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer; }
-  #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
-  #dateBody { flex: 1; padding: 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
+  #settingsHeader button, #dateHeader button { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer; }
+  #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; }
+  #dateBody { flex: 1; padding: 20px; overflow: auto; }
   #settingsBody h3, #dateBody h4 { margin: 0 0 16px 0; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; color: var(--text-secondary); text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
   #dateBody h4 { padding-bottom: 6px; margin-bottom: 10px; }
   .field { margin-bottom: 14px; min-width: 0; }
   .field label { font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; display: block; }
   .field input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 16px; outline: none; background: var(--surface); color: var(--text); }
   .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
-  .btn { background: var(--dark); color: #ffffff; border: none; border-radius: var(--radius-sm); padding: 12px 22px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.8px; white-space: nowrap; width: 100%; touch-action: manipulation; }
-  .btn:hover, .btn:active { background: var(--dark-hover); }
-  .msg { padding: 10px 16px; border-radius: var(--radius-sm); background: var(--dark); color: #ffffff; font-size: 13px; margin-top: 14px; display: none; text-align: center; }
+  .btn { background: var(--dark); color: #fff; border: none; border-radius: var(--radius-sm); padding: 12px 22px; font-size: 13px; font-weight: 600; cursor: pointer; width: 100%; }
+  .btn:hover { background: var(--dark-hover); }
+  .msg { padding: 10px 16px; border-radius: var(--radius-sm); background: var(--dark); color: #fff; font-size: 13px; margin-top: 14px; display: none; text-align: center; }
   .msg.error { background: var(--error); }
-
   body.izleyici .adminOnly { display: none !important; }
 
   .yearList { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .yearList button { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; min-width: 70px; touch-action: manipulation; }
-  .yearList button:hover { background: var(--light-hover); }
-  .yearList button.active { background: var(--dark); color: #ffffff; border-color: var(--dark); }
-  .yearList button.plusBtn { background: var(--dark); color: #ffffff; border-color: var(--dark); font-size: 18px; min-width: 44px; padding: 8px 12px; }
+  .yearList button { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 16px; font-size: 13px; font-weight: 600; cursor: pointer; min-width: 70px; }
+  .yearList button.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+  .yearList button.plusBtn { background: var(--dark); color: #fff; border-color: var(--dark); font-size: 18px; min-width: 44px; padding: 8px 12px; }
 
   .monthList { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
-  .monthList button { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; letter-spacing: 1px; transition: all 0.15s; touch-action: manipulation; }
-  .monthList button:hover { background: var(--light-hover); }
-  .monthList button.active { background: var(--dark); color: #ffffff; border-color: var(--dark); }
+  .monthList button { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; letter-spacing: 1px; }
+  .monthList button.active { background: var(--dark); color: #fff; border-color: var(--dark); }
 
   .dateRange { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
   .dateRange .inputWrap { flex: 1; display: flex; flex-direction: column; }
   .dateRange .inputWrap label { font-size: 10px; color: var(--text-secondary); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
   .dateRange input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 10px; font-size: 15px; outline: none; background: var(--surface); color: var(--text); text-align: center; letter-spacing: 1px; }
-  .dateRange input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
   .dateRange .arrowSep { color: var(--text-secondary); font-size: 16px; padding-top: 18px; }
-
   .searchActions { display: flex; gap: 8px; margin-bottom: 12px; }
-  .searchActions button { flex: 1; background: var(--dark); color: #ffffff; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.8px; touch-action: manipulation; }
+  .searchActions button { flex: 1; background: var(--dark); color: #fff; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; }
   .searchActions button.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-
   .dateInfo { padding: 12px 16px; background: var(--light-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary); text-align: center; }
   .dateInfo strong { color: var(--text); }
-  .resetBtn { width: 100%; background: transparent; color: var(--error); border: 1px solid var(--error); border-radius: var(--radius-sm); padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.8px; margin-top: 12px; touch-action: manipulation; }
+  .resetBtn { width: 100%; background: transparent; color: var(--error); border: 1px solid var(--error); border-radius: var(--radius-sm); padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 12px; }
 
   @media (max-width: 768px) {
     #topbar { padding: 10px 12px; gap: 6px; min-height: 56px; }
-    #topbar .title { font-size: 12px; letter-spacing: 1px; }
+    #topbar .title { font-size: 12px; }
     #topbar .user { font-size: 11px; padding: 5px 10px; }
     .iconBtn { width: 40px; height: 40px; font-size: 18px; }
     .iconBtn svg { width: 20px; height: 20px; }
@@ -201,25 +162,16 @@
     #toolbar button { padding: 8px 12px; font-size: 11px; }
     #hint { display: none; }
     .searchBox { min-width: 0; flex: 1; order: 10; margin-top: 4px; }
-    .searchTotal { order: 11; margin-top: 4px; font-size: 11px; padding: 5px 10px; }
-    .searchTotal .label { font-size: 9px; }
+    .searchTotal { order: 11; margin-top: 4px; }
     #syncStatus { margin-left: 0; order: 12; margin-top: 4px; }
     #panels { padding: 10px; }
-    table.grid th, table.grid td { height: 44px; padding: 8px 8px; font-size: 14px; }
-    .col-tarih { width: 26%; }
-    .col-ad    { width: 44%; }
-    .col-fiyat { width: 30%; }
+    table.grid th, table.grid td { height: 44px; padding: 8px; font-size: 14px; }
     .totalBar { padding: 12px 14px; font-size: 14px; }
     #balancePage { padding: 14px; gap: 12px; }
     .bigBox { padding: 18px 20px; }
-    .bigBox .label { font-size: 13px; }
     .bigBox .value { font-size: 26px; }
     .bigBox.main .value { font-size: 32px; }
     #settingsPanel, #datePanel { width: 100vw; max-width: 100vw; }
-  }
-  @media (max-width: 400px) {
-    .bigBox .value { font-size: 22px; }
-    .bigBox.main .value { font-size: 28px; }
   }
 </style>
 </head>
@@ -256,29 +208,17 @@
         <button class="adminOnly" onclick="giderGrid.deleteRow()">− Satır</button>
         <button class="adminOnly" onclick="giderGrid.clearAll()">Temizle</button>
         <span id="hint" class="adminOnly">Düzenlemek için hücreye çift tıklayın</span>
-
         <div class="searchBox" style="margin-left:auto;">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <input id="searchGider" type="text" placeholder="Açıklama ara..." oninput="onSearch('gider')" />
-          <button class="clearBtn" id="clearGider" onclick="clearSearch('gider')" title="Temizle">×</button>
+          <button class="clearBtn" id="clearGider" onclick="clearSearch('gider')">×</button>
         </div>
-
-        <div class="searchTotal" id="searchTotalGider">
-          <span class="label">TOPLAM</span>
-          <span id="searchTotalGiderVal">0,00 ₺</span>
-        </div>
-
+        <div class="searchTotal" id="searchTotalGider"><span class="label">TOPLAM</span><span id="searchTotalGiderVal">0,00 ₺</span></div>
         <span id="syncStatus">Kaydedildi</span>
       </div>
-      <div id="panels">
-        <div class="panel">
-          <div class="panelBody"><table class="grid" id="grid-gider"></table></div>
-          <div class="totalBar">
-            <span>TOPLAM GİDER</span>
-            <span id="total-gider">0,00 ₺</span>
-          </div>
-        </div>
-      </div>
+      <div id="panels"><div class="panel"><div class="panelBody"><table class="grid" id="grid-gider"></table></div>
+        <div class="totalBar"><span>TOPLAM GİDER</span><span id="total-gider">0,00 ₺</span></div>
+      </div></div>
     </div>
 
     <div class="page" id="page-gelir">
@@ -287,55 +227,31 @@
         <button class="adminOnly" onclick="gelirGrid.deleteRow()">− Satır</button>
         <button class="adminOnly" onclick="gelirGrid.clearAll()">Temizle</button>
         <span id="hint" class="adminOnly">Düzenlemek için hücreye çift tıklayın</span>
-
         <div class="searchBox" style="margin-left:auto;">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <input id="searchGelir" type="text" placeholder="Açıklama ara..." oninput="onSearch('gelir')" />
-          <button class="clearBtn" id="clearGelir" onclick="clearSearch('gelir')" title="Temizle">×</button>
+          <button class="clearBtn" id="clearGelir" onclick="clearSearch('gelir')">×</button>
         </div>
-
-        <div class="searchTotal" id="searchTotalGelir">
-          <span class="label">TOPLAM</span>
-          <span id="searchTotalGelirVal">0,00 ₺</span>
-        </div>
-
+        <div class="searchTotal" id="searchTotalGelir"><span class="label">TOPLAM</span><span id="searchTotalGelirVal">0,00 ₺</span></div>
         <span id="syncStatus">Kaydedildi</span>
       </div>
-      <div id="panels">
-        <div class="panel">
-          <div class="panelBody"><table class="grid" id="grid-gelir"></table></div>
-          <div class="totalBar">
-            <span>TOPLAM GELİR</span>
-            <span id="total-gelir">0,00 ₺</span>
-          </div>
-        </div>
-      </div>
+      <div id="panels"><div class="panel"><div class="panelBody"><table class="grid" id="grid-gelir"></table></div>
+        <div class="totalBar"><span>TOPLAM GELİR</span><span id="total-gelir">0,00 ₺</span></div>
+      </div></div>
     </div>
 
     <div class="page" id="page-denge">
       <div id="balancePage">
-        <div class="bigBox green">
-          <span class="label">TOPLAM GELİR</span>
-          <span class="value" id="sum-gelir">0,00 ₺</span>
-        </div>
-        <div class="bigBox red">
-          <span class="label">TOPLAM GİDER</span>
-          <span class="value" id="sum-gider">0,00 ₺</span>
-        </div>
-        <div class="bigBox main" id="bakiyeBox">
-          <span class="label">BAKİYE</span>
-          <span class="value" id="sum-bakiye">0,00 ₺</span>
-        </div>
+        <div class="bigBox green"><span class="label">TOPLAM GELİR</span><span class="value" id="sum-gelir">0,00 ₺</span></div>
+        <div class="bigBox red"><span class="label">TOPLAM GİDER</span><span class="value" id="sum-gider">0,00 ₺</span></div>
+        <div class="bigBox main" id="bakiyeBox"><span class="label">BAKİYE</span><span class="value" id="sum-bakiye">0,00 ₺</span></div>
       </div>
     </div>
   </div>
 
   <div id="settingsOverlay" onclick="closeSettings()"></div>
   <div id="settingsPanel">
-    <div id="settingsHeader">
-      <span class="title">AYARLAR</span>
-      <button onclick="closeSettings()">Kapat</button>
-    </div>
+    <div id="settingsHeader"><span class="title">AYARLAR</span><button onclick="closeSettings()">Kapat</button></div>
     <div id="settingsBody">
       <div class="adminOnly">
         <h3>ADMİN ŞİFRESİNİ DEĞİŞTİR</h3>
@@ -352,7 +268,6 @@
         <button class="btn" onclick="changeViewerPassword()">İZLEYİCİ ŞİFRESİNİ DEĞİŞTİR</button>
         <div class="msg" id="viewerPassMsg"></div>
       </div>
-
       <h3 style="margin-top:28px;">OTURUM</h3>
       <button class="btn" onclick="logout()">ÇIKIŞ YAP</button>
     </div>
@@ -360,25 +275,17 @@
 
   <div id="dateOverlay" onclick="closeDatePanel()"></div>
   <div id="datePanel">
-    <div id="dateHeader">
-      <span class="title">TARİH FİLTRESİ</span>
-      <button onclick="closeDatePanel()">Kapat</button>
-    </div>
+    <div id="dateHeader"><span class="title">TARİH FİLTRESİ</span><button onclick="closeDatePanel()">Kapat</button></div>
     <div id="dateBody">
-      <h4>YIL</h4>
-      <div class="yearList" id="yearList"></div>
-      <h4>AY</h4>
-      <div class="monthList" id="monthList"></div>
+      <h4>YIL</h4><div class="yearList" id="yearList"></div>
+      <h4>AY</h4><div class="monthList" id="monthList"></div>
       <h4>TARİH ARALIĞI</h4>
       <div class="dateRange">
         <div class="inputWrap"><label>BAŞLANGIÇ</label><input id="dateStart" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" /></div>
         <div class="arrowSep">→</div>
         <div class="inputWrap"><label>BİTİŞ</label><input id="dateEnd" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" /></div>
       </div>
-      <div class="searchActions">
-        <button onclick="doDateSearch()">ARA</button>
-        <button class="ghost" onclick="clearDateRange()">TEMİZLE</button>
-      </div>
+      <div class="searchActions"><button onclick="doDateSearch()">ARA</button><button class="ghost" onclick="clearDateRange()">TEMİZLE</button></div>
       <div class="dateInfo" id="dateInfo">Filtre yok — tüm satırlar görünüyor.</div>
       <button class="resetBtn" onclick="resetDateFilter()">TÜM FİLTREYİ SIFIRLA</button>
     </div>
@@ -388,7 +295,6 @@
   <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
 
 <script>
-/* ================= FIREBASE ================= */
 const firebaseConfig = {
   apiKey: "AIzaSyDkck9qvOnrZoi7qlvDfaC2AuKJ8q-txoE",
   authDomain: "ramiz-kofte-gelir-gider.firebaseapp.com",
@@ -404,7 +310,7 @@ const DATA_DOC = db.collection('ortak').doc('veriler');
 const ADMIN_KEY = 'ramizKofteAdminSifre';
 const VIEWER_KEY = 'ramizKofteIzleyiciSifre';
 const SESSION_KEY = 'ramizKofteOturum';
-const LOCAL_CACHE_KEY = 'ramizKofteYerelVeri'; // localStorage yedek
+const LOCAL_CACHE_KEY = 'ramizKofteYerelVeri';
 const DEFAULT_ADMIN_PASS = '1234';
 const DEFAULT_VIEWER_PASS = '0000';
 const CURRENCY = '₺';
@@ -452,7 +358,7 @@ function formatMoney(n) {
   return n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+CURRENCY;
 }
 function trLower(s) {
-  return String(s).toLowerCase().replace(/İ/g, 'i').replace(/I/g, 'ı').replace(/Ş/g, 'ş').replace(/Ğ/g, 'ğ').replace(/Ü/g, 'ü').replace(/Ö/g, 'ö').replace(/Ç/g, 'ç');
+  return String(s).toLowerCase().replace(/İ/g,'i').replace(/I/g,'ı').replace(/Ş/g,'ş').replace(/Ğ/g,'ğ').replace(/Ü/g,'ü').replace(/Ö/g,'ö').replace(/Ç/g,'ç');
 }
 function toComparable(tarih) {
   const d = String(tarih || '').replace(/\D/g, '');
@@ -490,33 +396,12 @@ function doLogin(e) {
   e.preventDefault();
   const p = document.getElementById('loginPass').value.trim();
   const err = document.getElementById('loginError');
-  if (p === adminPass) {
-    isAdmin = true;
-    sessionStorage.setItem(SESSION_KEY, 'admin');
-    err.style.display = 'none';
-    document.getElementById('loginPass').value = '';
-    showApp();
-    return false;
-  }
-  if (p === viewerPass) {
-    isAdmin = false;
-    sessionStorage.setItem(SESSION_KEY, 'izleyici');
-    err.style.display = 'none';
-    document.getElementById('loginPass').value = '';
-    showApp();
-    return false;
-  }
-  err.textContent = 'Şifre hatalı.';
-  err.style.display = 'block';
+  if (p === adminPass) { isAdmin = true; sessionStorage.setItem(SESSION_KEY, 'admin'); err.style.display = 'none'; document.getElementById('loginPass').value = ''; showApp(); return false; }
+  if (p === viewerPass) { isAdmin = false; sessionStorage.setItem(SESSION_KEY, 'izleyici'); err.style.display = 'none'; document.getElementById('loginPass').value = ''; showApp(); return false; }
+  err.textContent = 'Şifre hatalı.'; err.style.display = 'block';
   return false;
 }
-function logout() {
-  closeSettings();
-  closeDatePanel();
-  isAdmin = false;
-  sessionStorage.removeItem(SESSION_KEY);
-  showLogin();
-}
+function logout() { closeSettings(); closeDatePanel(); isAdmin = false; sessionStorage.removeItem(SESSION_KEY); showLogin(); }
 function checkSession() {
   const s = sessionStorage.getItem(SESSION_KEY);
   if (s === 'admin') { isAdmin = true; showApp(); return; }
@@ -524,7 +409,7 @@ function checkSession() {
   showLogin();
 }
 
-/* ================= ŞİFRE DEĞİŞTİR ================= */
+/* ================= ŞİFRE ================= */
 function changeAdminPassword() {
   const oldP = document.getElementById('oldAdminPass').value.trim();
   const n1 = document.getElementById('newAdminPass').value.trim();
@@ -536,11 +421,8 @@ function changeAdminPassword() {
   if (n1.length < 4) return show('En az 4 hane olmalı.', true);
   if (n1 === viewerPass) return show('Bu şifre kullanılamaz.', true);
   if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
-  adminPass = n1;
-  localStorage.setItem(ADMIN_KEY, adminPass);
-  document.getElementById('oldAdminPass').value='';
-  document.getElementById('newAdminPass').value='';
-  document.getElementById('newAdminPass2').value='';
+  adminPass = n1; localStorage.setItem(ADMIN_KEY, adminPass);
+  document.getElementById('oldAdminPass').value=''; document.getElementById('newAdminPass').value=''; document.getElementById('newAdminPass2').value='';
   show('Admin şifresi güncellendi.', false);
 }
 function changeViewerPassword() {
@@ -554,15 +436,12 @@ function changeViewerPassword() {
   if (n1.length < 4) return show('En az 4 hane olmalı.', true);
   if (n1 === adminPass) return show('Bu şifre kullanılamaz.', true);
   if (n1 !== n2) return show('Yeni şifreler uyuşmuyor.', true);
-  viewerPass = n1;
-  localStorage.setItem(VIEWER_KEY, viewerPass);
-  document.getElementById('oldViewerPass').value='';
-  document.getElementById('newViewerPass').value='';
-  document.getElementById('newViewerPass2').value='';
+  viewerPass = n1; localStorage.setItem(VIEWER_KEY, viewerPass);
+  document.getElementById('oldViewerPass').value=''; document.getElementById('newViewerPass').value=''; document.getElementById('newViewerPass2').value='';
   show('İzleyici şifresi güncellendi.', false);
 }
 
-/* ================= EKRAN GEÇİŞ ================= */
+/* ================= EKRAN ================= */
 function openSettings() {
   document.getElementById('settingsOverlay').classList.add('active');
   document.getElementById('settingsPanel').classList.add('active');
@@ -597,19 +476,14 @@ function onSearch(which) {
   const query = input.value.trim();
   clearBtn.classList.toggle('visible', query.length > 0);
   const grid = which === 'gider' ? giderGrid : gelirGrid;
-  grid.textFilter = query;
-  grid.applyFilters();
-  updateSearchTotal(which);
+  grid.textFilter = query; grid.applyFilters(); updateSearchTotal(which);
 }
 function clearSearch(which) {
   const input = document.getElementById(which === 'gider' ? 'searchGider' : 'searchGelir');
   const clearBtn = document.getElementById(which === 'gider' ? 'clearGider' : 'clearGelir');
-  input.value = '';
-  clearBtn.classList.remove('visible');
+  input.value = ''; clearBtn.classList.remove('visible');
   const grid = which === 'gider' ? giderGrid : gelirGrid;
-  grid.textFilter = '';
-  grid.applyFilters();
-  updateSearchTotal(which);
+  grid.textFilter = ''; grid.applyFilters(); updateSearchTotal(which);
 }
 function updateSearchTotal(which) {
   const input = document.getElementById(which === 'gider' ? 'searchGider' : 'searchGelir');
@@ -624,8 +498,7 @@ function updateSearchTotal(which) {
     const aciklama = grid.data[r][1] || '';
     if (trLower(aciklama).indexOf(q) !== -1) total += parseNum(grid.data[r][2]);
   }
-  val.textContent = formatMoney(total);
-  box.classList.add('visible');
+  val.textContent = formatMoney(total); box.classList.add('visible');
 }
 
 /* ================= TARİH FİLTRE ================= */
@@ -640,9 +513,7 @@ function openDatePanel() {
   document.getElementById('datePanel').classList.add('active');
   const now = new Date();
   if (selectedYear === null) selectedYear = now.getFullYear();
-  renderYearList();
-  renderMonthList();
-  updateDateInfo();
+  renderYearList(); renderMonthList(); updateDateInfo();
 }
 function closeDatePanel() {
   document.getElementById('dateOverlay').classList.remove('active');
@@ -658,20 +529,11 @@ function renderYearList() {
     const btn = document.createElement('button');
     btn.textContent = y;
     if (selectedYear === y) btn.classList.add('active');
-    btn.onclick = () => {
-      selectedYear = y;
-      dateRangeStart = null;
-      dateRangeEnd = null;
-      renderYearList();
-      renderMonthList();
-      applyDateFilter();
-      updateDateInfo();
-    };
+    btn.onclick = () => { selectedYear = y; dateRangeStart = null; dateRangeEnd = null; renderYearList(); renderMonthList(); applyDateFilter(); updateDateInfo(); };
     list.appendChild(btn);
   });
   const plus = document.createElement('button');
-  plus.className = 'plusBtn';
-  plus.textContent = yearsExpanded ? '−' : '+';
+  plus.className = 'plusBtn'; plus.textContent = yearsExpanded ? '−' : '+';
   plus.onclick = () => { yearsExpanded = !yearsExpanded; renderYearList(); };
   list.appendChild(plus);
 }
@@ -682,53 +544,32 @@ function renderMonthList() {
     const btn = document.createElement('button');
     btn.textContent = m;
     if (selectedMonth === i) btn.classList.add('active');
-    btn.onclick = () => {
-      selectedMonth = i;
-      dateRangeStart = null;
-      dateRangeEnd = null;
-      renderMonthList();
-      applyDateFilter();
-      updateDateInfo();
-    };
+    btn.onclick = () => { selectedMonth = i; dateRangeStart = null; dateRangeEnd = null; renderMonthList(); applyDateFilter(); updateDateInfo(); };
     list.appendChild(btn);
   });
 }
 function applyDateFilter() {
   const df = { year: selectedYear, month: selectedMonth, start: dateRangeStart, end: dateRangeEnd };
-  giderGrid.dateFilter = df;
-  gelirGrid.dateFilter = df;
-  giderGrid.applyFilters();
-  gelirGrid.applyFilters();
+  giderGrid.dateFilter = df; gelirGrid.dateFilter = df;
+  giderGrid.applyFilters(); gelirGrid.applyFilters();
 }
 function resetDateFilter() {
   const now = new Date();
-  selectedYear = now.getFullYear();
-  selectedMonth = null;
-  dateRangeStart = null;
-  dateRangeEnd = null;
-  yearsExpanded = false;
-  document.getElementById('dateStart').value = '';
-  document.getElementById('dateEnd').value = '';
-  renderYearList();
-  renderMonthList();
-  applyDateFilter();
-  updateDateInfo();
+  selectedYear = now.getFullYear(); selectedMonth = null; dateRangeStart = null; dateRangeEnd = null; yearsExpanded = false;
+  document.getElementById('dateStart').value = ''; document.getElementById('dateEnd').value = '';
+  renderYearList(); renderMonthList(); applyDateFilter(); updateDateInfo();
 }
 function clearDateRange() {
-  dateRangeStart = null;
-  dateRangeEnd = null;
-  document.getElementById('dateStart').value = '';
-  document.getElementById('dateEnd').value = '';
-  applyDateFilter();
-  updateDateInfo();
+  dateRangeStart = null; dateRangeEnd = null;
+  document.getElementById('dateStart').value = ''; document.getElementById('dateEnd').value = '';
+  applyDateFilter(); updateDateInfo();
 }
 function updateDateInfo() {
   const info = document.getElementById('dateInfo');
   if (dateRangeStart || dateRangeEnd) {
     const s = dateRangeStart ? formatTarih(dateRangeStart) : '...';
     const e = dateRangeEnd ? formatTarih(dateRangeEnd) : '...';
-    info.innerHTML = 'Aralık: <strong>' + s + '</strong> → <strong>' + e + '</strong>';
-    return;
+    info.innerHTML = 'Aralık: <strong>' + s + '</strong> → <strong>' + e + '</strong>'; return;
   }
   if (selectedYear && selectedMonth !== null) info.innerHTML = 'Seçili: <strong>' + TR_MONTHS[selectedMonth] + ' ' + selectedYear + '</strong>';
   else if (selectedYear) info.innerHTML = 'Seçili yıl: <strong>' + selectedYear + '</strong>';
@@ -743,27 +584,20 @@ function doDateSearch() {
   if (e && e.length !== 8) { document.getElementById('dateInfo').textContent = 'Bitiş GGAAYYYY olmalı.'; return; }
   dateRangeStart = s ? (s.slice(4,8) + s.slice(2,4) + s.slice(0,2)) : null;
   dateRangeEnd = e ? (e.slice(4,8) + e.slice(2,4) + e.slice(0,2)) : null;
-  selectedMonth = null;
-  applyDateFilter();
-  updateDateInfo();
+  selectedMonth = null; applyDateFilter(); updateDateInfo();
 }
 
 /* ================= YEREL YEDEK ================= */
 function saveLocalCache() {
   try {
     localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify({
-      gider: giderGrid.data,
-      gelir: gelirGrid.data,
-      ts: Date.now()
+      gider: giderGrid.data, gelir: gelirGrid.data, ts: Date.now()
     }));
   } catch(e) {}
 }
 function loadLocalCache() {
-  try {
-    const raw = localStorage.getItem(LOCAL_CACHE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch(e) { return null; }
+  try { const raw = localStorage.getItem(LOCAL_CACHE_KEY); if (!raw) return null; return JSON.parse(raw); }
+  catch(e) { return null; }
 }
 
 /* ================= TABLO ================= */
@@ -823,16 +657,9 @@ class Grid {
     const onActivate = (e) => {
       this.setActive();
       if (this.editing) return;
-      // Dokunmatikte çift tap algıla
       if (e && e.type === 'touchend') {
         const now = Date.now();
-        if (now - lastTap < 350) {
-          // Çift tap → düzenle
-          e.preventDefault();
-          if (isAdmin) this.startEdit(r, c);
-          lastTap = 0;
-          return;
-        }
+        if (now - lastTap < 350) { e.preventDefault(); if (isAdmin) this.startEdit(r, c); lastTap = 0; return; }
         lastTap = now;
       }
       this.selectCell(r, c);
@@ -848,18 +675,14 @@ class Grid {
     const hasYearMonth = (df.year !== null) || (df.month !== null);
     const hasRange = df.start || df.end;
     const hasFilter = q || hasYearMonth || hasRange;
-
     table.querySelectorAll('tbody tr').forEach(tr => {
       const r = parseInt(tr.dataset.r);
       const aciklama = this.data[r][1] || '';
       const tarih = String(this.data[r][0] || '').replace(/\D/g, '');
       const isEmpty = aciklama.trim() === '' && tarih === '';
-
       if (hasFilter && isEmpty) { tr.style.display = 'none'; return; }
-
       let textOK = true;
       if (q) textOK = trLower(aciklama).indexOf(q) !== -1;
-
       let dateOK = true;
       if (hasRange) {
         if (tarih.length !== 8) dateOK = false;
@@ -877,7 +700,6 @@ class Grid {
           if (df.month !== null && m !== df.month) dateOK = false;
         }
       }
-
       tr.style.display = (textOK && dateOK) ? '' : 'none';
     });
   }
@@ -922,9 +744,7 @@ class Grid {
       td.classList.remove('editing');
       this.data[r][c] = td.textContent.trim();
       td.textContent = this.displayValue(r, c);
-
       if (c === 0) this.sortByDateAround(r);
-
       this.scheduleSave();
       this.render();
       this.updateTotals();
@@ -934,9 +754,20 @@ class Grid {
     };
     td.onblur = finish;
     td.oninput = () => {
-      // Anlık yedek
+      // ANLIK: Her tuş vuruşunda veriyi kaydet
       const cur = td.textContent.trim();
       this.data[r][c] = cur;
+      // TARİH OTOMATİK: Açıklama veya Fiyat'a yazıldıysa ve tarih boşsa → bugünün tarihi
+      if ((c === 1 || c === 2) && cur !== '') {
+        const tarihHucre = this.data[r][0] || '';
+        if (tarihHucre === '') {
+          // Tarih boşsa bugünün tarihi yaz (o anki saat, gece 00'ı geçtiyse yeni gün)
+          this.data[r][0] = bugununTarihi();
+          // Tarih hücresini de güncelle
+          const tarihTd = table.querySelector(`td[data-r="${r}"][data-c="0"]`);
+          if (tarihTd) tarihTd.textContent = formatTarih(this.data[r][0]);
+        }
+      }
       saveLocalCache();
     };
     td.onkeydown = (e) => {
@@ -958,10 +789,7 @@ class Grid {
       if (!cmp) continue;
       const cmpYear = cmp.slice(0, 4);
       const cmpMonth = cmp.slice(4, 6);
-      if (cmpYear === newYear && cmpMonth === newMonth && cmp > newDate) {
-        insertAt = i;
-        break;
-      }
+      if (cmpYear === newYear && cmpMonth === newMonth && cmp > newDate) { insertAt = i; break; }
     }
     this.data.splice(insertAt, 0, row);
     this.rows = this.data.length;
@@ -981,13 +809,13 @@ class Grid {
   }
   addRow() {
     if (!isAdmin) return;
+    // Tarih BOŞ açılır — yazı yazılınca otomatik dolar
     const yeniSatir = ['', '', ''];
-    yeniSatir[0] = bugununTarihi();
     this.data.push(yeniSatir);
     this.rows++;
     this.scheduleSave();
     this.render();
-    this.selectCell(this.rows - 1, 1);
+    this.selectCell(this.rows - 1, 1); // Açıklama sütununu seç
   }
   deleteRow() {
     if (!isAdmin) return;
@@ -1016,7 +844,6 @@ class Grid {
   }
   scheduleSave() {
     if (!isAdmin) return;
-    // Hemen localStorage'a yaz
     saveLocalCache();
     setSyncStatus('Kaydediliyor...', null);
     if (this.saveTimer) clearTimeout(this.saveTimer);
@@ -1031,8 +858,6 @@ let isSaving = false, needsSave = false;
 
 async function loadDataFromFirestore() {
   setSyncStatus('Yükleniyor...', null);
-
-  // Önce localStorage'dan yükle (anında göster)
   const cached = loadLocalCache();
   if (cached) {
     if (Array.isArray(cached.gider) && cached.gider.length) {
@@ -1043,13 +868,9 @@ async function loadDataFromFirestore() {
       gelirGrid.data = cached.gelir.map(r => { const x = r.slice(0, FIXED_COLS); while(x.length<FIXED_COLS)x.push(''); return x; });
       gelirGrid.rows = gelirGrid.data.length;
     }
-    giderGrid.render();
-    gelirGrid.render();
-    giderGrid.setActive();
-    giderGrid.selectCell(0, 0);
+    giderGrid.render(); gelirGrid.render();
+    giderGrid.setActive(); giderGrid.selectCell(0, 0);
   }
-
-  // Sonra Firestore'dan güncelle
   try {
     const doc = await DATA_DOC.get();
     if (doc.exists) {
@@ -1059,50 +880,29 @@ async function loadDataFromFirestore() {
         fsData.gider = d.gider.map(item => {
           const row = (item && item.satir) ? item.satir : item;
           if (!Array.isArray(row)) return ['','',''];
-          const x = row.slice(0, FIXED_COLS);
-          while (x.length < FIXED_COLS) x.push('');
-          return x;
+          const x = row.slice(0, FIXED_COLS); while (x.length < FIXED_COLS) x.push(''); return x;
         });
       }
       if (Array.isArray(d.gelir) && d.gelir.length) {
         fsData.gelir = d.gelir.map(item => {
           const row = (item && item.satir) ? item.satir : item;
           if (!Array.isArray(row)) return ['','',''];
-          const x = row.slice(0, FIXED_COLS);
-          while (x.length < FIXED_COLS) x.push('');
-          return x;
+          const x = row.slice(0, FIXED_COLS); while (x.length < FIXED_COLS) x.push(''); return x;
         });
       }
-      // Yerel ve bulut karşılaştır: yeniyi seç
-      const localTs = cached ? cached.ts : 0;
-      // Bulutta daha yeni veri varsa (basit kontrol)
-      if (fsData.gider) {
-        const localLen = giderGrid.data.length;
-        const fsLen = fsData.gider.length;
-        // Hangisi daha uzun veya değişmiş? Basit yaklaşım: bulut verisini al
-        if (fsLen >= localLen) {
-          giderGrid.data = fsData.gider;
-          giderGrid.rows = fsData.gider.length;
-        }
+      if (fsData.gider && fsData.gider.length >= giderGrid.data.length) {
+        giderGrid.data = fsData.gider; giderGrid.rows = fsData.gider.length;
       }
-      if (fsData.gelir) {
-        const localLen = gelirGrid.data.length;
-        const fsLen = fsData.gelir.length;
-        if (fsLen >= localLen) {
-          gelirGrid.data = fsData.gelir;
-          gelirGrid.rows = fsData.gelir.length;
-        }
+      if (fsData.gelir && fsData.gelir.length >= gelirGrid.data.length) {
+        gelirGrid.data = fsData.gelir; gelirGrid.rows = fsData.gelir.length;
       }
     }
-    giderGrid.render();
-    gelirGrid.render();
-    giderGrid.setActive();
-    giderGrid.selectCell(0, 0);
+    giderGrid.render(); gelirGrid.render();
+    giderGrid.setActive(); giderGrid.selectCell(0, 0);
     setSyncStatus('Kaydedildi', true);
     saveLocalCache();
   } catch (e) {
-    console.error(e);
-    setSyncStatus('Bağlantı hatası', false);
+    console.error(e); setSyncStatus('Bağlantı hatası', false);
     if (!cached) {
       giderGrid.data = emptyData(DEFAULT_ROWS); giderGrid.rows = DEFAULT_ROWS;
       gelirGrid.data = emptyData(DEFAULT_ROWS); gelirGrid.rows = DEFAULT_ROWS;
@@ -1113,7 +913,6 @@ async function loadDataFromFirestore() {
 
 async function saveDataToFirestore() {
   if (!isAdmin) return;
-  // Her zaman önce yerele yaz
   saveLocalCache();
   if (isSaving) { needsSave = true; return; }
   isSaving = true;
@@ -1122,8 +921,7 @@ async function saveDataToFirestore() {
     const giderData = giderGrid.data.map(row => ({ satir: row }));
     const gelirData = gelirGrid.data.map(row => ({ satir: row }));
     await DATA_DOC.set({
-      gider: giderData,
-      gelir: gelirData,
+      gider: giderData, gelir: gelirData,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedBy: 'admin'
     }, { merge: true });
@@ -1167,10 +965,8 @@ document.addEventListener('keydown', (e) => {
   if (!pageActive) return;
   if (pageActive.id === 'page-denge') return;
   if (e.target.tagName === 'INPUT') return;
-
   const g = activeGrid;
   if (g.editing) return;
-
   if (e.key === 'ArrowDown')  { e.preventDefault(); g.moveSelection(1, 0); }
   if (e.key === 'ArrowUp')    { e.preventDefault(); g.moveSelection(-1, 0); }
   if (e.key === 'ArrowRight') { e.preventDefault(); g.moveSelection(0, 1); }
@@ -1183,16 +979,11 @@ document.addEventListener('keydown', (e) => {
     const table = document.getElementById(g.tableId);
     const td = table.querySelector(`td[data-r="${g.selected.r}"][data-c="${g.selected.c}"]`);
     if (td) td.textContent = '';
-    g.scheduleSave();
-    g.updateTotals();
-    g.applyFilters();
+    g.scheduleSave(); g.updateTotals(); g.applyFilters();
     if (g.id === 'gider') updateSearchTotal('gider');
     if (g.id === 'gelir') updateSearchTotal('gelir');
   }
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    g.moveSelection(0, e.shiftKey ? -1 : 1);
-  }
+  if (e.key === 'Tab') { e.preventDefault(); g.moveSelection(0, e.shiftKey ? -1 : 1); }
   if (e.key === 'Escape') { closeSettings(); closeDatePanel(); }
 });
 
@@ -1209,12 +1000,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (de) de.addEventListener('keydown', e => { if (e.key === 'Enter') doDateSearch(); });
 });
 
-/* ================= SAYFA KAPANIRKEN KAYDET ================= */
-window.addEventListener('pagehide', () => { saveLocalCache(); });
-window.addEventListener('beforeunload', () => { saveLocalCache(); });
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) saveLocalCache();
-});
+window.addEventListener('pagehide', () => saveLocalCache());
+window.addEventListener('beforeunload', () => saveLocalCache());
+document.addEventListener('visibilitychange', () => { if (document.hidden) saveLocalCache(); });
 
 checkSession();
 </script>
