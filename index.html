@@ -754,16 +754,12 @@ class Grid {
     };
     td.onblur = finish;
     td.oninput = () => {
-      // ANLIK: Her tuş vuruşunda veriyi kaydet
       const cur = td.textContent.trim();
       this.data[r][c] = cur;
-      // TARİH OTOMATİK: Açıklama veya Fiyat'a yazıldıysa ve tarih boşsa → bugünün tarihi
       if ((c === 1 || c === 2) && cur !== '') {
         const tarihHucre = this.data[r][0] || '';
         if (tarihHucre === '') {
-          // Tarih boşsa bugünün tarihi yaz (o anki saat, gece 00'ı geçtiyse yeni gün)
           this.data[r][0] = bugununTarihi();
-          // Tarih hücresini de güncelle
           const tarihTd = table.querySelector(`td[data-r="${r}"][data-c="0"]`);
           if (tarihTd) tarihTd.textContent = formatTarih(this.data[r][0]);
         }
@@ -809,13 +805,20 @@ class Grid {
   }
   addRow() {
     if (!isAdmin) return;
-    // Tarih BOŞ açılır — yazı yazılınca otomatik dolar
-    const yeniSatir = ['', '', ''];
+    // Ay seçiliyse o ayın 1'i, değilse bugün
+    let tarih = bugununTarihi();
+    if (selectedMonth !== null && selectedYear !== null) {
+      const g = '01';
+      const a = String(selectedMonth + 1).padStart(2, '0');
+      const y = selectedYear;
+      tarih = g + a + y;
+    }
+    const yeniSatir = [tarih, '', ''];
     this.data.push(yeniSatir);
     this.rows++;
     this.scheduleSave();
     this.render();
-    this.selectCell(this.rows - 1, 1); // Açıklama sütununu seç
+    this.selectCell(this.rows - 1, 1);
   }
   deleteRow() {
     if (!isAdmin) return;
