@@ -378,24 +378,24 @@ function autoSlashDates(input) {
     this.value = out;
   });
 }
-// Bir tarihin filtreye uyup uymadığını kontrol et
 function tarihFiltreyeUyuyorMu(tarih) {
   const d = String(tarih || '').replace(/\D/g, '');
   if (d.length !== 8) return false;
   const y = parseInt(d.slice(4,8), 10);
   const m = parseInt(d.slice(2,4), 10) - 1;
-  // Tarih aralığı varsa
   if (dateRangeStart || dateRangeEnd) {
     const tcmp = d.slice(4,8) + d.slice(2,4) + d.slice(0,2);
     if (dateRangeStart && tcmp < dateRangeStart) return false;
     if (dateRangeEnd && tcmp > dateRangeEnd) return false;
     return true;
   }
-  // Yıl filtresi
   if (selectedYear !== null && y !== selectedYear) return false;
-  // Ay filtresi
   if (selectedMonth !== null && m !== selectedMonth) return false;
   return true;
+}
+// Filtre var mı? (yıl veya ay veya aralık)
+function filtreVarMi() {
+  return (selectedMonth !== null) || (dateRangeStart !== null) || (dateRangeEnd !== null);
 }
 
 /* ================= OTURUM ================= */
@@ -576,6 +576,7 @@ function applyDateFilter() {
   giderGrid.dateFilter = df; gelirGrid.dateFilter = df;
   giderGrid.applyFilters(); gelirGrid.applyFilters();
   updateSummary();
+  updateAllTotals();
 }
 function resetDateFilter() {
   const now = new Date();
@@ -863,7 +864,6 @@ class Grid {
     if (this.id === 'gider') updateSearchTotal('gider');
     if (this.id === 'gelir') updateSearchTotal('gelir');
   }
-  // Belirli bir filtreye uyan satırların toplamı
   sumFiltreli() {
     let t = 0;
     for (let r = 0; r < this.rows; r++) {
@@ -973,9 +973,15 @@ async function saveDataToFirestore() {
 }
 
 function updateSummary() {
-  // Filtrelenen toplamları al
-  const g = giderGrid.sumFiltreli();
-  const ge = gelirGrid.sumFiltreli();
+  // Denge sayfası: filtreli toplam (filtre yoksa tümü)
+  let g, ge;
+  if (filtreVarMi()) {
+    g = giderGrid.sumFiltreli();
+    ge = gelirGrid.sumFiltreli();
+  } else {
+    g = giderGrid.sum();
+    ge = gelirGrid.sum();
+  }
   document.getElementById('sum-gelir').textContent = formatMoney(ge);
   document.getElementById('sum-gider').textContent = formatMoney(g);
   const bakiye = ge - g;
@@ -985,7 +991,6 @@ function updateSummary() {
   if (bakiye > 0) box.classList.add('positive');
   else if (bakiye < 0) box.classList.add('negative');
 
-  // Bilgi yazısı
   const info = document.getElementById('balanceInfo');
   if (dateRangeStart || dateRangeEnd) {
     const s = dateRangeStart ? formatTarih(dateRangeStart) : '...';
@@ -1001,12 +1006,26 @@ function updateSummary() {
     info.textContent = 'Filtre yok — tüm zamanlar';
   }
 }
+
 function updateAllTotals() {
-  const g = giderGrid.sum();
-  const ge = gelirGrid.sum();
+  // Alt toplamlar: filtre VARSA filtreli, YOKSA 0
+  let g = 0, ge = 0;
+  if (filtreVarMi()) {
+    g = giderGrid.sumFiltreli();
+    ge = gelirGrid.sumFiltreli();
+  }
   document.getElementById('total-gider').textContent = formatMoney(g);
   document.getElementById('total-gelir').textContent = formatMoney(ge);
-  document.getElementById('balance').textContent = 'Bakiye: ' + formatMoney(ge - g);
+
+  // Üst bakiye göstergesi: filtre VARSA filtreli, YOKSA tümü
+  let bakiyeG, bakiyeGe;
+  if (filtreVarMi()) {
+    bakiyeG = g; bakiyeGe = ge;
+  } else {
+    bakiyeG = giderGrid.sum();
+    bakiyeGe = gelirGrid.sum();
+  }
+  document.getElementById('balance').textContent = 'Bakiye: ' + formatMoney(bakiyeGe - bakiyeG);
   updateSummary();
 }
 Grid.prototype.updateTotals = function() { updateAllTotals(); };
