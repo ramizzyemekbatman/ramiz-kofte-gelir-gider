@@ -29,6 +29,11 @@
     --red-text: #c62828;
   }
 
+  html, body {
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     background: var(--bg);
@@ -41,269 +46,91 @@
     font-size: 14px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
   }
 
-  #loginScreen {
-    flex: 1; display: flex;
-    align-items: center; justify-content: center;
-    background: var(--bg); padding: 20px;
-  }
-  #loginBox {
-    width: 340px; max-width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 36px 32px;
-    box-shadow: var(--shadow-lg);
-  }
+  /* ==== GİRİŞ ==== */
+  #loginScreen { flex: 1; display: flex; align-items: center; justify-content: center; background: var(--bg); padding: 20px; }
+  #loginBox { width: 340px; max-width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; box-shadow: var(--shadow-lg); }
   #loginBox label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; }
-  #loginBox input {
-    width: 100%; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 14px;
-    font-size: 18px; outline: none;
-    background: var(--surface); color: var(--text);
-    text-align: center; letter-spacing: 4px;
-  }
+  #loginBox input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-size: 18px; outline: none; background: var(--surface); color: var(--text); text-align: center; letter-spacing: 4px; }
   #loginBox input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
-  #loginBox button {
-    width: 100%; margin-top: 20px; background: var(--dark); color: #ffffff;
-    border: none; border-radius: var(--radius-sm); padding: 14px;
-    font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px;
-  }
+  #loginBox button { width: 100%; margin-top: 20px; background: var(--dark); color: #ffffff; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 14px; font-weight: 600; cursor: pointer; letter-spacing: 1px; }
   #loginBox button:hover { background: var(--dark-hover); }
-  #loginError {
-    color: #ffffff; background: var(--error); border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 13px; margin-top: 16px; display: none; text-align: center;
-  }
+  #loginError { color: #ffffff; background: var(--error); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; margin-top: 16px; display: none; text-align: center; }
 
-  #topbar {
-    background: var(--dark); color: #ffffff;
-    padding: 12px 16px; display: flex;
-    align-items: center; gap: 8px;
-    flex-shrink: 0; min-height: 60px;
-  }
+  /* ==== TOPBAR ==== */
+  #topbar { background: var(--dark); color: #ffffff; padding: 12px 16px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; min-height: 60px; }
   #topbar .title { font-weight: 600; font-size: 13px; letter-spacing: 1.2px; margin-right: auto; }
-  #topbar .user {
-    font-size: 12px; padding: 6px 12px;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm);
-  }
-  #topbar button {
-    background: transparent; color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm);
-    padding: 8px 14px; font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: all 0.15s; white-space: nowrap;
-  }
-  #topbar button:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
-  .iconBtn {
-    width: 42px; height: 42px; padding: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: transparent; border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm); color: #ffffff;
-    cursor: pointer; transition: all 0.15s; flex-shrink: 0;
-    font-size: 20px; font-weight: bold; line-height: 1;
-  }
-  .iconBtn:hover { background: #ffffff; color: var(--dark); border-color: #ffffff; }
+  #topbar .user { font-size: 12px; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); }
+  .iconBtn { width: 42px; height: 42px; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); color: #ffffff; cursor: pointer; transition: all 0.15s; flex-shrink: 0; font-size: 20px; font-weight: bold; line-height: 1; }
+  .iconBtn:hover, .iconBtn:active { background: #ffffff; color: var(--dark); border-color: #ffffff; }
   .iconBtn svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }
 
+  /* ==== TABLO ==== */
   #appScreen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-  #tabs {
-    display: flex; background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 16px; gap: 4px;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    flex-shrink: 0;
-  }
-  #tabs button {
-    background: transparent; color: var(--text-secondary);
-    border: none; border-bottom: 2px solid transparent;
-    padding: 14px 20px; font-size: 13px; font-weight: 600;
-    cursor: pointer; margin-bottom: -1px;
-    transition: all 0.15s; white-space: nowrap;
-  }
-  #tabs button:hover { color: var(--text); }
+  #tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 16px; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-shrink: 0; }
+  #tabs button { background: transparent; color: var(--text-secondary); border: none; border-bottom: 2px solid transparent; padding: 14px 20px; font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: -1px; transition: all 0.15s; white-space: nowrap; touch-action: manipulation; }
   #tabs button.active { color: var(--dark); border-bottom-color: var(--dark); }
 
-  #toolbar {
-    background: var(--surface); border-bottom: 1px solid var(--border);
-    padding: 10px 16px; display: flex; gap: 8px;
-    align-items: center; flex-wrap: wrap;
-    flex-shrink: 0;
-  }
-  #toolbar button {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 8px 14px; cursor: pointer; font-size: 12px;
-    font-weight: 500; transition: all 0.15s;
-  }
-  #toolbar button:hover { background: var(--dark); color: #ffffff; border-color: var(--dark); }
+  #toolbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; flex-shrink: 0; }
+  #toolbar button { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.15s; touch-action: manipulation; }
+  #toolbar button:hover, #toolbar button:active { background: var(--dark); color: #ffffff; border-color: var(--dark); }
   #hint { font-size: 11px; margin-left: 8px; color: var(--text-secondary); font-style: italic; }
-  #syncStatus {
-    margin-left: auto; font-size: 11px;
-    color: var(--text-secondary);
-    padding: 6px 10px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    white-space: nowrap;
-  }
+  #syncStatus { margin-left: auto; font-size: 11px; color: var(--text-secondary); padding: 6px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); white-space: nowrap; }
   #syncStatus.ok { color: #2d5a44; border-color: #2d5a44; }
   #syncStatus.err { color: var(--error); border-color: var(--error); }
 
-  .searchBox {
-    display: flex; align-items: center; gap: 6px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 6px 10px;
-    background: var(--surface);
-    min-width: 180px;
-  }
-  .searchBox:focus-within {
-    border-color: var(--dark);
-    box-shadow: 0 0 0 3px rgba(27,67,50,0.10);
-  }
+  .searchBox { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 10px; background: var(--surface); min-width: 180px; }
+  .searchBox:focus-within { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
   .searchBox svg { width: 14px; height: 14px; fill: var(--text-secondary); flex-shrink: 0; }
-  .searchBox input {
-    border: none; outline: none; font-size: 13px;
-    background: transparent; color: var(--text);
-    width: 100%; padding: 0; font-family: inherit;
-  }
+  .searchBox input { border: none; outline: none; font-size: 13px; background: transparent; color: var(--text); width: 100%; padding: 0; font-family: inherit; }
   .searchBox input::placeholder { color: var(--text-secondary); font-style: italic; }
-  .searchBox .clearBtn {
-    background: transparent; border: none; cursor: pointer;
-    color: var(--text-secondary); font-size: 16px;
-    padding: 0 4px; display: none; line-height: 1;
-  }
+  .searchBox .clearBtn { background: transparent; border: none; cursor: pointer; color: var(--text-secondary); font-size: 16px; padding: 0 4px; display: none; line-height: 1; }
   .searchBox .clearBtn.visible { display: block; }
-  .searchBox .clearBtn:hover { color: var(--dark); }
 
-  .searchTotal {
-    display: none;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    background: var(--dark);
-    color: #ffffff;
-    border-radius: var(--radius-sm);
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    letter-spacing: 0.5px;
-  }
+  .searchTotal { display: none; align-items: center; gap: 6px; padding: 6px 12px; background: var(--dark); color: #ffffff; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; white-space: nowrap; letter-spacing: 0.5px; }
   .searchTotal.visible { display: flex; }
-  .searchTotal .label {
-    font-size: 10px;
-    color: rgba(255,255,255,0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-right: 2px;
-  }
+  .searchTotal .label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-right: 2px; }
 
   .page { flex: 1; display: none; overflow: hidden; }
   .page.active { display: flex; flex-direction: column; }
 
-  #panels {
-    flex: 1; display: flex; gap: 0;
-    padding: 12px 16px; overflow: hidden; background: var(--bg);
-  }
-  .panel {
-    flex: 1; display: flex; flex-direction: column;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); overflow: hidden;
-    box-shadow: var(--shadow);
-  }
+  #panels { flex: 1; display: flex; gap: 0; padding: 12px 16px; overflow: hidden; background: var(--bg); }
+  .panel { flex: 1; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
   .panelBody { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; }
 
-  table.grid {
-    border-collapse: collapse; font-size: 13px;
-    width: 100%; table-layout: fixed;
-  }
-  table.grid th, table.grid td {
-    border-bottom: 1px solid var(--border);
-    border-right: 1px solid var(--border);
-    height: 36px; padding: 6px 10px;
-    outline: none; white-space: nowrap;
-    overflow: hidden; text-overflow: ellipsis;
-  }
+  table.grid { border-collapse: collapse; font-size: 13px; width: 100%; table-layout: fixed; }
+  table.grid th, table.grid td { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); height: 36px; padding: 6px 10px; outline: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; touch-action: manipulation; }
   table.grid th:last-child, table.grid td:last-child { border-right: none; }
-  table.grid thead th {
-    background: var(--light-hover); color: var(--text-secondary);
-    text-align: center; font-weight: 600; font-size: 11px;
-    letter-spacing: 1px; position: sticky; top: 0; z-index: 3;
-    user-select: none; border-bottom: 2px solid var(--border);
-    text-transform: uppercase;
-  }
+  table.grid thead th { background: var(--light-hover); color: var(--text-secondary); text-align: center; font-weight: 600; font-size: 11px; letter-spacing: 1px; position: sticky; top: 0; z-index: 3; user-select: none; border-bottom: 2px solid var(--border); text-transform: uppercase; }
   .col-tarih { width: 25%; }
   .col-ad    { width: 45%; }
   .col-fiyat { width: 30%; }
-  table.grid td.selected {
-    outline: 2px solid var(--dark);
-    outline-offset: -2px; background: var(--light-hover);
-  }
-  table.grid td.editing {
-    outline: 2px solid var(--dark);
-    outline-offset: -2px; background: var(--surface); cursor: text;
-  }
+  table.grid td.selected { outline: 2px solid var(--dark); outline-offset: -2px; background: var(--light-hover); }
+  table.grid td.editing { outline: 2px solid var(--dark); outline-offset: -2px; background: var(--surface); cursor: text; }
   table.grid td.fiyat { text-align: right; }
 
-  .totalBar {
-    padding: 14px 18px; font-weight: 600; font-size: 15px;
-    display: flex; justify-content: space-between;
-    border-top: 2px solid var(--border); background: var(--light-hover);
-    letter-spacing: 0.5px; flex-shrink: 0;
-    color: var(--dark);
-  }
+  .totalBar { padding: 14px 18px; font-weight: 600; font-size: 15px; display: flex; justify-content: space-between; border-top: 2px solid var(--border); background: var(--light-hover); letter-spacing: 0.5px; flex-shrink: 0; color: var(--dark); }
 
-  #balancePage {
-    flex: 1; padding: 20px; display: flex;
-    flex-direction: column; gap: 16px;
-    background: var(--bg); overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .bigBox {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 24px 28px;
-    display: flex; justify-content: space-between;
-    align-items: center; flex-wrap: wrap; gap: 16px;
-    box-shadow: var(--shadow);
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .bigBox .label {
-    font-size: 16px; font-weight: 600; letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
+  #balancePage { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 16px; background: var(--bg); overflow: auto; -webkit-overflow-scrolling: touch; }
+  .bigBox { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: var(--shadow); transition: background 0.3s, border-color 0.3s; }
+  .bigBox .label { font-size: 16px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
   .bigBox .value { font-size: 36px; font-weight: 700; letter-spacing: 1px; }
-
-  .bigBox.green {
-    background: var(--green-soft);
-    border-color: var(--green-border);
-  }
+  .bigBox.green { background: var(--green-soft); border-color: var(--green-border); }
   .bigBox.green .label { color: var(--green-text); }
   .bigBox.green .value { color: var(--green-text); }
-
-  .bigBox.red {
-    background: var(--red-soft);
-    border-color: var(--red-border);
-  }
+  .bigBox.red { background: var(--red-soft); border-color: var(--red-border); }
   .bigBox.red .label { color: var(--red-text); }
   .bigBox.red .value { color: var(--red-text); }
-
   .bigBox.main { background: var(--dark); border-color: var(--dark); }
   .bigBox.main .label { color: rgba(255,255,255,0.7); }
   .bigBox.main .value { color: #ffffff; font-size: 44px; }
-
-  .bigBox.main.positive {
-    background: var(--green-soft);
-    border-color: var(--green-border);
-  }
+  .bigBox.main.positive { background: var(--green-soft); border-color: var(--green-border); }
   .bigBox.main.positive .label { color: var(--green-text); }
   .bigBox.main.positive .value { color: var(--green-text); }
-
-  .bigBox.main.negative {
-    background: var(--red-soft);
-    border-color: var(--red-border);
-  }
+  .bigBox.main.negative { background: var(--red-soft); border-color: var(--red-border); }
   .bigBox.main.negative .label { color: var(--red-text); }
   .bigBox.main.negative .value { color: var(--red-text); }
 
@@ -311,243 +138,56 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: #c8c2b0; border-radius: 4px; }
 
-  #settingsOverlay {
-    position: fixed; inset: 0;
-    background: rgba(27,67,50,0.35); display: none; z-index: 100;
-  }
-  #settingsOverlay.active { display: block; }
-  #settingsPanel {
-    position: fixed; top: 0; right: -100%;
-    width: 400px; max-width: 92vw; height: 100%;
-    background: var(--surface);
-    box-shadow: -4px 0 24px rgba(27,67,50,0.15);
-    display: flex; flex-direction: column;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 101;
-  }
-  #settingsPanel.active { right: 0; }
-  #settingsHeader {
-    background: var(--dark); color: #ffffff;
-    padding: 16px 20px; display: flex;
-    align-items: center; gap: 12px; min-height: 60px;
-  }
-  #settingsHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
-  #settingsHeader button {
-    background: transparent; color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer;
-  }
+  #settingsOverlay, #dateOverlay { position: fixed; inset: 0; background: rgba(27,67,50,0.35); display: none; z-index: 100; }
+  #settingsOverlay.active, #dateOverlay.active { display: block; }
+  #dateOverlay { z-index: 200; }
+
+  #settingsPanel, #datePanel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 92vw; height: 100%; background: var(--surface); box-shadow: -4px 0 24px rgba(27,67,50,0.15); display: flex; flex-direction: column; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 101; }
+  #datePanel { width: 420px; z-index: 201; }
+  #settingsPanel.active, #datePanel.active { right: 0; }
+  #settingsHeader, #dateHeader { background: var(--dark); color: #ffffff; padding: 16px 20px; display: flex; align-items: center; gap: 12px; min-height: 60px; }
+  #settingsHeader .title, #dateHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
+  #settingsHeader button, #dateHeader button { background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer; }
   #settingsBody { flex: 1; padding: 24px 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
-  #settingsBody h3 {
-    margin: 0 0 16px 0; font-size: 11px; font-weight: 600;
-    letter-spacing: 1.2px; color: var(--text-secondary);
-    text-transform: uppercase; padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-  #settingsBody .field { margin-bottom: 14px; min-width: 0; }
-  #settingsBody .field label { font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; display: block; }
-  #settingsBody .field input {
-    width: 100%; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 12px 14px;
-    font-size: 16px; outline: none;
-    background: var(--surface); color: var(--text);
-  }
-  #settingsBody .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
-  .btn {
-    background: var(--dark); color: #ffffff; border: none;
-    border-radius: var(--radius-sm); padding: 12px 22px;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    letter-spacing: 0.8px; white-space: nowrap;
-    width: 100%;
-  }
-  .btn:hover { background: var(--dark-hover); }
-  .msg {
-    padding: 10px 16px; border-radius: var(--radius-sm);
-    background: var(--dark); color: #ffffff;
-    font-size: 13px; margin-top: 14px; display: none; text-align: center;
-  }
+  #dateBody { flex: 1; padding: 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
+  #settingsBody h3, #dateBody h4 { margin: 0 0 16px 0; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; color: var(--text-secondary); text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  #dateBody h4 { padding-bottom: 6px; margin-bottom: 10px; }
+  .field { margin-bottom: 14px; min-width: 0; }
+  .field label { font-size: 11px; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.8px; color: var(--text-secondary); text-transform: uppercase; display: block; }
+  .field input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 16px; outline: none; background: var(--surface); color: var(--text); }
+  .field input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
+  .btn { background: var(--dark); color: #ffffff; border: none; border-radius: var(--radius-sm); padding: 12px 22px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.8px; white-space: nowrap; width: 100%; touch-action: manipulation; }
+  .btn:hover, .btn:active { background: var(--dark-hover); }
+  .msg { padding: 10px 16px; border-radius: var(--radius-sm); background: var(--dark); color: #ffffff; font-size: 13px; margin-top: 14px; display: none; text-align: center; }
   .msg.error { background: var(--error); }
 
   body.izleyici .adminOnly { display: none !important; }
 
-  #dateOverlay {
-    position: fixed; inset: 0;
-    background: rgba(27,67,50,0.35); display: none; z-index: 200;
-  }
-  #dateOverlay.active { display: block; }
-  #datePanel {
-    position: fixed; top: 0; right: -100%;
-    width: 420px; max-width: 92vw; height: 100%;
-    background: var(--surface);
-    box-shadow: -4px 0 24px rgba(27,67,50,0.15);
-    display: flex; flex-direction: column;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 201;
-  }
-  #datePanel.active { right: 0; }
-  #dateHeader {
-    background: var(--dark); color: #ffffff;
-    padding: 16px 20px; display: flex;
-    align-items: center; gap: 12px; min-height: 60px;
-  }
-  #dateHeader .title { font-weight: 600; font-size: 13px; letter-spacing: 1.5px; margin-right: auto; }
-  #dateHeader button {
-    background: transparent; color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; cursor: pointer;
-  }
-  #dateBody { flex: 1; padding: 20px; overflow: auto; -webkit-overflow-scrolling: touch; }
-  #dateBody h4 {
-    margin: 0 0 10px 0; font-size: 11px; font-weight: 600;
-    letter-spacing: 1.2px; color: var(--text-secondary);
-    text-transform: uppercase;
-  }
-
-  .yearList {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  .yearList button {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-width: 70px;
-  }
+  .yearList { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .yearList button { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; min-width: 70px; touch-action: manipulation; }
   .yearList button:hover { background: var(--light-hover); }
-  .yearList button.active {
-    background: var(--dark);
-    color: #ffffff;
-    border-color: var(--dark);
-  }
-  .yearList button.plusBtn {
-    background: var(--dark);
-    color: #ffffff;
-    border-color: var(--dark);
-    font-size: 18px;
-    min-width: 44px;
-    padding: 8px 12px;
-  }
-  .yearList button.plusBtn:hover {
-    background: var(--dark-hover);
-    border-color: var(--dark-hover);
-  }
+  .yearList button.active { background: var(--dark); color: #ffffff; border-color: var(--dark); }
+  .yearList button.plusBtn { background: var(--dark); color: #ffffff; border-color: var(--dark); font-size: 18px; min-width: 44px; padding: 8px 12px; }
 
-  .monthList {
-    display: flex; flex-direction: column; gap: 6px;
-    margin-bottom: 24px;
-  }
-  .monthList button {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: left;
-    letter-spacing: 1px;
-    transition: all 0.15s;
-  }
+  .monthList { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+  .monthList button { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; letter-spacing: 1px; transition: all 0.15s; touch-action: manipulation; }
   .monthList button:hover { background: var(--light-hover); }
-  .monthList button.active {
-    background: var(--dark);
-    color: #ffffff;
-    border-color: var(--dark);
-  }
+  .monthList button.active { background: var(--dark); color: #ffffff; border-color: var(--dark); }
 
-  .dateRange {
-    display: flex; gap: 8px;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .dateRange .inputWrap {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  .dateRange .inputWrap label {
-    font-size: 10px;
-    color: var(--text-secondary);
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .dateRange input {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 10px;
-    font-size: 15px;
-    outline: none;
-    background: var(--surface);
-    color: var(--text);
-    text-align: center;
-    letter-spacing: 1px;
-  }
+  .dateRange { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+  .dateRange .inputWrap { flex: 1; display: flex; flex-direction: column; }
+  .dateRange .inputWrap label { font-size: 10px; color: var(--text-secondary); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
+  .dateRange input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 10px; font-size: 15px; outline: none; background: var(--surface); color: var(--text); text-align: center; letter-spacing: 1px; }
   .dateRange input:focus { border-color: var(--dark); box-shadow: 0 0 0 3px rgba(27,67,50,0.10); }
-  .dateRange .arrowSep {
-    color: var(--text-secondary);
-    font-size: 16px;
-    padding-top: 18px;
-  }
+  .dateRange .arrowSep { color: var(--text-secondary); font-size: 16px; padding-top: 18px; }
 
-  .searchActions {
-    display: flex; gap: 8px;
-    margin-bottom: 12px;
-  }
-  .searchActions button {
-    flex: 1;
-    background: var(--dark);
-    color: #ffffff;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.8px;
-  }
-  .searchActions button:hover { background: var(--dark-hover); }
-  .searchActions button.ghost {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .searchActions button.ghost:hover { background: var(--light-hover); color: var(--text); }
+  .searchActions { display: flex; gap: 8px; margin-bottom: 12px; }
+  .searchActions button { flex: 1; background: var(--dark); color: #ffffff; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.8px; touch-action: manipulation; }
+  .searchActions button.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
 
-  .dateInfo {
-    padding: 12px 16px;
-    background: var(--light-hover);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-  }
+  .dateInfo { padding: 12px 16px; background: var(--light-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text-secondary); text-align: center; }
   .dateInfo strong { color: var(--text); }
-
-  .resetBtn {
-    width: 100%;
-    background: transparent;
-    color: var(--error);
-    border: 1px solid var(--error);
-    border-radius: var(--radius-sm);
-    padding: 12px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.8px;
-    margin-top: 12px;
-  }
-  .resetBtn:hover { background: var(--error); color: #ffffff; }
+  .resetBtn { width: 100%; background: transparent; color: var(--error); border: 1px solid var(--error); border-radius: var(--radius-sm); padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.8px; margin-top: 12px; touch-action: manipulation; }
 
   @media (max-width: 768px) {
     #topbar { padding: 10px 12px; gap: 6px; min-height: 56px; }
@@ -555,33 +195,26 @@
     #topbar .user { font-size: 11px; padding: 5px 10px; }
     .iconBtn { width: 40px; height: 40px; font-size: 18px; }
     .iconBtn svg { width: 20px; height: 20px; }
-
     #tabs { padding: 0 8px; }
     #tabs button { padding: 12px 14px; font-size: 12px; }
-
     #toolbar { padding: 8px 12px; gap: 6px; }
     #toolbar button { padding: 8px 12px; font-size: 11px; }
     #hint { display: none; }
-
     .searchBox { min-width: 0; flex: 1; order: 10; margin-top: 4px; }
     .searchTotal { order: 11; margin-top: 4px; font-size: 11px; padding: 5px 10px; }
     .searchTotal .label { font-size: 9px; }
     #syncStatus { margin-left: 0; order: 12; margin-top: 4px; }
-
     #panels { padding: 10px; }
-    table.grid th, table.grid td { height: 42px; padding: 6px 8px; font-size: 13px; }
+    table.grid th, table.grid td { height: 44px; padding: 8px 8px; font-size: 14px; }
     .col-tarih { width: 26%; }
     .col-ad    { width: 44%; }
     .col-fiyat { width: 30%; }
-
     .totalBar { padding: 12px 14px; font-size: 14px; }
-
     #balancePage { padding: 14px; gap: 12px; }
     .bigBox { padding: 18px 20px; }
     .bigBox .label { font-size: 13px; }
     .bigBox .value { font-size: 26px; }
     .bigBox.main .value { font-size: 32px; }
-
     #settingsPanel, #datePanel { width: 100vw; max-width: 100vw; }
   }
   @media (max-width: 400px) {
@@ -706,34 +339,16 @@
     <div id="settingsBody">
       <div class="adminOnly">
         <h3>ADMİN ŞİFRESİNİ DEĞİŞTİR</h3>
-        <div class="field">
-          <label>MEVCUT ADMİN ŞİFRESİ</label>
-          <input id="oldAdminPass" type="password" inputmode="numeric" placeholder="mevcut şifre" />
-        </div>
-        <div class="field">
-          <label>YENİ ADMİN ŞİFRESİ</label>
-          <input id="newAdminPass" type="password" inputmode="numeric" placeholder="yeni şifre" />
-        </div>
-        <div class="field">
-          <label>YENİ ADMİN ŞİFRESİ (TEKRAR)</label>
-          <input id="newAdminPass2" type="password" inputmode="numeric" placeholder="tekrar" />
-        </div>
+        <div class="field"><label>MEVCUT ADMİN ŞİFRESİ</label><input id="oldAdminPass" type="password" inputmode="numeric" placeholder="mevcut şifre" /></div>
+        <div class="field"><label>YENİ ADMİN ŞİFRESİ</label><input id="newAdminPass" type="password" inputmode="numeric" placeholder="yeni şifre" /></div>
+        <div class="field"><label>YENİ ADMİN ŞİFRESİ (TEKRAR)</label><input id="newAdminPass2" type="password" inputmode="numeric" placeholder="tekrar" /></div>
         <button class="btn" onclick="changeAdminPassword()">ADMİN ŞİFRESİNİ DEĞİŞTİR</button>
         <div class="msg" id="passMsg"></div>
 
         <h3 style="margin-top:28px;">İZLEYİCİ ŞİFRESİNİ DEĞİŞTİR</h3>
-        <div class="field">
-          <label>MEVCUT İZLEYİCİ ŞİFRESİ</label>
-          <input id="oldViewerPass" type="password" inputmode="numeric" placeholder="mevcut izleyici şifresi" />
-        </div>
-        <div class="field">
-          <label>YENİ İZLEYİCİ ŞİFRESİ</label>
-          <input id="newViewerPass" type="password" inputmode="numeric" placeholder="yeni şifre" />
-        </div>
-        <div class="field">
-          <label>YENİ İZLEYİCİ ŞİFRESİ (TEKRAR)</label>
-          <input id="newViewerPass2" type="password" inputmode="numeric" placeholder="tekrar" />
-        </div>
+        <div class="field"><label>MEVCUT İZLEYİCİ ŞİFRESİ</label><input id="oldViewerPass" type="password" inputmode="numeric" placeholder="mevcut izleyici şifresi" /></div>
+        <div class="field"><label>YENİ İZLEYİCİ ŞİFRESİ</label><input id="newViewerPass" type="password" inputmode="numeric" placeholder="yeni şifre" /></div>
+        <div class="field"><label>YENİ İZLEYİCİ ŞİFRESİ (TEKRAR)</label><input id="newViewerPass2" type="password" inputmode="numeric" placeholder="tekrar" /></div>
         <button class="btn" onclick="changeViewerPassword()">İZLEYİCİ ŞİFRESİNİ DEĞİŞTİR</button>
         <div class="msg" id="viewerPassMsg"></div>
       </div>
@@ -752,28 +367,19 @@
     <div id="dateBody">
       <h4>YIL</h4>
       <div class="yearList" id="yearList"></div>
-
       <h4>AY</h4>
       <div class="monthList" id="monthList"></div>
-
       <h4>TARİH ARALIĞI</h4>
       <div class="dateRange">
-        <div class="inputWrap">
-          <label>BAŞLANGIÇ</label>
-          <input id="dateStart" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" />
-        </div>
+        <div class="inputWrap"><label>BAŞLANGIÇ</label><input id="dateStart" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" /></div>
         <div class="arrowSep">→</div>
-        <div class="inputWrap">
-          <label>BİTİŞ</label>
-          <input id="dateEnd" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" />
-        </div>
+        <div class="inputWrap"><label>BİTİŞ</label><input id="dateEnd" type="text" inputmode="numeric" placeholder="GGAAYYYY" maxlength="10" /></div>
       </div>
       <div class="searchActions">
         <button onclick="doDateSearch()">ARA</button>
         <button class="ghost" onclick="clearDateRange()">TEMİZLE</button>
       </div>
       <div class="dateInfo" id="dateInfo">Filtre yok — tüm satırlar görünüyor.</div>
-
       <button class="resetBtn" onclick="resetDateFilter()">TÜM FİLTREYİ SIFIRLA</button>
     </div>
   </div>
@@ -795,10 +401,10 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const DATA_DOC = db.collection('ortak').doc('veriler');
 
-/* ================= SABİTLER ================= */
 const ADMIN_KEY = 'ramizKofteAdminSifre';
 const VIEWER_KEY = 'ramizKofteIzleyiciSifre';
 const SESSION_KEY = 'ramizKofteOturum';
+const LOCAL_CACHE_KEY = 'ramizKofteYerelVeri'; // localStorage yedek
 const DEFAULT_ADMIN_PASS = '1234';
 const DEFAULT_VIEWER_PASS = '0000';
 const CURRENCY = '₺';
@@ -808,10 +414,7 @@ const TR_MONTHS = ['OCAK','ŞUBAT','MART','NİSAN','MAYIS','HAZİRAN','TEMMUZ','
 /* ================= YARDIMCI ================= */
 function bugununTarihi() {
   const d = new Date();
-  const g = String(d.getDate()).padStart(2, '0');
-  const a = String(d.getMonth() + 1).padStart(2, '0');
-  const y = d.getFullYear();
-  return g + a + y;
+  return String(d.getDate()).padStart(2, '0') + String(d.getMonth() + 1).padStart(2, '0') + d.getFullYear();
 }
 function formatTarih(str) {
   if (!str) return '';
@@ -849,16 +452,12 @@ function formatMoney(n) {
   return n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+CURRENCY;
 }
 function trLower(s) {
-  return String(s).toLowerCase()
-    .replace(/İ/g, 'i').replace(/I/g, 'ı')
-    .replace(/Ş/g, 'ş').replace(/Ğ/g, 'ğ')
-    .replace(/Ü/g, 'ü').replace(/Ö/g, 'ö').replace(/Ç/g, 'ç');
+  return String(s).toLowerCase().replace(/İ/g, 'i').replace(/I/g, 'ı').replace(/Ş/g, 'ş').replace(/Ğ/g, 'ğ').replace(/Ü/g, 'ü').replace(/Ö/g, 'ö').replace(/Ç/g, 'ç');
 }
-// Tarihi YYYYMMDD formatına çevir (karşılaştırma için)
 function toComparable(tarih) {
   const d = String(tarih || '').replace(/\D/g, '');
   if (d.length !== 8) return null;
-  return d.slice(4,8) + d.slice(2,4) + d.slice(0,2); // YYYYMMDD
+  return d.slice(4,8) + d.slice(2,4) + d.slice(0,2);
 }
 function autoSlashDates(input) {
   input.addEventListener('input', function() {
@@ -891,7 +490,6 @@ function doLogin(e) {
   e.preventDefault();
   const p = document.getElementById('loginPass').value.trim();
   const err = document.getElementById('loginError');
-
   if (p === adminPass) {
     isAdmin = true;
     sessionStorage.setItem(SESSION_KEY, 'admin');
@@ -985,8 +583,7 @@ function showPage(name) {
   if (name === 'gelir') { gelirGrid.setActive(); gelirGrid.selectCell(gelirGrid.selected.r, gelirGrid.selected.c); }
 }
 function setSyncStatus(text, ok) {
-  const els = document.querySelectorAll('#syncStatus');
-  els.forEach(el => {
+  document.querySelectorAll('#syncStatus').forEach(el => {
     el.textContent = text;
     el.classList.toggle('ok', ok === true);
     el.classList.toggle('err', ok === false);
@@ -1054,13 +651,9 @@ function closeDatePanel() {
 function renderYearList() {
   const list = document.getElementById('yearList');
   list.innerHTML = '';
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const years = [];
-  years.push(currentYear);
-  if (yearsExpanded) {
-    for (let i = 1; i <= 10; i++) years.push(currentYear + i);
-  }
+  const currentYear = new Date().getFullYear();
+  const years = [currentYear];
+  if (yearsExpanded) for (let i = 1; i <= 10; i++) years.push(currentYear + i);
   years.forEach(y => {
     const btn = document.createElement('button');
     btn.textContent = y;
@@ -1079,11 +672,7 @@ function renderYearList() {
   const plus = document.createElement('button');
   plus.className = 'plusBtn';
   plus.textContent = yearsExpanded ? '−' : '+';
-  plus.title = yearsExpanded ? 'Yılları kapat' : 'Sonraki 10 yılı göster';
-  plus.onclick = () => {
-    yearsExpanded = !yearsExpanded;
-    renderYearList();
-  };
+  plus.onclick = () => { yearsExpanded = !yearsExpanded; renderYearList(); };
   list.appendChild(plus);
 }
 function renderMonthList() {
@@ -1105,12 +694,7 @@ function renderMonthList() {
   });
 }
 function applyDateFilter() {
-  const df = {
-    year: selectedYear,
-    month: selectedMonth,
-    start: dateRangeStart,
-    end: dateRangeEnd
-  };
+  const df = { year: selectedYear, month: selectedMonth, start: dateRangeStart, end: dateRangeEnd };
   giderGrid.dateFilter = df;
   gelirGrid.dateFilter = df;
   giderGrid.applyFilters();
@@ -1146,23 +730,15 @@ function updateDateInfo() {
     info.innerHTML = 'Aralık: <strong>' + s + '</strong> → <strong>' + e + '</strong>';
     return;
   }
-  if (selectedYear && selectedMonth !== null) {
-    info.innerHTML = 'Seçili: <strong>' + TR_MONTHS[selectedMonth] + ' ' + selectedYear + '</strong>';
-  } else if (selectedYear) {
-    info.innerHTML = 'Seçili yıl: <strong>' + selectedYear + '</strong>';
-  } else if (selectedMonth !== null) {
-    info.innerHTML = 'Seçili ay: <strong>' + TR_MONTHS[selectedMonth] + '</strong>';
-  } else {
-    info.textContent = 'Filtre yok — tüm satırlar görünüyor.';
-  }
+  if (selectedYear && selectedMonth !== null) info.innerHTML = 'Seçili: <strong>' + TR_MONTHS[selectedMonth] + ' ' + selectedYear + '</strong>';
+  else if (selectedYear) info.innerHTML = 'Seçili yıl: <strong>' + selectedYear + '</strong>';
+  else if (selectedMonth !== null) info.innerHTML = 'Seçili ay: <strong>' + TR_MONTHS[selectedMonth] + '</strong>';
+  else info.textContent = 'Filtre yok — tüm satırlar görünüyor.';
 }
 function doDateSearch() {
   const s = document.getElementById('dateStart').value.replace(/\D/g, '');
   const e = document.getElementById('dateEnd').value.replace(/\D/g, '');
-  if (!s && !e) {
-    document.getElementById('dateInfo').textContent = 'Lütfen en az bir tarih girin.';
-    return;
-  }
+  if (!s && !e) { document.getElementById('dateInfo').textContent = 'Lütfen en az bir tarih girin.'; return; }
   if (s && s.length !== 8) { document.getElementById('dateInfo').textContent = 'Başlangıç GGAAYYYY olmalı.'; return; }
   if (e && e.length !== 8) { document.getElementById('dateInfo').textContent = 'Bitiş GGAAYYYY olmalı.'; return; }
   dateRangeStart = s ? (s.slice(4,8) + s.slice(2,4) + s.slice(0,2)) : null;
@@ -1170,6 +746,24 @@ function doDateSearch() {
   selectedMonth = null;
   applyDateFilter();
   updateDateInfo();
+}
+
+/* ================= YEREL YEDEK ================= */
+function saveLocalCache() {
+  try {
+    localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify({
+      gider: giderGrid.data,
+      gelir: gelirGrid.data,
+      ts: Date.now()
+    }));
+  } catch(e) {}
+}
+function loadLocalCache() {
+  try {
+    const raw = localStorage.getItem(LOCAL_CACHE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch(e) { return null; }
 }
 
 /* ================= TABLO ================= */
@@ -1214,11 +808,7 @@ class Grid {
         td.dataset.r = r; td.dataset.c = c;
         td.classList.add(COLUMNS[c].key);
         td.textContent = this.displayValue(r, c);
-        td.onmousedown = () => {
-          this.setActive();
-          if (!this.editing) this.selectCell(r, c);
-        };
-        if (isAdmin) td.ondblclick = () => this.startEdit(r, c);
+        this.attachCellHandlers(td, r, c);
         tr.appendChild(td);
       }
       tb.appendChild(tr);
@@ -1227,6 +817,29 @@ class Grid {
     this.applyFilters();
     this.updateSelectionUI();
     this.updateTotals();
+  }
+  attachCellHandlers(td, r, c) {
+    let lastTap = 0;
+    const onActivate = (e) => {
+      this.setActive();
+      if (this.editing) return;
+      // Dokunmatikte çift tap algıla
+      if (e && e.type === 'touchend') {
+        const now = Date.now();
+        if (now - lastTap < 350) {
+          // Çift tap → düzenle
+          e.preventDefault();
+          if (isAdmin) this.startEdit(r, c);
+          lastTap = 0;
+          return;
+        }
+        lastTap = now;
+      }
+      this.selectCell(r, c);
+    };
+    td.addEventListener('mousedown', onActivate);
+    td.addEventListener('touchend', onActivate);
+    td.addEventListener('dblclick', () => { if (isAdmin) this.startEdit(r, c); });
   }
   applyFilters() {
     const table = document.getElementById(this.tableId);
@@ -1295,10 +908,12 @@ class Grid {
     td.contentEditable = 'true';
     td.textContent = this.data[r][c] || '';
     td.focus();
-    const range = document.createRange();
-    range.selectNodeContents(td); range.collapse(false);
-    const sel = window.getSelection();
-    sel.removeAllRanges(); sel.addRange(range);
+    try {
+      const range = document.createRange();
+      range.selectNodeContents(td); range.collapse(false);
+      const sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(range);
+    } catch(e) {}
 
     const finish = () => {
       if (!this.editing) return;
@@ -1308,10 +923,7 @@ class Grid {
       this.data[r][c] = td.textContent.trim();
       td.textContent = this.displayValue(r, c);
 
-      // Tarih sütununa yazıldıysa ve yeni tarih geçerliyse sıralama yap
-      if (c === 0) {
-        this.sortByDateAround(r);
-      }
+      if (c === 0) this.sortByDateAround(r);
 
       this.scheduleSave();
       this.render();
@@ -1321,47 +933,36 @@ class Grid {
       td.onblur = null;
     };
     td.onblur = finish;
+    td.oninput = () => {
+      // Anlık yedek
+      const cur = td.textContent.trim();
+      this.data[r][c] = cur;
+      saveLocalCache();
+    };
     td.onkeydown = (e) => {
       if (e.key === 'Enter') { e.preventDefault(); finish(); this.moveSelection(1, 0); }
       if (e.key === 'Tab')   { e.preventDefault(); finish(); this.moveSelection(0, 1); }
       if (e.key === 'Escape'){ td.textContent = this.displayValue(r, c); finish(); }
     };
   }
-  // Tarihe göre sadece o satırı doğru yere koy (aynı yıl+ay içinde)
   sortByDateAround(changedRow) {
     const row = this.data[changedRow];
     const newDate = toComparable(row[0]);
-    if (!newDate) return; // geçersiz tarihse dokunma
-
-    // Yeni ay/yıl
+    if (!newDate) return;
     const newYear = newDate.slice(0, 4);
     const newMonth = newDate.slice(4, 6);
-
-    // Sadece aynı yıl+ay içindeki satırlarla karşılaştır
-    // Önce satırı geçici olarak çıkar
     this.data.splice(changedRow, 1);
-
-    // Doğru yeri bul
-    let insertAt = this.data.length; // varsayılan en sona
+    let insertAt = this.data.length;
     for (let i = 0; i < this.data.length; i++) {
       const cmp = toComparable(this.data[i][0]);
       if (!cmp) continue;
       const cmpYear = cmp.slice(0, 4);
       const cmpMonth = cmp.slice(4, 6);
-      // Sadece aynı yıl+ay'daki satırların arasına gir
-      if (cmpYear === newYear && cmpMonth === newMonth) {
-        if (cmp > newDate) {
-          insertAt = i;
-          break;
-        }
-        // Aynı tarih varsa altına gir → sonrakiyle karşılaştır
-        // (bu yüzden sadece büyükse üste gir)
+      if (cmpYear === newYear && cmpMonth === newMonth && cmp > newDate) {
+        insertAt = i;
+        break;
       }
-      // Eğer aynı yıl+ay dışındaysa ve o satır daha büyükse → onun üstüne girme
-      // (yıl/ay farklı olsa da sıralamayı bozmamak için)
     }
-
-    // Yeni satırı doğru yere koy
     this.data.splice(insertAt, 0, row);
     this.rows = this.data.length;
   }
@@ -1415,13 +1016,14 @@ class Grid {
   }
   scheduleSave() {
     if (!isAdmin) return;
+    // Hemen localStorage'a yaz
+    saveLocalCache();
     setSyncStatus('Kaydediliyor...', null);
     if (this.saveTimer) clearTimeout(this.saveTimer);
     this.saveTimer = setTimeout(() => saveDataToFirestore(), 800);
   }
 }
 
-/* ================= FIREBASE VERİ ================= */
 const giderGrid = new Grid('gider', 'grid-gider');
 const gelirGrid = new Grid('gelir', 'grid-gelir');
 let activeGrid = giderGrid;
@@ -1429,47 +1031,90 @@ let isSaving = false, needsSave = false;
 
 async function loadDataFromFirestore() {
   setSyncStatus('Yükleniyor...', null);
+
+  // Önce localStorage'dan yükle (anında göster)
+  const cached = loadLocalCache();
+  if (cached) {
+    if (Array.isArray(cached.gider) && cached.gider.length) {
+      giderGrid.data = cached.gider.map(r => { const x = r.slice(0, FIXED_COLS); while(x.length<FIXED_COLS)x.push(''); return x; });
+      giderGrid.rows = giderGrid.data.length;
+    }
+    if (Array.isArray(cached.gelir) && cached.gelir.length) {
+      gelirGrid.data = cached.gelir.map(r => { const x = r.slice(0, FIXED_COLS); while(x.length<FIXED_COLS)x.push(''); return x; });
+      gelirGrid.rows = gelirGrid.data.length;
+    }
+    giderGrid.render();
+    gelirGrid.render();
+    giderGrid.setActive();
+    giderGrid.selectCell(0, 0);
+  }
+
+  // Sonra Firestore'dan güncelle
   try {
     const doc = await DATA_DOC.get();
     if (doc.exists) {
       const d = doc.data();
+      let fsData = { gider: null, gelir: null };
       if (Array.isArray(d.gider) && d.gider.length) {
-        giderGrid.data = d.gider.map(item => {
+        fsData.gider = d.gider.map(item => {
           const row = (item && item.satir) ? item.satir : item;
           if (!Array.isArray(row)) return ['','',''];
           const x = row.slice(0, FIXED_COLS);
           while (x.length < FIXED_COLS) x.push('');
           return x;
         });
-        giderGrid.rows = giderGrid.data.length;
-      } else { giderGrid.data = emptyData(DEFAULT_ROWS); giderGrid.rows = DEFAULT_ROWS; }
+      }
       if (Array.isArray(d.gelir) && d.gelir.length) {
-        gelirGrid.data = d.gelir.map(item => {
+        fsData.gelir = d.gelir.map(item => {
           const row = (item && item.satir) ? item.satir : item;
           if (!Array.isArray(row)) return ['','',''];
           const x = row.slice(0, FIXED_COLS);
           while (x.length < FIXED_COLS) x.push('');
           return x;
         });
-        gelirGrid.rows = gelirGrid.data.length;
-      } else { gelirGrid.data = emptyData(DEFAULT_ROWS); gelirGrid.rows = DEFAULT_ROWS; }
-    } else {
-      giderGrid.data = emptyData(DEFAULT_ROWS); giderGrid.rows = DEFAULT_ROWS;
-      gelirGrid.data = emptyData(DEFAULT_ROWS); gelirGrid.rows = DEFAULT_ROWS;
+      }
+      // Yerel ve bulut karşılaştır: yeniyi seç
+      const localTs = cached ? cached.ts : 0;
+      // Bulutta daha yeni veri varsa (basit kontrol)
+      if (fsData.gider) {
+        const localLen = giderGrid.data.length;
+        const fsLen = fsData.gider.length;
+        // Hangisi daha uzun veya değişmiş? Basit yaklaşım: bulut verisini al
+        if (fsLen >= localLen) {
+          giderGrid.data = fsData.gider;
+          giderGrid.rows = fsData.gider.length;
+        }
+      }
+      if (fsData.gelir) {
+        const localLen = gelirGrid.data.length;
+        const fsLen = fsData.gelir.length;
+        if (fsLen >= localLen) {
+          gelirGrid.data = fsData.gelir;
+          gelirGrid.rows = fsData.gelir.length;
+        }
+      }
     }
     giderGrid.render();
     gelirGrid.render();
     giderGrid.setActive();
     giderGrid.selectCell(0, 0);
     setSyncStatus('Kaydedildi', true);
+    saveLocalCache();
   } catch (e) {
     console.error(e);
     setSyncStatus('Bağlantı hatası', false);
+    if (!cached) {
+      giderGrid.data = emptyData(DEFAULT_ROWS); giderGrid.rows = DEFAULT_ROWS;
+      gelirGrid.data = emptyData(DEFAULT_ROWS); gelirGrid.rows = DEFAULT_ROWS;
+      giderGrid.render(); gelirGrid.render();
+    }
   }
 }
 
 async function saveDataToFirestore() {
   if (!isAdmin) return;
+  // Her zaman önce yerele yaz
+  saveLocalCache();
   if (isSaving) { needsSave = true; return; }
   isSaving = true;
   setSyncStatus('Kaydediliyor...', null);
@@ -1485,7 +1130,7 @@ async function saveDataToFirestore() {
     setSyncStatus('Kaydedildi', true);
   } catch (e) {
     console.error('Kaydetme hatası:', e);
-    setSyncStatus('Kaydedilemedi', false);
+    setSyncStatus('Kaydedilemedi (yerel)', false);
   } finally {
     isSaving = false;
     if (needsSave) { needsSave = false; saveDataToFirestore(); }
@@ -1562,6 +1207,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (de) autoSlashDates(de);
   if (ds) ds.addEventListener('keydown', e => { if (e.key === 'Enter') doDateSearch(); });
   if (de) de.addEventListener('keydown', e => { if (e.key === 'Enter') doDateSearch(); });
+});
+
+/* ================= SAYFA KAPANIRKEN KAYDET ================= */
+window.addEventListener('pagehide', () => { saveLocalCache(); });
+window.addEventListener('beforeunload', () => { saveLocalCache(); });
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) saveLocalCache();
 });
 
 checkSession();
